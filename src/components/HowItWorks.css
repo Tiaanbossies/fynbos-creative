@@ -1,0 +1,96 @@
+.eyebrow {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.how-heading {
+  margin-block-start: var(--space-3);
+  font-size: var(--text-3xl);
+  max-width: 18ch;
+}
+
+/**
+ * No cards, no borders, no boxes. plato.coffee is admired in questionnaire §08
+ * precisely for its lack of heavy card treatment — the steps are separated by
+ * whitespace and the numeral alone.
+ */
+.how-steps {
+  margin-block-start: var(--space-12);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-8);
+}
+
+.how-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'icon num'
+    'icon title'
+    'icon body';
+  column-gap: var(--space-4);
+  align-content: start;
+}
+
+.how-step-icon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--sage) 34%, transparent);
+  border-radius: var(--radius-pill);
+}
+
+.how-step-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.how-step-num {
+  grid-area: num;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.how-step-title {
+  grid-area: title;
+  margin-block-start: var(--space-1);
+  font-size: var(--text-xl);
+}
+
+.how-step-body {
+  grid-area: body;
+  margin-block-start: var(--space-2);
+  color: var(--color-text-muted);
+  max-width: 34ch;
+}
+
+@media (min-width: 48rem) {
+  .how-steps {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+
+  /* Stacked on wide screens: icon above the label reads faster in a row. */
+  .how-step {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'icon'
+      'num'
+      'title'
+      'body';
+    row-gap: var(--space-2);
+  }
+
+  .how-step-icon {
+    margin-block-end: var(--space-2);
+  }
+}

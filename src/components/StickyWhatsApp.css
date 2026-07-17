@@ -1,0 +1,68 @@
+/**
+ * Fixed, not sticky — "visible without scrolling on mobile" (brief §B.1) means
+ * it must be pinned to the viewport from first paint, independent of scroll
+ * position or where the user has got to on the page.
+ */
+.sticky-whatsapp {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: var(--z-sticky-cta);
+  padding: var(--space-3) var(--space-4);
+  /* Clear the iOS home indicator so the tap target is never half-eaten. */
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--parchment) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--color-border);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
+}
+
+/**
+ * Yielding to an in-page CTA. Slid out and made inert rather than
+ * display:none'd, so it can glide back without a jump.
+ */
+.sticky-whatsapp.is-yielding {
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sticky-whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  /* 3rem clears the 44px minimum touch target. */
+  min-height: 3rem;
+  width: 100%;
+  background: var(--color-accent);
+  color: var(--parchment);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-subtle);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.sticky-whatsapp-btn:active {
+  transform: scale(0.98);
+}
+
+.sticky-whatsapp-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+/**
+ * Desktop hands the job to the header CTA, which is always in view there.
+ * Two competing WhatsApp buttons on one screen would split attention on the
+ * single action the whole site exists to drive.
+ */
+@media (min-width: 48rem) {
+  .sticky-whatsapp {
+    display: none;
+  }
+}

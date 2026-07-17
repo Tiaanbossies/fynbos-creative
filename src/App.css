@@ -1,0 +1,14 @@
+/**
+ * Phase 2 shell styles only.
+ *
+ * The placeholder rules below disappear as Phases 3–4 land real sections.
+ */
+
+.placeholder-heading {
+  font-size: var(--text-3xl);
+}
+
+.placeholder-note {
+  margin-block-start: var(--space-3);
+  color: var(--color-text-muted);
+}

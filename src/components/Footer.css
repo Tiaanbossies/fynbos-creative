@@ -1,0 +1,73 @@
+.site-footer {
+  margin-block-start: var(--section-y);
+  padding-block-start: var(--space-12);
+  border-top: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--sage) 12%, var(--parchment));
+}
+
+.footer-inner {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footer-blurb {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  max-width: 34ch;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer-nav a,
+.footer-contact a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: var(--text-sm);
+}
+
+.footer-nav a:hover,
+.footer-contact a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer-legal {
+  margin-block-start: var(--space-8);
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  /**
+   * The fixed mobile CTA sits over the bottom of the page. Without this the
+   * privacy link — which brief §B.6 requires to be reachable — ends up
+   * underneath it.
+   */
+  padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 48rem) {
+  .footer-inner {
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: start;
+  }
+
+  .footer-legal {
+    padding-bottom: var(--space-4);
+  }
+}

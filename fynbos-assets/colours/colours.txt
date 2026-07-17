@@ -1,0 +1,23 @@
+Parchment
+
+#FBF8F1
+
+Deep pine
+
+#1c2117
+
+Olive
+
+#3D5A3A
+
+Terracotta
+
+#A8503D
+
+Sage
+
+#B9CBA0
+
+Bark grey
+
+#8a8672

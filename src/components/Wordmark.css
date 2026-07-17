@@ -1,0 +1,25 @@
+.wordmark {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  line-height: 1;
+}
+
+.wordmark-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
+}
+
+.wordmark-accent {
+  color: var(--color-accent);
+}
+
+.wordmark-tagline {
+  font-family: var(--font-script);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  line-height: 1.3;
+}
