@@ -1,0 +1,28 @@
+.privacy-policy h1 {
+  font-size: var(--text-3xl);
+}
+
+.section-lede {
+  margin-block-start: var(--space-3);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+.privacy-body {
+  margin-block-start: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  /* Legal copy is the one place on the site people actually read. */
+  max-width: 62ch;
+}
+
+.privacy-body h2 {
+  margin-block-start: var(--space-4);
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+}
+
+.privacy-body a {
+  color: var(--color-accent);
+}

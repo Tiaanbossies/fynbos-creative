@@ -1,0 +1,110 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  /**
+   * svh, not vh: on mobile browsers vh measures the viewport with the URL bar
+   * retracted, so a 100vh hero pushes its own CTA below the fold on load —
+   * exactly what brief §B.1 forbids.
+   *
+   * The header is transparent and overlaps the hero, so the hero owns the full
+   * screen and pads its content clear of the header instead.
+   */
+  min-height: 100svh;
+  margin-block-start: calc(var(--header-h) * -1);
+  overflow: hidden;
+  background: var(--deep-pine);
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  /* The poster frame — paints immediately, long before the video arrives. */
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Hidden until it can actually play, so it never flashes black over the poster. */
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+}
+
+.hero-video.is-ready {
+  opacity: 1;
+}
+
+/**
+ * Legibility, not decoration. The footage has bright passages that would eat
+ * Parchment text, so the copy sits on a Deep Pine gradient — heaviest at the
+ * bottom where the text is, clear at the top where the footage should read.
+ */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--deep-pine) 88%, transparent) 0%,
+    color-mix(in srgb, var(--deep-pine) 62%, transparent) 38%,
+    color-mix(in srgb, var(--deep-pine) 20%, transparent) 78%,
+    color-mix(in srgb, var(--deep-pine) 35%, transparent) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding-block: var(--space-16);
+  /* Clear the fixed mobile CTA so the hero's own CTA is never buried. */
+  padding-bottom: calc(var(--space-16) + 4rem);
+  color: var(--parchment);
+}
+
+.hero-headline {
+  font-size: var(--text-hero);
+  font-weight: 700;
+  color: var(--parchment);
+  max-width: 14ch;
+}
+
+.hero-sub {
+  font-size: var(--text-lg);
+  color: color-mix(in srgb, var(--parchment) 88%, transparent);
+  max-width: 52ch;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  margin-block-start: var(--space-2);
+  padding: var(--space-3) var(--space-8);
+  background: var(--color-accent);
+  color: var(--parchment);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-lift);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+}
+
+.hero-cta:active {
+  transform: translateY(0);
+}
+
+@media (min-width: 48rem) {
+  .hero-content {
+    padding-bottom: var(--space-24);
+  }
+}

@@ -1,0 +1,165 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+/* Floating over the hero video. Nothing behind it but the media. */
+.site-header.is-transparent {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.site-header.is-solid {
+  background: color-mix(in srgb, var(--parchment) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--header-h);
+}
+
+.header-brand {
+  text-decoration: none;
+  margin-inline-end: auto;
+}
+
+/**
+ * Over the video the wordmark needs to survive whatever frame is behind it.
+ * Parchment + a soft shadow reads on both the dark and light passages of the
+ * fynbos footage without resorting to a scrim over the whole hero.
+ */
+.is-transparent .header-brand .wordmark-name,
+.is-transparent .header-brand .wordmark-accent {
+  color: var(--parchment);
+  text-shadow: 0 1px 12px color-mix(in srgb, var(--deep-pine) 55%, transparent);
+}
+
+.header-nav {
+  display: none;
+  gap: var(--space-6);
+}
+
+.header-link {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding-block: var(--space-2);
+  border-bottom: 2px solid transparent;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.header-link:hover {
+  color: var(--color-primary);
+}
+
+.header-link.is-active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-accent-soft);
+}
+
+.is-transparent .header-link {
+  color: var(--parchment);
+  text-shadow: 0 1px 10px color-mix(in srgb, var(--deep-pine) 55%, transparent);
+}
+
+.header-cta {
+  display: none;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 1.25rem;
+  background: var(--color-accent);
+  color: var(--parchment);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.header-cta:hover {
+  transform: translateY(-1px);
+}
+
+.header-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  /* Full 44px target — the audience is mobile and not always dexterous. */
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0 0.6rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.header-toggle-bar {
+  display: block;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+
+.is-transparent .header-toggle-bar {
+  background: var(--parchment);
+}
+
+/* Focusable but hidden until focused — keyboard users get it, nobody else. */
+.skip-link:focus-visible {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  width: auto;
+  height: auto;
+  clip-path: none;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: var(--parchment);
+  border-radius: var(--radius-sm);
+  z-index: calc(var(--z-sticky-cta) + 1);
+}
+
+/* Mobile menu: the nav drops below the bar when open. */
+.is-menu-open .header-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  padding: var(--space-4) var(--container-pad) var(--space-6);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.is-menu-open .header-nav .header-link {
+  color: var(--color-text);
+  text-shadow: none;
+  font-size: var(--text-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+@media (min-width: 48rem) {
+  .header-nav {
+    display: flex;
+  }
+
+  .header-cta {
+    display: inline-flex;
+  }
+
+  .header-toggle {
+    display: none;
+  }
+}

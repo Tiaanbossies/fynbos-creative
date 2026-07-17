@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+
+# 13 MB uncompressed hero master. The compressed 848 KB derivative is what the
+# site actually serves (public/video/) and IS tracked, so nothing shipping is
+# lost. Kept out because git stores binaries forever — once committed, removing
+# it needs a history rewrite. The master still exists on disk, untracked.
+# Delete these two lines if you want it versioned.
+fynbos-assets/images/hero/idea1.mp4
+.env
+.env.*
+!.env.example
