@@ -1,5 +1,6 @@
 import Hero from '../components/Hero.jsx'
 import HowItWorks from '../components/HowItWorks.jsx'
+import Pricing from '../components/Pricing.jsx'
 import { useSeo } from '../lib/useSeo.js'
 
 /**
@@ -9,8 +10,8 @@ import { useSeo } from '../lib/useSeo.js'
  *                        above How it works, when the Cozy Cage Rentals
  *                        content is ready.
  *   3. How it works    ✓
- *   4. Pricing         — next
- *   5. Case studies
+ *   4. Pricing         ✓
+ *   5. Case studies    — next
  *   6. The Fynbos Network
  *   7. Contact
  */
@@ -21,6 +22,7 @@ function HomePage() {
     <>
       <Hero />
       <HowItWorks />
+      <Pricing />
     </>
   )
 }

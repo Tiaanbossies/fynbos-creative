@@ -86,6 +86,35 @@ textarea {
   scroll-margin-block-start: calc(var(--header-h) + var(--space-4));
 }
 
+/**
+ * The primary CTA treatment. Terracotta is reserved for this and nothing else
+ * (brief §C) — if you are reaching for --color-accent outside a primary CTA,
+ * reach for something else. Shared by the hero and pricing CTAs; the sticky bar
+ * keeps its own sizing but the same colour contract.
+ */
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: var(--space-3) var(--space-8);
+  background: var(--color-accent);
+  color: var(--parchment);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-lift);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.btn-accent:hover {
+  transform: translateY(-2px);
+}
+
+.btn-accent:active {
+  transform: translateY(0);
+}
+
 /* Screen-reader-only, but focusable (skip links). */
 .visually-hidden {
   position: absolute;

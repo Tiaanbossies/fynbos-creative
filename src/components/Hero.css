@@ -79,28 +79,9 @@
   max-width: 52ch;
 }
 
+/* Visual treatment comes from .btn-accent in base.css. */
 .hero-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 3rem;
   margin-block-start: var(--space-2);
-  padding: var(--space-3) var(--space-8);
-  background: var(--color-accent);
-  color: var(--parchment);
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-lift);
-  transition: transform var(--duration-fast) var(--ease-out);
-}
-
-.hero-cta:hover {
-  transform: translateY(-2px);
-}
-
-.hero-cta:active {
-  transform: translateY(0);
 }
 
 @media (min-width: 48rem) {

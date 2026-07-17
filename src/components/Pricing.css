@@ -1,0 +1,161 @@
+.pricing-heading {
+  margin-block-start: var(--space-3);
+  font-size: var(--text-3xl);
+  max-width: 18ch;
+}
+
+.pricing-lede {
+  margin-block-start: var(--space-4);
+  max-width: 52ch;
+  color: var(--color-text-muted);
+}
+
+/* The build fee is the one number that must not be skimmed past (brief §H). */
+.pricing-lede strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/**
+ * Open columns, not cards. Separation is a hairline rule and whitespace —
+ * questionnaire §08 rejects heavy card/border treatment outright, so there is
+ * no box, no radius and no shadow on a tier.
+ */
+.pricing-tiers {
+  margin-block-start: var(--space-12);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-8);
+}
+
+.pricing-tier {
+  padding-block-start: var(--space-8);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.pricing-tier:first-child {
+  padding-block-start: 0;
+  border-block-start: none;
+}
+
+/**
+ * Bloom. Distinguished by a Sage wash only — deliberately NOT a "most popular"
+ * badge, which would assert customer behaviour this business has no data for
+ * (brief §H forbids fabricated statistics).
+ */
+.pricing-tier.is-featured {
+  background: color-mix(in srgb, var(--sage) 22%, transparent);
+  /**
+   * Stacked, the wash needs room or the text sits on its edge. The negative
+   * margin bleeds it back out so Bloom's copy stays on the same left edge as
+   * Seed and Grove — the wash moves, the text does not.
+   */
+  padding: var(--space-8) var(--space-4);
+  margin-inline: calc(-1 * var(--space-4));
+  border-block-start: none;
+}
+
+.pricing-tier-name {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+}
+
+.pricing-tier-who {
+  margin-block-start: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 30ch;
+}
+
+.pricing-tier-retainer {
+  margin-block-start: var(--space-6);
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+}
+
+.pricing-tier-setup {
+  margin-block-start: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.pricing-tier-includes {
+  margin-block-start: var(--space-6);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.pricing-tier-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  font-size: var(--text-sm);
+}
+
+.pricing-tick {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-block-start: 0.15em; /* optical align to the first text line */
+  color: var(--color-primary);
+}
+
+.pricing-foot {
+  margin-block-start: var(--space-12);
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+.pricing-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+@media (min-width: 48rem) {
+  /**
+   * Rules become vertical dividers; the wash fills its column edge to edge.
+   *
+   * The five rows are declared so each tier can subgrid onto them. Without
+   * this, a one-line "who for" (Bloom) against a two-line one (Seed, Grove)
+   * pushes the prices to different heights and the row reads as careless.
+   * Row order matches the JSX: name, who, retainer, setup, includes.
+   */
+  .pricing-tiers {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto auto auto 1fr;
+    gap: 0;
+  }
+
+  .pricing-tier {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    padding: var(--space-8) var(--space-6);
+    border-block-start: none;
+    border-inline-start: 1px solid var(--color-border);
+  }
+
+  .pricing-tier:first-child {
+    padding: var(--space-8) var(--space-6);
+    border-inline-start: none;
+  }
+
+  /* Columns supply their own padding here, so drop the stacked-layout bleed. */
+  .pricing-tier.is-featured {
+    padding: var(--space-8) var(--space-6);
+    margin-inline: 0;
+  }
+
+  /* The wash already separates Bloom; a rule beside it would double up. */
+  .pricing-tier.is-featured,
+  .pricing-tier.is-featured + .pricing-tier {
+    border-inline-start-color: transparent;
+  }
+}

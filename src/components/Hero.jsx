@@ -77,7 +77,7 @@ function Hero() {
           again.
         </p>
         <a
-          className="hero-cta"
+          className="hero-cta btn-accent"
           data-primary-cta
           href={buildWhatsAppLink()}
           target="_blank"
