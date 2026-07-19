@@ -1,51 +1,28 @@
 name: fynbos-creative
 
+# This stack runs the site container ONLY.
+#
+# There is no Caddy service here on purpose: the host already runs Caddy
+# (systemd, outside Docker) terminating TLS for the other apps on this box. A
+# second Caddy in a container cannot bind 80/443 and would fight the existing
+# one for them. The host Caddy proxies to the loopback port below — the same
+# pattern crateflow-web already uses on 127.0.0.1:3000.
+#
+# See Caddyfile in this repo for the vhost block to add to /etc/caddy/Caddyfile.
+
 services:
-  # The site itself: nginx serving the static build (brief §B.8).
-  # Deliberately publishes NO ports — it is reachable only over the internal
-  # network, with Caddy in front terminating TLS.
   site:
     build:
       context: .
       args:
         # Fails the build immediately with this message if unset, rather than
         # producing an image whose contact form silently shows the fallback
-        # instead of sending. Export it before `docker compose up`:
-        #   export VITE_FORMSPREE_ID=xojgdbvq
+        # instead of sending. Put it in .env next to this file:
+        #   echo "VITE_FORMSPREE_ID=xojgdbvq" > .env
         VITE_FORMSPREE_ID: ${VITE_FORMSPREE_ID:?set VITE_FORMSPREE_ID before building - the contact form is inert without it}
     image: fynbos-creative:latest
     restart: unless-stopped
-    expose:
-      - '80'
-    networks:
-      - web
-
-  # TLS termination and the canonical-host redirect. Caddy issues and renews
-  # Let's Encrypt certificates on its own — no certbot, no cron, no ACME
-  # webroot volume to keep in sync.
-  caddy:
-    image: caddy:2-alpine
-    restart: unless-stopped
+    # Loopback only. Publishing on 0.0.0.0 would expose the site over plain
+    # HTTP on port 8080, bypassing TLS and the canonical-host redirect.
     ports:
-      - '80:80'
-      - '443:443'
-      - '443:443/udp' # HTTP/3
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      # caddy_data holds the issued certificates and the ACME account key.
-      # It MUST persist: destroy it and every restart re-issues, which walks
-      # straight into Let's Encrypt's rate limit (5 duplicate certs per week)
-      # and leaves the site without a valid certificate until it resets.
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      - site
-    networks:
-      - web
-
-volumes:
-  caddy_data:
-  caddy_config:
-
-networks:
-  web:
+      - '127.0.0.1:8080:80'
