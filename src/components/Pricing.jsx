@@ -81,6 +81,7 @@ function Pricing() {
         <div className="pricing-foot">
           <a
             className="btn-accent"
+            data-primary-cta
             href={buildWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"

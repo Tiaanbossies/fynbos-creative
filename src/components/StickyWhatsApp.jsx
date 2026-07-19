@@ -27,30 +27,43 @@ function StickyWhatsApp() {
   }, [])
 
   /**
-   * Yield to an in-page CTA while one is on screen.
+   * Yield while ANY in-page CTA is on screen.
    *
    * Without this the hero shows two identical Terracotta pills a thumb apart —
    * clutter, and a straight contradiction of the cognitive-fluency principle
    * in brief §C ("reduce decisions, reduce clutter, make the next action
    * obvious").
    *
+   * Every in-page CTA is observed, not just the first. A page has several
+   * (hero, pricing, contact), and matching only one silently reintroduces the
+   * stacked-duplicate bug at whichever CTA happens to come later in the DOM.
+   *
    * Fails OPEN by design: the bar is only ever hidden while the observer has
-   * positively confirmed another CTA is visible. No marked CTA, no observer
-   * support, or a thrown error all leave the bar showing — §B.1 is not allowed
-   * to depend on this working.
+   * positively confirmed a CTA is visible. No marked CTA, no observer support,
+   * or a thrown error all leave the bar showing — §B.1 is not allowed to
+   * depend on this working.
    */
   useEffect(() => {
-    const primary = document.querySelector('[data-primary-cta]')
-    if (!primary || typeof IntersectionObserver === 'undefined') {
+    const primaries = document.querySelectorAll('[data-primary-cta]')
+    if (primaries.length === 0 || typeof IntersectionObserver === 'undefined') {
       setIsYielding(false)
       return undefined
     }
 
+    /* Tracked as a set: entries only report CTAs that changed, so "is anything
+       visible" cannot be answered from a single callback's entries alone. */
+    const visible = new Set()
     const observer = new IntersectionObserver(
-      ([entry]) => setIsYielding(entry.isIntersecting),
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visible.add(entry.target)
+          else visible.delete(entry.target)
+        })
+        setIsYielding(visible.size > 0)
+      },
       { threshold: 0.6 },
     )
-    observer.observe(primary)
+    primaries.forEach((el) => observer.observe(el))
 
     return () => {
       observer.disconnect()
