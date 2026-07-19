@@ -1,0 +1,27 @@
+# Rebuilt inside the image; copying them in wastes context and can shadow the
+# platform-correct install with host binaries.
+node_modules
+dist
+
+.git
+.gitignore
+.github
+
+# Never bake the real Formspree ID into an image layer — it is passed as a
+# build arg instead (see Dockerfile).
+.env
+.env.*
+
+# Source material: the brief, the questionnaire and the image masters,
+# including a 13 MB hero video. None of it is imported by src/, and the
+# questionnaire PDFs carry competitor analysis and pricing rationale that has
+# no business sitting inside a distributed image.
+fynbos-assets/
+*.pdf
+*.docx
+*.zip
+
+.claude/
+.impeccable/
+*.log
+npm-debug.log*
