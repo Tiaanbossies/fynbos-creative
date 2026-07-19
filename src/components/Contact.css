@@ -1,0 +1,140 @@
+.contact-heading {
+  margin-block-start: var(--space-3);
+  font-size: var(--text-3xl);
+  max-width: 18ch;
+}
+
+.contact-lede {
+  margin-block-start: var(--space-4);
+  max-width: 52ch;
+  color: var(--color-text-muted);
+}
+
+.contact-layout {
+  margin-block-start: var(--space-12);
+  display: grid;
+  gap: var(--space-12);
+}
+
+.contact-direct {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  align-content: start;
+}
+
+.contact-email {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Inputs sit on a Parchment page, so they need their own quiet ground rather
+   than a border-heavy box (questionnaire §08). */
+.contact-form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.contact-field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.contact-field label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--sage) 12%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.contact-field textarea {
+  resize: vertical;
+  min-height: 5.5rem;
+}
+
+.contact-field input:focus,
+.contact-field textarea:focus {
+  border-color: var(--color-primary);
+}
+
+/* Terracotta is the CTA colour, but an invalid field is exactly the moment it
+   should also carry a warning — it is the only palette colour that reads as
+   "attention" against Parchment. */
+.contact-field [aria-invalid='true'] {
+  border-color: var(--color-accent);
+}
+
+.contact-error {
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+}
+
+/* Honeypot: off-screen rather than display:none, which some bots skip. */
+.contact-gotcha {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Olive, not Terracotta: WhatsApp is the primary action in this section and
+   must stay the loudest thing in it (brief §B.1). */
+.contact-submit {
+  justify-self: start;
+  min-height: 3rem;
+  padding: var(--space-3) var(--space-8);
+  background: var(--color-primary);
+  color: var(--parchment);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.contact-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.contact-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.contact-consent {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 46ch;
+}
+
+.contact-status-ok,
+.contact-status-fail {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+}
+
+.contact-status-ok {
+  background: color-mix(in srgb, var(--sage) 30%, transparent);
+}
+
+.contact-status-fail {
+  background: color-mix(in srgb, var(--terracotta) 12%, transparent);
+}
+
+@media (min-width: 48rem) {
+  .contact-layout {
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-16);
+  }
+}

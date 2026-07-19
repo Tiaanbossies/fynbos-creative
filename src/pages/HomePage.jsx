@@ -1,6 +1,7 @@
 import Hero from '../components/Hero.jsx'
 import HowItWorks from '../components/HowItWorks.jsx'
 import Pricing from '../components/Pricing.jsx'
+import Contact from '../components/Contact.jsx'
 import { useSeo } from '../lib/useSeo.js'
 
 /**
@@ -11,9 +12,10 @@ import { useSeo } from '../lib/useSeo.js'
  *                        content is ready.
  *   3. How it works    ✓
  *   4. Pricing         ✓
- *   5. Case studies    — next
- *   6. The Fynbos Network
- *   7. Contact
+ *   5. Case studies    — SKIPPED for now, on instruction.
+ *   6. Fynbos Network  — BLOCKED: needs real partner names and their consent.
+ *                        Not buildable without inventing third parties (§H).
+ *   7. Contact         ✓
  */
 function HomePage() {
   useSeo()
@@ -23,6 +25,7 @@ function HomePage() {
       <Hero />
       <HowItWorks />
       <Pricing />
+      <Contact />
     </>
   )
 }
