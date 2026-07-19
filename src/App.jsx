@@ -5,6 +5,7 @@ import Footer from './components/Footer.jsx'
 import StickyWhatsApp from './components/StickyWhatsApp.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy.jsx'
 import HomePage from './pages/HomePage.jsx'
+import ServicesPage from './pages/ServicesPage.jsx'
 import { NAV_LINKS } from './lib/nav.js'
 import { useSeo } from './lib/useSeo.js'
 import './App.css'
@@ -30,6 +31,13 @@ function PagePlaceholder({ label }) {
   )
 }
 
+/**
+ * Routes with a real page built. Everything else in NAV_LINKS still falls
+ * through to PagePlaceholder — add the path here when its page lands, or the
+ * placeholder will shadow it with a duplicate route.
+ */
+const BUILT_ROUTES = new Set(['/', '/services'])
+
 function ScrollToTop() {
   const { pathname } = useLocation()
 
@@ -50,7 +58,8 @@ function App() {
       <main id="main">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {NAV_LINKS.filter((link) => link.to !== '/').map((link) => (
+          <Route path="/services" element={<ServicesPage />} />
+          {NAV_LINKS.filter((link) => !BUILT_ROUTES.has(link.to)).map((link) => (
             <Route
               key={link.to}
               path={link.to}

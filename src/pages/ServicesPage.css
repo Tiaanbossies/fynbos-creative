@@ -1,0 +1,88 @@
+/* The intro carries the page's whitespace, so the list below can start
+   immediately without a second stacked run of padding. */
+.services-intro {
+  padding-block-end: 0;
+}
+
+.services-heading {
+  margin-block-start: var(--space-3);
+  font-size: var(--text-3xl);
+  max-width: 20ch;
+}
+
+.services-lede {
+  margin-block-start: var(--space-4);
+  max-width: 56ch;
+  color: var(--color-text-muted);
+}
+
+.services-list {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+}
+
+/* Open rows divided by a hairline, matching Pricing. No cards, no boxes —
+   questionnaire §08 rejects heavy card/border treatment. */
+.service {
+  padding-block: var(--space-8);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.service:first-child {
+  border-block-start: none;
+}
+
+/* Name and price share a baseline on wide screens and stack on narrow ones,
+   so the price is never orphaned from what it belongs to. */
+.service-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+}
+
+.service-name {
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+}
+
+.service-price {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.service-body {
+  margin-block-start: var(--space-3);
+  max-width: 60ch;
+  color: var(--color-text-muted);
+}
+
+.services-foot {
+  margin-block-start: var(--space-12);
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+.services-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+@media (min-width: 48rem) {
+  /**
+   * Price right-aligned so the numbers form a scannable column — but bounded
+   * to the same measure as the body copy. Left to fill the container it sat
+   * ~740px from its own service name, far enough that the two stopped reading
+   * as one thing.
+   */
+  .service-head {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    max-width: 60ch;
+  }
+}
