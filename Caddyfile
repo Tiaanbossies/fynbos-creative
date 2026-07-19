@@ -1,0 +1,37 @@
+# TLS termination and canonical-host redirect.
+#
+# Caddy obtains and renews Let's Encrypt certificates automatically, so there
+# is no certbot, no renewal cron and no ACME webroot volume here. For that to
+# work, BOTH names below must already resolve to this server's public IP and
+# ports 80 and 443 must be reachable from the internet — issuance uses them.
+#
+# Certificates live in the caddy_data volume. Keep it; see docker-compose.yml.
+
+fynboscreative.co.za {
+	reverse_proxy site:80
+
+	# The site container serves plain HTTP and cannot know the request arrived
+	# over TLS, so HSTS is set here rather than in nginx.conf.
+	#
+	# This is a COMMITMENT: for the next year browsers that have seen this
+	# header will refuse to load the domain over plain HTTP, with no way for a
+	# visitor to click through. Back it out by serving max-age=0 and waiting
+	# for caches to expire — you cannot recall it retroactively. Safe here
+	# because Caddy renews automatically, but drop max-age to 300 while you
+	# are still testing DNS or certificates.
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+	log {
+		output file /data/access.log {
+			roll_size 10MiB
+			roll_keep 5
+		}
+	}
+}
+
+# One canonical host, for SEO: duplicate content on both www and apex splits
+# ranking signals between them. 301 (permanent) is what search engines need in
+# order to consolidate onto the apex.
+www.fynboscreative.co.za {
+	redir https://fynboscreative.co.za{uri} permanent
+}

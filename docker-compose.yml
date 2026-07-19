@@ -1,0 +1,51 @@
+name: fynbos-creative
+
+services:
+  # The site itself: nginx serving the static build (brief §B.8).
+  # Deliberately publishes NO ports — it is reachable only over the internal
+  # network, with Caddy in front terminating TLS.
+  site:
+    build:
+      context: .
+      args:
+        # Fails the build immediately with this message if unset, rather than
+        # producing an image whose contact form silently shows the fallback
+        # instead of sending. Export it before `docker compose up`:
+        #   export VITE_FORMSPREE_ID=xojgdbvq
+        VITE_FORMSPREE_ID: ${VITE_FORMSPREE_ID:?set VITE_FORMSPREE_ID before building - the contact form is inert without it}
+    image: fynbos-creative:latest
+    restart: unless-stopped
+    expose:
+      - '80'
+    networks:
+      - web
+
+  # TLS termination and the canonical-host redirect. Caddy issues and renews
+  # Let's Encrypt certificates on its own — no certbot, no cron, no ACME
+  # webroot volume to keep in sync.
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp' # HTTP/3
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      # caddy_data holds the issued certificates and the ACME account key.
+      # It MUST persist: destroy it and every restart re-issues, which walks
+      # straight into Let's Encrypt's rate limit (5 duplicate certs per week)
+      # and leaves the site without a valid certificate until it resets.
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - site
+    networks:
+      - web
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  web:
