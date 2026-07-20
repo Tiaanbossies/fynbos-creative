@@ -15,11 +15,20 @@
   --terracotta: #a8503d;
   --sage: #b9cba0;
   --bark-grey: #8a8672;
+  /**
+   * Bark Grey darkened for reading copy. Bark Grey itself (#8a8672) is only
+   * 3.45:1 on Parchment — below WCAG AA (4.5:1) — and the audience reads on
+   * phones in bright sun, so body/lede/answer text uses this deeper warm grey
+   * (~5:1) instead. Client-approved deviation from the brief §C palette, which
+   * had assigned Bark Grey to secondary text before the contrast gap surfaced.
+   * Bark Grey stays as-is for borders and other non-text muted UI.
+   */
+  --bark-deep: #6c6957;
 
   /* Semantic aliases — what components should actually reference. */
   --color-bg: var(--parchment);
   --color-text: var(--deep-pine);
-  --color-text-muted: var(--bark-grey);
+  --color-text-muted: var(--bark-deep);
   --color-primary: var(--olive);
   --color-accent: var(--terracotta); /* primary CTA only */
   --color-accent-soft: var(--sage);
