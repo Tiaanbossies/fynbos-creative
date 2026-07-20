@@ -35,7 +35,6 @@ function ServicesPage() {
     <>
       <section className="section services-intro">
         <div className="container">
-          <p className="eyebrow">Services</p>
           <h1 className="services-heading">Everything handled, start to finish.</h1>
           <p className="services-lede">
             Most people who come to us don&rsquo;t want to learn how websites work — they want

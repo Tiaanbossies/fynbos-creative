@@ -37,7 +37,6 @@ function FaqPage() {
     <>
       <section className="section faq-intro">
         <div className="container">
-          <p className="eyebrow">FAQ</p>
           <h1 className="faq-heading">The questions everyone asks.</h1>
           <p className="faq-lede">
             No fine print, no runaround — just straight answers to the things people want to know

@@ -33,7 +33,6 @@ function PricingPage() {
     <>
       <section className="section pricing-page-intro">
         <div className="container">
-          <p className="eyebrow">Pricing</p>
           <h1 className="pricing-page-heading">Honest pricing, no surprises.</h1>
           <p className="pricing-page-lede">
             One once-off fee to build your website, then a monthly plan that keeps it hosted,

@@ -32,7 +32,6 @@ function AboutPage() {
     <>
       <section className="section about-intro">
         <div className="container">
-          <p className="eyebrow">About</p>
           <h1 className="about-heading">A real person, not a call centre.</h1>
           <p className="about-lede">
             Fynbos Creative exists for the business owner stuck in the middle — too small for the
