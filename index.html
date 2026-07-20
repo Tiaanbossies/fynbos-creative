@@ -17,6 +17,48 @@
       name="description"
       content="Fynbos Creative — done-for-you web services and media for South African SMEs. Low setup cost, monthly retainer, a partner network that helps you grow."
     />
+
+    <!--
+      Homepage defaults. scripts/prerender.mjs rewrites title, description,
+      canonical and the og:/twitter: values below into a static per-route
+      index.html at build time, so every URL shares correctly on WhatsApp,
+      Facebook and LinkedIn without relying on client JavaScript.
+    -->
+    <link rel="canonical" href="https://fynboscreative.co.za/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Fynbos Creative" />
+    <meta property="og:locale" content="en_ZA" />
+    <meta property="og:title" content="Fynbos Creative — Web Services &amp; Media for SA SMEs" />
+    <meta
+      property="og:description"
+      content="Fynbos Creative — done-for-you web services and media for South African SMEs. Low setup cost, monthly retainer, a partner network that helps you grow."
+    />
+    <meta property="og:url" content="https://fynboscreative.co.za/" />
+    <meta property="og:image" content="https://fynboscreative.co.za/video/preview-frame.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Fynbos Creative — Web Services &amp; Media for SA SMEs" />
+    <meta
+      name="twitter:description"
+      content="Fynbos Creative — done-for-you web services and media for South African SMEs. Low setup cost, monthly retainer, a partner network that helps you grow."
+    />
+    <meta name="twitter:image" content="https://fynboscreative.co.za/video/preview-frame.jpg" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Fynbos Creative",
+        "description": "Founder-led, done-for-you web services and media for small South African businesses.",
+        "url": "https://fynboscreative.co.za/",
+        "email": "tiaan@fynboscreative.co.za",
+        "image": "https://fynboscreative.co.za/video/preview-frame.jpg",
+        "founder": { "@type": "Person", "name": "Tiaan" },
+        "areaServed": { "@type": "Country", "name": "South Africa" },
+        "slogan": "Rooted in local. Built to grow."
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

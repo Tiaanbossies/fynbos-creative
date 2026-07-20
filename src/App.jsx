@@ -20,7 +20,9 @@ import './App.css'
  * real router on real routes. It is not content and must not survive review.
  */
 function PagePlaceholder({ label }) {
-  useSeo({ title: `${label} — Fynbos Creative` })
+  // Bare call: title + noindex come from ROUTE_META (placeholders and the 404
+  // are flagged noindex there), so thin pages never get indexed.
+  useSeo()
 
   return (
     <section className="section">

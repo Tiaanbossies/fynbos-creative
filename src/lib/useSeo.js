@@ -1,10 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-
-const SITE_URL = 'https://fynboscreative.co.za'
-const DEFAULT_TITLE = 'Fynbos Creative — Web Services & Media for SA SMEs'
-const DEFAULT_DESCRIPTION =
-  'Fynbos Creative — done-for-you web services and media for South African SMEs. Low setup cost, monthly retainer, a partner network that helps you grow.'
+import { SITE, metaForPath } from './seo.js'
 
 function setMeta(name, content) {
   let tag = document.querySelector(`meta[name="${name}"]`)
@@ -14,6 +10,10 @@ function setMeta(name, content) {
     document.head.appendChild(tag)
   }
   tag.setAttribute('content', content)
+}
+
+function removeMeta(name) {
+  document.querySelector(`meta[name="${name}"]`)?.remove()
 }
 
 function setCanonical(href) {
@@ -27,14 +27,35 @@ function setCanonical(href) {
 }
 
 /**
- * @param {{ title?: string, description?: string }} [options]
+ * Keeps the document head in sync with the current route on client navigation.
+ *
+ * Values default from the shared ROUTE_META (via metaForPath) so client nav and
+ * the static prerender agree; pass overrides only for something ROUTE_META
+ * can't know. The static per-route HTML from scripts/prerender.mjs is what
+ * crawlers see first — this hook keeps things correct once React takes over.
+ *
+ * @param {{ title?: string, description?: string, noindex?: boolean }} [overrides]
  */
-export function useSeo({ title, description } = {}) {
+export function useSeo(overrides = {}) {
   const location = useLocation()
 
   useEffect(() => {
-    document.title = title || DEFAULT_TITLE
-    setMeta('description', description || DEFAULT_DESCRIPTION)
-    setCanonical(`${SITE_URL}${location.pathname}`)
-  }, [title, description, location.pathname])
+    const base = metaForPath(location.pathname)
+    const title = overrides.title || base.title || SITE.defaultTitle
+    const description =
+      overrides.description || base.description || SITE.defaultDescription
+    const noindex = overrides.noindex ?? base.noindex ?? false
+
+    document.title = title
+    setMeta('description', description)
+    setCanonical(`${SITE.url}${location.pathname}`)
+
+    if (noindex) {
+      setMeta('robots', 'noindex, follow')
+    } else {
+      // Removing (not setting "index") keeps a route from carrying a stale
+      // noindex after client nav away from a placeholder page.
+      removeMeta('robots')
+    }
+  }, [overrides.title, overrides.description, overrides.noindex, location.pathname])
 }
