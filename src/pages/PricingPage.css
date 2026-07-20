@@ -1,0 +1,104 @@
+/* The intro carries the page's whitespace, so the build fee below can start
+   immediately without a second stacked run of padding. Mirrors ServicesPage. */
+.pricing-page-intro {
+  padding-block-end: 0;
+}
+
+.pricing-page-heading {
+  margin-block-start: var(--space-3);
+  font-size: var(--text-3xl);
+  max-width: 18ch;
+}
+
+.pricing-page-lede {
+  margin-block-start: var(--space-4);
+  max-width: 54ch;
+  color: var(--color-text-muted);
+}
+
+/* The build fee and the rescue service share one "named line item" treatment:
+   an open row with the name and price on a shared baseline, then body copy.
+   Same visual language as the Services list — no cards (questionnaire §08). */
+.pricing-buildfee,
+.pricing-rescue {
+  padding-block: var(--space-8);
+  border-block: 1px solid var(--color-border);
+  max-width: 60ch;
+}
+
+.pricing-buildfee-head,
+.pricing-rescue-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+
+.pricing-buildfee-name,
+.pricing-rescue-name {
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+}
+
+.pricing-buildfee-price,
+.pricing-rescue-price {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pricing-buildfee-body,
+.pricing-rescue-body {
+  margin-block-start: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+/* The monthly plans are the centre of the page, so they get their own heading
+   and the tier grid's own top margin does the rest. */
+.pricing-plans-heading {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+}
+
+.pricing-plans-lede {
+  margin-block-start: var(--space-3);
+  max-width: 54ch;
+  color: var(--color-text-muted);
+}
+
+.pricing-rescue-name {
+  /* Name and price still fit the ampersand entity — keep it tidy on wrap. */
+  max-width: 22ch;
+}
+
+/* Closing CTA. Left-aligned stack, matching the Services page foot. */
+.pricing-page-foot {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  max-width: 56ch;
+}
+
+.pricing-page-foot-heading {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+}
+
+.pricing-page-foot-lede {
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+.pricing-page-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+/* Adjacent sections that both carry a bordered row would double the hairline
+   between them; let the row borders do the separating and pull the vertical
+   rhythm in a little. */
+.pricing-rescue-section {
+  padding-block-start: 0;
+}
