@@ -29,13 +29,14 @@ export const SITE = {
 }
 
 /**
- * path → metadata. Every route the router serves has an entry.
+ * path → metadata. Every built, navigable route has an entry.
  *
- * `noindex: true` marks a route that must not be indexed — the three pages
- * still on placeholders (Work, Industries, Partners), which are thin by
- * definition until their real content lands. Drop the flag as each ships.
+ * Work, Industries and Partners are intentionally absent: they aren't built or
+ * linked yet (see nav.js), so they fall to the noindex "Page not found"
+ * fallback in metaForPath rather than being prerendered as empty shells. Add an
+ * entry here when each page ships.
  *
- * Unknown paths (the wildcard 404) are handled in useSeo.js, not here.
+ * Unknown paths (the wildcard 404) are handled by metaForPath, not here.
  */
 export const ROUTE_META = {
   '/': {
@@ -66,21 +67,6 @@ export const ROUTE_META = {
     title: 'Privacy Policy — Fynbos Creative',
     description:
       'How Fynbos Creative collects, uses and protects your personal information, in line with South Africa’s POPIA.',
-  },
-  '/work': {
-    title: 'Work — Fynbos Creative',
-    description: 'Selected client work from Fynbos Creative.',
-    noindex: true,
-  },
-  '/industries': {
-    title: 'Industries — Fynbos Creative',
-    description: 'The industries Fynbos Creative works with.',
-    noindex: true,
-  },
-  '/partners': {
-    title: 'Partners — Fynbos Creative',
-    description: 'The Fynbos Network of trusted local partners.',
-    noindex: true,
   },
 }
 
