@@ -7,6 +7,7 @@ import PrivacyPolicy from './components/PrivacyPolicy.jsx'
 import HomePage from './pages/HomePage.jsx'
 import ServicesPage from './pages/ServicesPage.jsx'
 import PricingPage from './pages/PricingPage.jsx'
+import AboutPage from './pages/AboutPage.jsx'
 import { NAV_LINKS } from './lib/nav.js'
 import { useSeo } from './lib/useSeo.js'
 import './App.css'
@@ -37,7 +38,7 @@ function PagePlaceholder({ label }) {
  * through to PagePlaceholder — add the path here when its page lands, or the
  * placeholder will shadow it with a duplicate route.
  */
-const BUILT_ROUTES = new Set(['/', '/services', '/pricing'])
+const BUILT_ROUTES = new Set(['/', '/services', '/pricing', '/about'])
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -61,6 +62,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/about" element={<AboutPage />} />
           {NAV_LINKS.filter((link) => !BUILT_ROUTES.has(link.to)).map((link) => (
             <Route
               key={link.to}

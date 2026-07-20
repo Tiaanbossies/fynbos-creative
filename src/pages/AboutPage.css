@@ -1,0 +1,144 @@
+/* The intro carries the page's whitespace; the founder block starts straight
+   after, matching the Services and Pricing pages. */
+.about-intro {
+  padding-block-end: 0;
+}
+
+.about-heading {
+  margin-block-start: var(--space-3);
+  font-size: var(--text-3xl);
+  max-width: 16ch;
+}
+
+.about-lede {
+  margin-block-start: var(--space-4);
+  max-width: 56ch;
+  color: var(--color-text-muted);
+}
+
+/* Founder: photo beside copy on wide screens, stacked on narrow. The named
+   face is the trust move (brief §C), so it leads the block. */
+.about-founder-grid {
+  display: grid;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.about-portrait {
+  margin: 0;
+}
+
+.about-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md, 0.5rem);
+  /* A warm sage frame ties the portrait to the palette without a hard border. */
+  background: color-mix(in srgb, var(--sage) 30%, transparent);
+}
+
+.about-founder-name {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+}
+
+.about-founder-copy p {
+  margin-block-start: var(--space-4);
+  max-width: 60ch;
+  color: var(--color-text-muted);
+}
+
+.about-founder-copy p:first-of-type {
+  margin-block-start: var(--space-4);
+}
+
+/* "What makes us different" — heading, lede, then three open promise columns.
+   Same no-card language as the rest of the site (questionnaire §08). */
+.about-section-heading {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+  max-width: 20ch;
+}
+
+.about-section-lede {
+  margin-block-start: var(--space-3);
+  max-width: 54ch;
+  color: var(--color-text-muted);
+}
+
+.about-values {
+  margin-block-start: var(--space-8);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-8);
+}
+
+.about-value {
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.about-value:first-child {
+  padding-block-start: 0;
+  border-block-start: none;
+}
+
+.about-value-name {
+  font-size: var(--text-lg);
+  color: var(--color-primary);
+}
+
+.about-value-body {
+  margin-block-start: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+/* Closing CTA — left-aligned stack, consistent with the other pages' feet. */
+.about-foot {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  max-width: 56ch;
+}
+
+.about-foot-heading {
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+}
+
+.about-foot-lede {
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+.about-foot-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+@media (min-width: 48rem) {
+  /* Portrait bounded to a column so it never balloons on wide screens; copy
+     takes the rest. Two-fifths / three-fifths reads as a profile, not a poster. */
+  .about-founder-grid {
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-12);
+  }
+
+  .about-portrait {
+    position: sticky;
+    top: var(--space-8);
+  }
+
+  /* Three promises side by side, divided by whitespace alone. */
+  .about-values {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+
+  .about-value {
+    padding-block-start: 0;
+    border-block-start: none;
+  }
+}
