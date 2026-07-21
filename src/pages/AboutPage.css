@@ -34,7 +34,7 @@
   height: auto;
   border-radius: var(--radius-md, 0.5rem);
   /* A warm sage frame ties the portrait to the palette without a hard border. */
-  background: color-mix(in srgb, var(--sage) 30%, transparent);
+  background: color-mix(in srgb, var(--green-wash) 30%, transparent);
 }
 
 .about-founder-name {

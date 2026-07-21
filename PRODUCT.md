@@ -42,11 +42,22 @@ reassurance and credibility over aspiration or hype. Never salesy.
   system locked in the brief, not a warm-tinted near-white by reflex.
 - Not proteas-everywhere literalism; fynbos is textural, not decorative.
 
-## Moodboard (captured 2026-07-21 — NOT adopted)
+## Moodboard (adopted 2026-07-21)
 
-A client Figma moodboard exists and **conflicts with the locked brief palette and
-type stack**. Recorded here for reference only; `src/styles/tokens.css` is
-unchanged and remains the source of truth until a direction change is decided.
+The client Figma moodboard **replaced the brief §C palette and type stack** on
+2026-07-21. `src/styles/tokens.css` now carries the moodboard colours and
+Amatic SC + Josefin Sans; the olive/terracotta/parchment system and
+Zilla Slab + Work Sans are gone.
+
+Two adaptations were needed and are load-bearing — read `tokens.css`'s contrast
+contract before touching colour:
+
+- **Every moodboard hue fails WCAG AA as body text on the cream background**
+  (green 3.17:1, pink 3.70:1, orange 2.93:1). Each hue therefore exists twice:
+  the true value for fills and 24px+ display, and a ~8%-darker `-deep` variant
+  that clears 4.5:1. The semantic aliases point at the `-deep` variants.
+- **Prices set in the body font, not Amatic SC.** Hand-lettered numerals are
+  ambiguous at a glance, which contradicts "honesty is the aesthetic".
 
 Source: https://www.figma.com/design/vpmY9qidQIV2m6nvagVvDW/Moodboard?node-id=1-2
 
@@ -66,14 +77,13 @@ Source: https://www.figma.com/design/vpmY9qidQIV2m6nvagVvDW/Moodboard?node-id=1-
   Tortoise, Cape Mountain Leopard.
 - **Values / icons:** Protea, Trust, Community — single-weight line illustrations.
 
-The moodboard collides with two anti-references above, both of which need resolving
-before any of it is adopted:
+Two anti-references above are now **superseded** by this adoption and should be
+read as historical:
 
-- **"Not proteas-everywhere literalism"** — the moodboard's protea and wildlife
-  emphasis is considerably more literal than the brief allows.
-- **"Cream/sand AI-warm default"** — the moodboard's `#FDF6E8` is precisely the
-  warm-tinted near-white the brief rejects in favour of the committed
-  olive/terracotta/parchment system.
+- **"Cream/sand AI-warm default"** — no longer holds; `#FDF6E8` is the background.
+- **"Not proteas-everywhere literalism"** — still the standing guidance for
+  imagery. The colour and type direction was adopted; the protea/wildlife
+  imagery has *not* been implemented, and this constraint still applies to it.
 
 ## Design Principles
 

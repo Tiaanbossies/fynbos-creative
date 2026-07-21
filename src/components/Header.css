@@ -14,7 +14,7 @@
 }
 
 .site-header.is-solid {
-  background: color-mix(in srgb, var(--parchment) 92%, transparent);
+  background: color-mix(in srgb, var(--cream) 92%, transparent);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--color-border);
 }
@@ -38,7 +38,7 @@
  */
 .is-transparent .header-brand .wordmark-name,
 .is-transparent .header-brand .wordmark-accent {
-  color: var(--parchment);
+  color: var(--cream);
   text-shadow: 0 1px 12px color-mix(in srgb, var(--deep-pine) 55%, transparent);
 }
 
@@ -67,7 +67,7 @@
 }
 
 .is-transparent .header-link {
-  color: var(--parchment);
+  color: var(--cream);
   text-shadow: 0 1px 10px color-mix(in srgb, var(--deep-pine) 55%, transparent);
 }
 
@@ -77,7 +77,7 @@
   min-height: 2.75rem;
   padding-inline: 1.25rem;
   background: var(--color-accent);
-  color: var(--parchment);
+  color: var(--cream);
   font-size: var(--text-sm);
   font-weight: 600;
   text-decoration: none;
@@ -112,7 +112,7 @@
 }
 
 .is-transparent .header-toggle-bar {
-  background: var(--parchment);
+  background: var(--cream);
 }
 
 /* Focusable but hidden until focused — keyboard users get it, nobody else. */
@@ -125,7 +125,7 @@
   clip-path: none;
   padding: var(--space-2) var(--space-4);
   background: var(--color-primary);
-  color: var(--parchment);
+  color: var(--cream);
   border-radius: var(--radius-sm);
   z-index: calc(var(--z-sticky-cta) + 1);
 }

@@ -48,8 +48,9 @@
   color: var(--color-primary);
 }
 
+/* Body font, not display — see the note in PricingTiers.css. */
 .service-price {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 700;
   white-space: nowrap;
 }

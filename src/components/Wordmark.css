@@ -18,7 +18,7 @@
 }
 
 .wordmark-tagline {
-  font-family: var(--font-script);
+  font-family: var(--font-body);
   font-size: var(--text-lg);
   color: var(--color-text-muted);
   line-height: 1.3;

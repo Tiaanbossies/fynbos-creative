@@ -63,19 +63,19 @@
   padding-block: var(--space-16);
   /* Clear the fixed mobile CTA so the hero's own CTA is never buried. */
   padding-bottom: calc(var(--space-16) + 4rem);
-  color: var(--parchment);
+  color: var(--cream);
 }
 
 .hero-headline {
   font-size: var(--text-hero);
   font-weight: 700;
-  color: var(--parchment);
+  color: var(--cream);
   max-width: 14ch;
 }
 
 .hero-sub {
   font-size: var(--text-lg);
-  color: color-mix(in srgb, var(--parchment) 88%, transparent);
+  color: color-mix(in srgb, var(--cream) 88%, transparent);
   max-width: 52ch;
 }
 

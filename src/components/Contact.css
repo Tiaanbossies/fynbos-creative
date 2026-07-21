@@ -49,7 +49,7 @@
 .contact-field textarea {
   width: 100%;
   padding: var(--space-3);
-  background: color-mix(in srgb, var(--sage) 12%, transparent);
+  background: color-mix(in srgb, var(--green-wash) 12%, transparent);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   transition: border-color var(--duration-fast) var(--ease-out);
@@ -94,7 +94,7 @@
   min-height: 3rem;
   padding: var(--space-3) var(--space-8);
   background: var(--color-primary);
-  color: var(--parchment);
+  color: var(--cream);
   font-weight: 600;
   border: none;
   border-radius: var(--radius-pill);
@@ -125,11 +125,11 @@
 }
 
 .contact-status-ok {
-  background: color-mix(in srgb, var(--sage) 30%, transparent);
+  background: color-mix(in srgb, var(--green-wash) 30%, transparent);
 }
 
 .contact-status-fail {
-  background: color-mix(in srgb, var(--terracotta) 12%, transparent);
+  background: color-mix(in srgb, var(--sunbird-orange) 12%, transparent);
 }
 
 @media (min-width: 48rem) {

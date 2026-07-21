@@ -27,7 +27,7 @@
  * (brief §H forbids fabricated statistics).
  */
 .pricing-tier.is-featured {
-  background: color-mix(in srgb, var(--sage) 22%, transparent);
+  background: color-mix(in srgb, var(--green-wash) 22%, transparent);
   /**
    * Stacked, the wash needs room or the text sits on its edge. The negative
    * margin bleeds it back out so Bloom's copy stays on the same left edge as
@@ -50,9 +50,16 @@
   max-width: 30ch;
 }
 
+/**
+ * Prices set in the BODY font, not the display font. Amatic SC is hand-lettered
+ * and its numerals are genuinely ambiguous at a glance — the wrong trade on the
+ * one element this brand insists must be unmistakable ("honesty is the
+ * aesthetic": prices stated plainly and early). Applies to every price on the
+ * site; see also ServicesPage.css and PricingPage.css.
+ */
 .pricing-tier-retainer {
   margin-block-start: var(--space-6);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: var(--text-2xl);
   font-weight: 700;
   line-height: var(--leading-tight);

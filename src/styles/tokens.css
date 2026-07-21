@@ -1,52 +1,82 @@
 /**
  * Fynbos Creative — design tokens.
  *
- * The palette and type stack are LOCKED by the build brief (§C) and the
- * completed discovery questionnaire (§03, §04). Do not add colours here
- * without a decision recorded in the brief — the questionnaire explicitly
- * rules out neon, cold blues/greys, and anything reading as corporate-tech.
+ * Palette and type stack come from the client Figma moodboard (see PRODUCT.md
+ * §Moodboard for the source link). This SUPERSEDES the previously locked brief
+ * §C palette (olive/terracotta/parchment, Zilla Slab + Work Sans) at the
+ * client's direction on 2026-07-21.
+ *
+ * CONTRAST CONTRACT — read before adding or reassigning a colour.
+ * The moodboard hues are light: measured against the cream background, none of
+ * them reaches WCAG AA (4.5:1) as body text.
+ *
+ *   green  #71955c  3.17:1     pink #d94c7c  3.70:1     orange #dd735a  2.93:1
+ *
+ * So each hue exists twice: the true moodboard value for FILLS AND LARGE
+ * DISPLAY TEXT ONLY, and a ~8%-darker "-deep" variant that clears 4.5:1 both as
+ * text on cream and as a fill carrying cream text. The semantic aliases below
+ * all point at the -deep variants, so anything reading a semantic token is
+ * AA-safe by default. Reach for a raw hue only for decoration or 24px+ display.
  */
 
 :root {
-  /* Palette — locked. Raw values; prefer the semantic aliases below. */
-  --parchment: #fbf8f1;
-  --deep-pine: #1c2117;
-  --olive: #3d5a3a;
-  --terracotta: #a8503d;
-  --sage: #b9cba0;
-  --bark-grey: #8a8672;
+  /* Moodboard hues — decoration and large display text only. NOT body text. */
+  --cream: #fdf6e8;
+  --fynbos-green: #71955c;
+  --protea-pink: #d94c7c;
+  --sunbird-orange: #dd735a;
+
   /**
-   * Bark Grey darkened for reading copy. Bark Grey itself (#8a8672) is only
-   * 3.45:1 on Parchment — below WCAG AA (4.5:1) — and the audience reads on
-   * phones in bright sun, so body/lede/answer text uses this deeper warm grey
-   * (~5:1) instead. Client-approved deviation from the brief §C palette, which
-   * had assigned Bark Grey to secondary text before the contrast gap surfaced.
-   * Bark Grey stays as-is for borders and other non-text muted UI.
+   * Text-safe counterparts. Each clears 4.5:1 on cream AND takes cream text at
+   * 4.5:1, so one variant serves both "coloured text" and "filled button".
    */
+  /**
+   * Pale green wash, standing in for the brief's Sage. Used only as a tinted
+   * background behind dark text (never as text itself), so it is deliberately
+   * light — call sites mix it down further with transparent.
+   */
+  --green-wash: color-mix(in srgb, var(--fynbos-green) 42%, var(--cream));
+
+  --fynbos-green-deep: #5c794b; /* 4.55:1 on cream */
+  --protea-pink-deep: #c1446e; /* 4.52:1 on cream */
+  --sunbird-orange-deep: #ad5a47; /* 4.51:1 on cream */
+
+  /**
+   * Ink and muted grey are carried over from the brief palette — the moodboard
+   * supplies no dark text colour, and cream needs one. Deep Pine is 15.26:1 on
+   * cream; Bark Deep is 5.14:1, still clearing AA on the new background.
+   */
+  --deep-pine: #1c2117;
+  --bark-grey: #8a8672;
   --bark-deep: #6c6957;
 
   /* Semantic aliases — what components should actually reference. */
-  --color-bg: var(--parchment);
+  --color-bg: var(--cream);
   --color-text: var(--deep-pine);
   --color-text-muted: var(--bark-deep);
-  --color-primary: var(--olive);
-  --color-accent: var(--terracotta); /* primary CTA only */
-  --color-accent-soft: var(--sage);
+  --color-primary: var(--fynbos-green-deep);
+  --color-accent: var(--protea-pink-deep); /* primary CTA only */
+  --color-accent-soft: color-mix(in srgb, var(--fynbos-green) 34%, var(--cream));
   --color-border: color-mix(in srgb, var(--bark-grey) 32%, transparent);
 
-  /* Type. Google Fonts, no local files (brief §C). */
-  --font-heading: 'Zilla Slab', Georgia, 'Times New Roman', serif;
-  --font-body: 'Work Sans', system-ui, -apple-system, sans-serif;
-  --font-script: 'Alex Brush', cursive; /* sparing warmth touches only */
+  /**
+   * Type — moodboard stack. Amatic SC is a condensed hand-lettered face that
+   * renders optically smaller and lighter than a slab serif at the same px, so
+   * the display steps below are scaled up to compensate and headings set at 700
+   * (Amatic SC ships 400/700 only — asking for 600 triggers synthetic bolding).
+   */
+  --font-heading: 'Amatic SC', Georgia, serif;
+  --font-body: 'Josefin Sans', system-ui, -apple-system, sans-serif;
 
   /* Fluid type scale. Mobile legibility outranks personality (brief §C). */
   --text-sm: 0.875rem;
   --text-base: 1rem;
   --text-lg: 1.125rem;
   --text-xl: clamp(1.25rem, 1rem + 1vw, 1.5rem);
-  --text-2xl: clamp(1.5rem, 1.1rem + 1.8vw, 2rem);
-  --text-3xl: clamp(1.875rem, 1.2rem + 3vw, 2.75rem);
-  --text-hero: clamp(2.25rem, 1.2rem + 4.6vw, 4rem);
+  /* Display steps: ~1.25x the previous slab-serif values to offset Amatic SC. */
+  --text-2xl: clamp(1.875rem, 1.35rem + 2.3vw, 2.5rem);
+  --text-3xl: clamp(2.35rem, 1.5rem + 3.8vw, 3.45rem);
+  --text-hero: clamp(2.8rem, 1.5rem + 5.8vw, 5rem);
 
   --leading-tight: 1.15;
   --leading-body: 1.6;

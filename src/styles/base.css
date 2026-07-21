@@ -26,13 +26,20 @@ body {
   min-height: 100dvh;
 }
 
+/**
+ * Amatic SC ships 400 and 700 only — 600 would be synthetically emboldened and
+ * smears its thin hand-drawn strokes, so headings take a real 700. Its tight
+ * default tracking also closes up at display sizes; a little positive spacing
+ * keeps it legible on a phone, which outranks typographic personality here.
+ */
 h1,
 h2,
 h3,
 h4 {
   font-family: var(--font-heading);
-  font-weight: 600;
-  line-height: var(--leading-tight);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
   text-wrap: balance;
 }
 
@@ -87,10 +94,14 @@ textarea {
 }
 
 /**
- * The primary CTA treatment. Terracotta is reserved for this and nothing else
- * (brief §C) — if you are reaching for --color-accent outside a primary CTA,
- * reach for something else. Shared by the hero and pricing CTAs; the sticky bar
- * keeps its own sizing but the same colour contract.
+ * The primary CTA treatment. Protea Pink is reserved for this and nothing else
+ * — if you are reaching for --color-accent outside a primary CTA, reach for
+ * something else. Shared by the hero and pricing CTAs; the sticky bar keeps its
+ * own sizing but the same colour contract.
+ *
+ * The fill is --color-accent (Protea Pink Deep), not the raw moodboard pink:
+ * cream text on raw #d94c7c is 3.98:1 and dark text on it is 4.12:1, so the raw
+ * hue cannot carry button-sized text either way. The deep variant is 4.52:1.
  */
 .btn-accent {
   display: inline-flex;
@@ -99,7 +110,7 @@ textarea {
   min-height: 3rem;
   padding: var(--space-3) var(--space-8);
   background: var(--color-accent);
-  color: var(--parchment);
+  color: var(--cream);
   font-weight: 600;
   text-decoration: none;
   border-radius: var(--radius-pill);

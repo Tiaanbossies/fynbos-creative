@@ -2,11 +2,12 @@ import './Wordmark.css'
 
 /**
  * Text-only wordmark. No logo exists yet (brief §C) — "bos" is picked out in
- * Terracotta so the mark carries the fynbos metaphor without an icon.
+ * Protea Pink so the mark carries the fynbos metaphor without an icon.
  *
- * The Alex Brush tagline is the script+sans lockup admired on lovegreen.co.za
- * (questionnaire §08). It is the ONLY sanctioned script usage — never body,
- * never headings.
+ * The tagline was previously set in Alex Brush, the script+sans lockup admired
+ * on lovegreen.co.za (questionnaire §08). The moodboard type stack dropped the
+ * script face — Amatic SC is already hand-lettered, so a second decorative face
+ * fought it — and the tagline now sets in the body font.
  */
 function Wordmark({ withTagline = false }) {
   return (
