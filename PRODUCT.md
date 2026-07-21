@@ -42,6 +42,39 @@ reassurance and credibility over aspiration or hype. Never salesy.
   system locked in the brief, not a warm-tinted near-white by reflex.
 - Not proteas-everywhere literalism; fynbos is textural, not decorative.
 
+## Moodboard (captured 2026-07-21 — NOT adopted)
+
+A client Figma moodboard exists and **conflicts with the locked brief palette and
+type stack**. Recorded here for reference only; `src/styles/tokens.css` is
+unchanged and remains the source of truth until a direction change is decided.
+
+Source: https://www.figma.com/design/vpmY9qidQIV2m6nvagVvDW/Moodboard?node-id=1-2
+
+- **Colours:** green `#71955C`, pink `#D94C7C`, orange `#DD735A`, cream `#FDF6E8`.
+  These hexes are *derived, not authoritative*: Figma stores the swatches as stacked
+  semi-transparent fills, so the values above are composites accurate to roughly
+  ±2 per channel. The cream was sampled off an image layer and is the least reliable
+  of the four — confirm it with the client before using it anywhere.
+  The green and orange are lighter cousins of Olive/Terracotta; the pink is new and
+  sits close to the questionnaire's exclusion of neon (see the `tokens.css` header —
+  the questionnaire itself is not in this repo, so the exact section is unconfirmed).
+- **Type:** Amatic SC Bold (display) + Josefin Sans Regular (body) — a hand-lettered
+  voice, versus the brief's Zilla Slab + Work Sans.
+- **Imagery:** Cape landscapes (Table Mountain, coastal ranges), protea close-ups,
+  fynbos interiors.
+- **Fauna:** Cape Sugarbird, Orange-breasted Sunbird, Klipspringer, Geometric
+  Tortoise, Cape Mountain Leopard.
+- **Values / icons:** Protea, Trust, Community — single-weight line illustrations.
+
+The moodboard collides with two anti-references above, both of which need resolving
+before any of it is adopted:
+
+- **"Not proteas-everywhere literalism"** — the moodboard's protea and wildlife
+  emphasis is considerably more literal than the brief allows.
+- **"Cream/sand AI-warm default"** — the moodboard's `#FDF6E8` is precisely the
+  warm-tinted near-white the brief rejects in favour of the committed
+  olive/terracotta/parchment system.
+
 ## Design Principles
 
 - **Honesty is the aesthetic.** Prices are stated plainly and early, never behind a
