@@ -6,57 +6,60 @@
  * §C palette (olive/terracotta/parchment, Zilla Slab + Work Sans) at the
  * client's direction on 2026-07-21.
  *
- * CONTRAST CONTRACT — read before adding or reassigning a colour.
- * The moodboard hues are light: measured against the cream background, none of
- * them reaches WCAG AA (4.5:1) as body text.
+ * The moodboard's cream page colour was dropped for plain white, and the
+ * moodboard pink retired in favour of its orange, on 2026-07-22.
  *
- *   green  #71955c  3.17:1     pink #d94c7c  3.70:1     orange #dd735a  2.93:1
+ * CONTRAST CONTRACT — read before adding or reassigning a colour.
+ * The moodboard hues are light: measured against the white background, neither
+ * reaches WCAG AA (4.5:1) as body text.
+ *
+ *   green #71955c  3.41:1          orange #dd735a  3.15:1
  *
  * So each hue exists twice: the true moodboard value for FILLS AND LARGE
  * DISPLAY TEXT ONLY, and a ~8%-darker "-deep" variant that clears 4.5:1 both as
- * text on cream and as a fill carrying cream text. The semantic aliases below
- * all point at the -deep variants, so anything reading a semantic token is
- * AA-safe by default. Reach for a raw hue only for decoration or 24px+ display.
+ * text on white and as a fill carrying white text (contrast is symmetric, so
+ * one number covers both). The semantic aliases below all point at the -deep
+ * variants, so anything reading a semantic token is AA-safe by default. Reach
+ * for a raw hue only for decoration or 24px+ display.
  */
 
 :root {
   /* Moodboard hues — decoration and large display text only. NOT body text. */
-  --cream: #fdf6e8;
+  --paper: #ffffff;
   --fynbos-green: #71955c;
-  --protea-pink: #d94c7c;
   --sunbird-orange: #dd735a;
 
   /**
-   * Text-safe counterparts. Each clears 4.5:1 on cream AND takes cream text at
-   * 4.5:1, so one variant serves both "coloured text" and "filled button".
+   * Text-safe counterparts. Each clears 4.5:1 on white, which by symmetry also
+   * makes it safe as a fill carrying white text — one variant serves both
+   * "coloured text" and "filled button".
    */
   /**
    * Pale green wash, standing in for the brief's Sage. Used only as a tinted
    * background behind dark text (never as text itself), so it is deliberately
    * light — call sites mix it down further with transparent.
    */
-  --green-wash: color-mix(in srgb, var(--fynbos-green) 42%, var(--cream));
+  --green-wash: color-mix(in srgb, var(--fynbos-green) 42%, var(--paper));
 
-  --fynbos-green-deep: #5c794b; /* 4.55:1 on cream */
-  --protea-pink-deep: #c1446e; /* 4.52:1 on cream */
-  --sunbird-orange-deep: #ad5a47; /* 4.51:1 on cream */
+  --fynbos-green-deep: #5c794b; /* 4.89:1 on white */
+  --sunbird-orange-deep: #ad5a47; /* 4.85:1 on white */
 
   /**
    * Ink and muted grey are carried over from the brief palette — the moodboard
-   * supplies no dark text colour, and cream needs one. Deep Pine is 15.26:1 on
-   * cream; Bark Deep is 5.14:1, still clearing AA on the new background.
+   * supplies no dark text colour, and the page needs one. Deep Pine is 16.42:1
+   * on white; Bark Deep is 5.53:1, still clearing AA.
    */
   --deep-pine: #1c2117;
   --bark-grey: #8a8672;
   --bark-deep: #6c6957;
 
   /* Semantic aliases — what components should actually reference. */
-  --color-bg: var(--cream);
+  --color-bg: var(--paper);
   --color-text: var(--deep-pine);
   --color-text-muted: var(--bark-deep);
   --color-primary: var(--fynbos-green-deep);
-  --color-accent: var(--protea-pink-deep); /* primary CTA only */
-  --color-accent-soft: color-mix(in srgb, var(--fynbos-green) 34%, var(--cream));
+  --color-accent: var(--sunbird-orange-deep); /* primary CTA only */
+  --color-accent-soft: color-mix(in srgb, var(--fynbos-green) 34%, var(--paper));
   --color-border: color-mix(in srgb, var(--bark-grey) 32%, transparent);
 
   /**

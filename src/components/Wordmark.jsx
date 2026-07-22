@@ -2,7 +2,7 @@ import './Wordmark.css'
 
 /**
  * Text-only wordmark. No logo exists yet (brief §C) — "bos" is picked out in
- * Protea Pink so the mark carries the fynbos metaphor without an icon.
+ * Sunbird Orange so the mark carries the fynbos metaphor without an icon.
  *
  * The tagline was previously set in Alex Brush, the script+sans lockup admired
  * on lovegreen.co.za (questionnaire §08). The moodboard type stack dropped the

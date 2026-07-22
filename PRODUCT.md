@@ -49,26 +49,31 @@ The client Figma moodboard **replaced the brief §C palette and type stack** on
 Amatic SC + Josefin Sans; the olive/terracotta/parchment system and
 Zilla Slab + Work Sans are gone.
 
+**Amended 2026-07-22 at the client's direction:** the moodboard cream was
+dropped for plain white as the page background, and the moodboard pink was
+retired — the accent (primary CTA, wordmark) is now Sunbird Orange. The pink
+tokens no longer exist.
+
 Two adaptations were needed and are load-bearing — read `tokens.css`'s contrast
 contract before touching colour:
 
-- **Every moodboard hue fails WCAG AA as body text on the cream background**
-  (green 3.17:1, pink 3.70:1, orange 2.93:1). Each hue therefore exists twice:
-  the true value for fills and 24px+ display, and a ~8%-darker `-deep` variant
-  that clears 4.5:1. The semantic aliases point at the `-deep` variants.
+- **Every moodboard hue fails WCAG AA as body text on the white background**
+  (green 3.41:1, orange 3.15:1). Each hue therefore exists twice: the true value
+  for fills and 24px+ display, and a ~8%-darker `-deep` variant that clears
+  4.5:1. The semantic aliases point at the `-deep` variants.
 - **Prices set in the body font, not Amatic SC.** Hand-lettered numerals are
   ambiguous at a glance, which contradicts "honesty is the aesthetic".
 
 Source: https://www.figma.com/design/vpmY9qidQIV2m6nvagVvDW/Moodboard?node-id=1-2
 
-- **Colours:** green `#71955C`, pink `#D94C7C`, orange `#DD735A`, cream `#FDF6E8`.
-  These hexes are *derived, not authoritative*: Figma stores the swatches as stacked
-  semi-transparent fills, so the values above are composites accurate to roughly
-  ±2 per channel. The cream was sampled off an image layer and is the least reliable
-  of the four — confirm it with the client before using it anywhere.
-  The green and orange are lighter cousins of Olive/Terracotta; the pink is new and
-  sits close to the questionnaire's exclusion of neon (see the `tokens.css` header —
-  the questionnaire itself is not in this repo, so the exact section is unconfirmed).
+- **Colours as captured:** green `#71955C`, pink `#D94C7C`, orange `#DD735A`,
+  cream `#FDF6E8`. These hexes are *derived, not authoritative*: Figma stores the
+  swatches as stacked semi-transparent fills, so the values above are composites
+  accurate to roughly ±2 per channel. The green and orange are lighter cousins of
+  Olive/Terracotta.
+  **In use, green and orange only** — the 2026-07-22 amendment retired the pink,
+  and the cream (the least reliable of the four, sampled off an image layer)
+  became moot when the background went white.
 - **Type:** Amatic SC Bold (display) + Josefin Sans Regular (body) — a hand-lettered
   voice, versus the brief's Zilla Slab + Work Sans.
 - **Imagery:** Cape landscapes (Table Mountain, coastal ranges), protea close-ups,
@@ -80,7 +85,10 @@ Source: https://www.figma.com/design/vpmY9qidQIV2m6nvagVvDW/Moodboard?node-id=1-
 Two anti-references above are now **superseded** by this adoption and should be
 read as historical:
 
-- **"Cream/sand AI-warm default"** — no longer holds; `#FDF6E8` is the background.
+- **"Cream/sand AI-warm default"** — the brief's olive/terracotta/parchment
+  system is gone. Since 2026-07-22 the background is plain white, so the
+  "warm-tinted near-white" failure mode this bullet warned about is moot; warmth
+  now comes from the green and orange, not the page colour.
 - **"Not proteas-everywhere literalism"** — still the standing guidance for
   imagery. The colour and type direction was adopted; the protea/wildlife
   imagery has *not* been implemented, and this constraint still applies to it.
