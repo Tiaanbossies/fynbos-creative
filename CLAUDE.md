@@ -1,0 +1,128 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Commands
+
+```bash
+npm run dev      # Vite dev server
+npm run build    # vite build && node scripts/prerender.mjs — BOTH stages matter
+npm run lint     # oxlint
+npm run preview  # serve dist/ locally; use this to check the real built output
+```
+
+There is **no test framework** in this project — no runner, no test files, no `test` script. Do not
+invent a `npm test` invocation. Verification here means `npm run build` (the prerender stage throws
+on template drift, so it is a real check), `npm run lint`, and looking at the site in a browser.
+
+## Architecture
+
+A React 19 + Vite SPA for a marketing/lead-generation site. No accounts, no API, no database. The
+only server-side behaviour is a Formspree POST. Success for this product is a WhatsApp click.
+
+### The two-headed metadata system (the least obvious thing here)
+
+`src/lib/seo.js` is the single source of truth for every route's title/description/robots, and it is
+read from **both** runtimes:
+
+- `src/lib/useSeo.js` — a React hook that updates `document.head` on client navigation.
+- `scripts/prerender.mjs` — a Node script that runs after `vite build` and writes a static
+  `dist/<route>/index.html` per route with that route's metadata, Open Graph/Twitter tags, and
+  FAQPage JSON-LD on `/faq`. It also emits `dist/sitemap.xml`.
+
+Consequences:
+
+- **`seo.js` must stay free of React and browser imports.** The Node prerender imports it directly.
+- The prerender rewrites tags in `index.html` by regex and **throws if a tag is missing**. Editing
+  the `<head>` in `index.html` can break the build — that is deliberate, so a template change can
+  never silently ship pages carrying stale homepage metadata.
+- It prerenders `<head>` only; `#root` stays empty and React hydrates it. Do not expect page bodies
+  in `dist/<route>/index.html`.
+
+### Adding a route
+
+A new page needs edits in **three** places or it half-exists:
+
+1. `src/lib/nav.js` — `NAV_LINKS` (Header and Footer both read this, so they cannot drift).
+2. `src/lib/seo.js` — a `ROUTE_META` entry (otherwise it falls through to the noindex 404 meta).
+3. `src/App.jsx` — a `<Route>` **and** its path added to `BUILT_ROUTES`.
+
+`BUILT_ROUTES` exists because any `NAV_LINKS` entry not in that set is auto-routed to
+`PagePlaceholder`. Forgetting it means the placeholder shadows the real page with a duplicate route.
+
+Routes deliberately absent (Work, Industries, Partners) are documented in `nav.js` — they need real
+client work and partner consent before shipping. Do not add them back to fill out the nav.
+
+### Styling and design tokens
+
+`src/styles/tokens.css` holds the palette, type scale, and spacing. **Read its header comment before
+touching any colour** — it carries a contrast contract, not just values. Each brand hue exists twice:
+the raw moodboard value (fills and 24px+ display only) and a `-deep` variant that clears WCAG AA
+4.5:1. Semantic aliases (`--color-text`, `--color-accent`, …) all point at the `-deep` variants, so
+anything reading a semantic token is AA-safe by default. Components should reference semantic
+aliases, not raw hues.
+
+`--color-accent` is reserved for the primary CTA and the wordmark. It is not a general-purpose
+highlight.
+
+**Stylesheet import order in `src/main.jsx` is load-bearing** and must stay above the `App` import:
+component CSS is pulled in transitively by `App`, so importing `App` first put every component
+stylesheet ahead of `base.css` in the bundle, and component rules that merely tied on specificity
+silently lost.
+
+### `src/lib/` — data modules
+
+Content that appears in more than one place lives here as a plain export, not inline in JSX:
+`tiers.js` (pricing), `services.js`, `faqs.js` (also feeds JSON-LD), `nav.js`, `whatsapp.js`.
+Editing copy usually means editing one of these, not a component.
+
+`motion.js` wraps anime.js. Both helpers no-op under `prefers-reduced-motion`, and `revealOnScroll`
+is written so content is never gated on animation — elements near the viewport reveal immediately
+and everything else has a bounded timeout, so a non-scrolling crawler or PDF capture still sees the
+page.
+
+### Contact form
+
+`src/lib/contact.js` posts to Formspree using `VITE_FORMSPREE_ID`. Vite inlines `VITE_*` at **build**
+time, so it must be set before `npm run build` — a runtime env var does nothing. Copy `.env.example`
+to `.env` for local work.
+
+Validation is deliberately permissive (the audience is non-technical; a rejected-but-valid phone
+number is a lost enquiry). Submission never resolves quietly on failure — if the ID is missing it
+throws so the UI shows the WhatsApp/email fallback rather than a false "thanks, we'll be in touch".
+Preserve that property when touching this file.
+
+### Deployment
+
+Static build served by Nginx in Docker, behind a Caddy that already runs on the **host** via systemd:
+
+- `Dockerfile` — multi-stage; fails the build loudly if `VITE_FORMSPREE_ID` is empty.
+- `docker-compose.yml` — publishes on `127.0.0.1:8080` only. There is no Caddy service in the stack
+  on purpose; a second Caddy would fight the host one for ports 80/443.
+- `Caddyfile` — **not loaded by compose.** It is the vhost block to append to `/etc/caddy/Caddyfile`
+  on the host. A syntax error there takes the other sites on that box down too, so
+  `caddy validate` before reloading.
+- `nginx.conf` — note the comment on `add_header`: nginx does not merge headers across levels, so a
+  `location` block with any `add_header` discards inherited ones. The apparent duplication is
+  required; deleting it silently drops security headers for that location.
+
+## Product and design context
+
+`PRODUCT.md` is the authority on audience, voice, anti-references, and the adopted moodboard
+(palette, type stack, and what was superseded and when). Consult it before making design or copy
+decisions — several constraints there are explicit rejections of defaults an agent would otherwise
+reach for (no corporate "we", no invented testimonials or statistics, no generic SaaS look, prices
+stated plainly and early rather than behind a "contact us").
+
+`.impeccable/critique/` holds prior UI critique output, useful for knowing what has already been
+flagged and addressed.
+
+## Conventions
+
+Commit messages in this repo are conventional-commit prefixed and unusually substantial: they
+explain *why* alongside *what*, and state explicitly what was verified and what was **not**. Match
+that — a commit here that hides an unverified claim is worse than one that admits the gap.
+
+Comments in this codebase explain rationale and failure modes rather than restating the code. Match
+that density and register; several of them document non-obvious traps (nginx headers, stylesheet
+order, prerender throwing, Vite build-time inlining) that exist precisely because someone hit them.
