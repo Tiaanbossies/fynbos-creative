@@ -1,0 +1,53 @@
+/* Hairlines top and bottom, per the mockup — the row is set apart from the
+   hero above and the offer below without becoming a card. */
+.case {
+  padding-block: 0;
+}
+
+.case-grid {
+  padding-block: clamp(var(--space-8), 4vw, var(--space-12));
+  border-block: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+/* The one place the mockup lifts an image off the page. Real depth here is a
+   deliberate departure from the flat treatment — see tokens.css. */
+.case-shot {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-media);
+}
+
+.case-shot img {
+  width: 100%;
+  height: auto;
+}
+
+.case-kicker {
+  font-family: var(--font-script);
+  font-size: 1.625rem;
+  line-height: 1.2;
+  color: var(--color-accent);
+}
+
+.case-heading {
+  margin-block-start: var(--space-2);
+  font-size: var(--text-2xl);
+  line-height: 1.3;
+}
+
+.case-body {
+  margin-block-start: var(--space-4);
+  color: var(--color-text-body);
+  line-height: 1.7;
+  max-width: 56ch;
+}
+
+@media (min-width: 60rem) {
+  .case-grid {
+    grid-template-columns: 1fr 1.4fr;
+    gap: var(--space-12);
+  }
+}

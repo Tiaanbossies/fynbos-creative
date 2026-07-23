@@ -71,17 +71,23 @@ function Contact() {
   return (
     <section className="section contact" id="contact">
       <div className="container">
-        <p className="eyebrow">Get in touch</p>
-        <h2 className="contact-heading">Let&rsquo;s talk about your business.</h2>
+        <h2 className="contact-heading">Prefer to just ask a question?</h2>
         <p className="contact-lede">
-          The quickest way to reach us is WhatsApp — you&rsquo;ll get a reply from Tiaan, not a
-          call centre. Prefer to write instead? Leave your details below.
+          Send a quick message — you&rsquo;ll get a reply from Tiaan on WhatsApp
+          or email, whichever is easier for you.
         </p>
 
+        {/**
+          * WhatsApp stays FIRST in the DOM: brief §B.1 makes it the primary
+          * action, and on a phone this block is what a visitor meets before
+          * the form. The mockup's desktop arrangement — form left, CTA right —
+          * is done with grid `order` in Contact.css, so the source order and
+          * the tab order still lead with WhatsApp.
+          */}
         <div className="contact-layout">
           <div className="contact-direct">
             <a
-              className="btn-accent"
+              className="btn-accent contact-direct-cta"
               data-primary-cta
               href={buildWhatsAppLink()}
               target="_blank"

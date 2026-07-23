@@ -1,13 +1,11 @@
 .pricing-heading {
-  margin-block-start: var(--space-3);
-  font-size: var(--text-3xl);
-  max-width: 18ch;
+  font-size: var(--text-2xl);
 }
 
 .pricing-lede {
-  margin-block-start: var(--space-4);
-  max-width: 52ch;
+  margin-block-start: var(--space-2);
   color: var(--color-text-muted);
+  max-width: 52ch;
 }
 
 /* The build fee is the one number that must not be skimmed past (brief §H). */
@@ -16,17 +14,99 @@
   font-weight: 600;
 }
 
-/* The tier grid itself lives in PricingTiers.css, shared with the pricing page. */
-
-.pricing-foot {
-  margin-block-start: var(--space-12);
+.price-cards {
+  margin-block-start: var(--space-6);
+  padding: 0;
+  list-style: none;
   display: grid;
-  justify-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
   gap: var(--space-4);
 }
 
-.pricing-note {
+.price-card {
+  padding: var(--space-6);
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.price-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+/* Bloom. A Terracotta border, and nothing else — no badge, no claim. The
+   2px border absorbs a pixel of padding so the card does not resize. */
+.price-card.is-featured {
+  border: 2px solid var(--color-accent);
+  padding: calc(var(--space-6) - 1px);
+}
+
+.price-card-name {
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.price-card-retainer {
+  margin-block: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-primary);
+}
+
+.price-card.is-featured .price-card-retainer {
+  color: var(--color-accent);
+}
+
+/* The mockup sets this in --bark-grey (3.62:1). Body copy takes --bark-deep. */
+.price-card-summary {
   font-size: var(--text-sm);
+  line-height: 1.6;
   color: var(--color-text-muted);
-  max-width: 52ch;
+}
+
+.price-table {
+  margin-block-start: var(--space-6);
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.price-table th,
+.price-table td {
+  padding: var(--space-2) 0;
+  text-align: left;
+  font-weight: 400;
+}
+
+.price-table thead th {
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.price-table tbody tr:not(:last-child) th,
+.price-table tbody tr:not(:last-child) td {
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.price-table thead th:not(:first-child),
+.price-table td {
+  text-align: center;
+  padding-inline: var(--space-2);
+}
+
+.price-yes {
+  color: var(--color-accent);
+}
+
+/* Decorative only — the adjacent visually-hidden "Not included" carries the
+   meaning, so this never has to clear a text contrast bar. */
+.price-no {
+  color: var(--bark-grey);
 }

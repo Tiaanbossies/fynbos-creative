@@ -1,8 +1,14 @@
+/**
+ * Olive footer, per the mockup — the page's one drenched surface, and the
+ * only place the --on-olive tokens are used. Both were measured against
+ * #3d5a3a rather than the page background: --on-olive 7.27:1, and
+ * --on-olive-muted 5.55:1. Do not set text here in a --paper-family token.
+ */
 .site-footer {
   margin-block-start: var(--section-y);
   padding-block-start: var(--space-12);
-  border-top: 1px solid var(--color-border);
-  background: color-mix(in srgb, var(--sage) 12%, var(--paper));
+  background: var(--color-primary);
+  color: var(--on-olive);
 }
 
 .footer-inner {
@@ -17,7 +23,7 @@
 }
 
 .footer-blurb {
-  color: var(--color-text-muted);
+  color: var(--on-olive-muted);
   font-size: var(--text-sm);
   max-width: 34ch;
 }
@@ -30,14 +36,14 @@
 
 .footer-nav a,
 .footer-contact a {
-  color: var(--color-text);
+  color: var(--on-olive);
   text-decoration: none;
   font-size: var(--text-sm);
 }
 
 .footer-nav a:hover,
 .footer-contact a:hover {
-  color: var(--color-primary);
+  color: var(--on-olive);
   text-decoration: underline;
 }
 
@@ -50,8 +56,8 @@
 .footer-legal {
   margin-block-start: var(--space-8);
   padding-block: var(--space-4);
-  border-top: 1px solid var(--color-border);
-  color: var(--color-text-muted);
+  border-top: 1px solid color-mix(in srgb, var(--on-olive) 22%, transparent);
+  color: var(--on-olive-muted);
   font-size: var(--text-sm);
   /**
    * The fixed mobile CTA sits over the bottom of the page. Without this the
@@ -59,6 +65,19 @@
    * underneath it.
    */
   padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* On olive, the wordmark's Olive-on-Parchment treatment would vanish. */
+.site-footer .wordmark-name {
+  color: var(--on-olive);
+}
+
+.site-footer .wordmark-accent {
+  color: var(--sage);
+}
+
+.site-footer .wordmark-tagline {
+  color: var(--on-olive-muted);
 }
 
 @media (min-width: 48rem) {

@@ -1,0 +1,61 @@
+.values {
+  padding-block: 0;
+}
+
+.values-grid {
+  padding-block: clamp(var(--space-12), 6vw, var(--space-24));
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.value {
+  text-align: center;
+}
+
+.value-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 auto var(--space-4);
+}
+
+.value-title {
+  font-size: var(--text-lg);
+  line-height: 1.3;
+}
+
+/* The mockup sets this in --bark-grey (3.62:1) at 14px. --bark-deep instead. */
+.value-body {
+  margin-block-start: var(--space-3);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.values-mark {
+  width: 4.375rem;
+  height: 4.375rem;
+  justify-self: center;
+}
+
+@media (min-width: 60rem) {
+  .values-grid {
+    grid-template-columns: repeat(3, 1fr) auto;
+    gap: 0;
+  }
+
+  .value {
+    padding-inline: var(--space-8);
+  }
+
+  /* Hairline dividers between the three, not around them — open columns
+     rather than cards. */
+  .value:not(:last-of-type) {
+    border-right: 1px solid var(--color-border);
+  }
+
+  .values-mark {
+    margin-inline-start: var(--space-8);
+  }
+}

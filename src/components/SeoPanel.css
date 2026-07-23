@@ -1,0 +1,124 @@
+.seo {
+  padding-block: 0;
+}
+
+.seo-grid {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(var(--space-12), 6vw, var(--space-24));
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--space-12);
+  align-items: center;
+}
+
+/* Oversized watermark leaf, barely there. Sits behind both columns. */
+.seo-leaf {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  translate: 0 -50%;
+  width: 22.5rem;
+  height: 22.5rem;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.seo-mock {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-6);
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-panel);
+}
+
+.seo-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+}
+
+.seo-google {
+  font-family: Arial, sans-serif;
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.seo-g1 {
+  color: #4285f4;
+}
+.seo-g2 {
+  color: #ea4335;
+}
+.seo-g3 {
+  color: #fbbc05;
+}
+.seo-g4 {
+  color: #34a853;
+}
+
+.seo-query {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.seo-result {
+  margin-block-start: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-primary);
+  border-radius: var(--radius-btn);
+  color: var(--on-olive);
+  font-size: var(--text-sm);
+}
+
+.seo-bars {
+  margin-block-start: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.seo-bar {
+  height: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--color-border);
+}
+
+.seo-bar.is-strong {
+  height: 8px;
+  background: var(--color-primary);
+}
+
+.seo-bar.is-spaced {
+  margin-block-start: var(--space-2);
+}
+
+.seo-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.seo-heading {
+  font-size: var(--text-3xl);
+  line-height: 1.2;
+  color: var(--color-primary);
+}
+
+.seo-body {
+  margin-block-start: var(--space-4);
+  max-width: 44ch;
+  color: var(--color-text-body);
+  line-height: 1.7;
+}
+
+@media (min-width: 60rem) {
+  .seo-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

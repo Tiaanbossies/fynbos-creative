@@ -1,27 +1,94 @@
+/**
+ * Split hero. The header is solid above it now, so the hero starts below the
+ * header rather than pulling up underneath it.
+ */
 .hero {
-  position: relative;
+  padding-block: clamp(var(--space-8), 5vw, var(--space-16))
+    clamp(var(--space-12), 6vw, var(--space-24));
+}
+
+.hero-grid {
+  display: grid;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.hero-headline {
+  font-size: var(--text-hero);
+  font-weight: 600;
+  line-height: 1.02;
+  color: var(--color-text);
+}
+
+/* The mockup sets one word in Terracotta. It is the only place accent colour
+   is used as type — everywhere else Terracotta is the CTA and the wordmark. */
+.hero-headline-accent {
+  color: var(--color-accent);
+}
+
+.hero-sub {
+  margin-block-start: var(--space-6);
+  max-width: 46ch;
+  font-size: var(--text-lg);
+  color: var(--color-text-body);
+}
+
+.hero-cta {
+  margin-block-start: var(--space-8);
+}
+
+/**
+ * Founder strip — divided from the CTA by a hairline, per the mockup. Sits in
+ * the copy column so it reads as part of the promise, not as a caption.
+ */
+.hero-founder {
+  margin-block-start: var(--space-8);
+  padding-block-start: var(--space-6);
+  border-top: 1px solid var(--color-border);
   display: flex;
-  align-items: flex-end;
-  /**
-   * svh, not vh: on mobile browsers vh measures the viewport with the URL bar
-   * retracted, so a 100vh hero pushes its own CTA below the fold on load —
-   * exactly what brief §B.1 forbids.
-   *
-   * The header is transparent and overlaps the hero, so the hero owns the full
-   * screen and pads its content clear of the header instead.
-   */
-  min-height: 100svh;
-  margin-block-start: calc(var(--header-h) * -1);
-  overflow: hidden;
-  background: var(--deep-pine);
+  gap: var(--space-4);
+  align-items: center;
+  max-width: 52ch;
+}
+
+.hero-founder-photo {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.hero-founder-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/**
+ * The mockup sets this in #8A8672 (--bark-grey, 3.62:1). That fails AA and is
+ * the exact trap tokens.css documents, so it takes --bark-deep instead.
+ */
+.hero-founder-blurb {
+  margin-block-start: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.hero-media-wrap {
+  position: relative;
 }
 
 .hero-media {
-  position: absolute;
-  inset: 0;
-  /* The poster frame — paints immediately, long before the video arrives. */
+  position: relative;
+  /* Poster paints immediately, long before the video arrives. */
   background-size: cover;
   background-position: center;
+  background-color: var(--deep-pine);
+  border-radius: var(--radius-hero);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
 }
 
 .hero-video {
@@ -37,55 +104,28 @@
   opacity: 1;
 }
 
-/**
- * Legibility, not decoration. The footage has bright passages that would eat
- * Parchment text, so the copy sits on a Deep Pine gradient — heaviest at the
- * bottom where the text is, clear at the top where the footage should read.
- */
-.hero-scrim {
+.hero-leaf {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--deep-pine) 88%, transparent) 0%,
-    color-mix(in srgb, var(--deep-pine) 62%, transparent) 38%,
-    color-mix(in srgb, var(--deep-pine) 20%, transparent) 78%,
-    color-mix(in srgb, var(--deep-pine) 35%, transparent) 100%
-  );
+  top: -1.25rem;
+  right: -1.25rem;
+  width: 5.5rem;
+  height: 5.5rem;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
-.hero-content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding-block: var(--space-16);
-  /* Clear the fixed mobile CTA so the hero's own CTA is never buried. */
-  padding-bottom: calc(var(--space-16) + 4rem);
-  color: var(--paper);
-}
+@media (min-width: 60rem) {
+  .hero-grid {
+    grid-template-columns: 1.3fr 1fr;
+    gap: var(--space-16);
+  }
 
-.hero-headline {
-  font-size: var(--text-hero);
-  font-weight: 700;
-  color: var(--paper);
-  max-width: 14ch;
-}
+  .hero-copy {
+    padding-block-start: var(--space-8);
+  }
 
-.hero-sub {
-  font-size: var(--text-lg);
-  color: color-mix(in srgb, var(--paper) 88%, transparent);
-  max-width: 52ch;
-}
-
-/* Visual treatment comes from .btn-accent in base.css. */
-.hero-cta {
-  margin-block-start: var(--space-2);
-}
-
-@media (min-width: 48rem) {
-  .hero-content {
-    padding-bottom: var(--space-24);
+  .hero-media {
+    aspect-ratio: auto;
+    height: 32.5rem;
   }
 }
