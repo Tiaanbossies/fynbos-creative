@@ -42,7 +42,7 @@
   font-weight: 600;
   text-decoration: none;
   border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-subtle);
+  box-shadow: var(--shadow-card);
   transition: transform var(--duration-fast) var(--ease-out);
 }
 

@@ -1,88 +1,95 @@
 /**
  * Fynbos Creative — design tokens.
  *
- * Palette and type stack come from the client Figma moodboard (see PRODUCT.md
- * §Moodboard for the source link). This SUPERSEDES the previously locked brief
- * §C palette (olive/terracotta/parchment, Zilla Slab + Work Sans) at the
- * client's direction on 2026-07-21.
+ * Palette and type stack come from the "Fynbos Home" Claude Design mockup
+ * (project "Fynbos Creative home page mockups"), adopted 2026-07-23 at the
+ * client's direction.
  *
- * The moodboard's cream page colour was dropped for plain white, and the
- * moodboard pink retired in favour of its orange, on 2026-07-22.
+ * This RESTORES the brief §C system — olive / terracotta / parchment, Zilla
+ * Slab + Work Sans, with Alex Brush back as the script accent — and reverses
+ * the 2026-07-21 moodboard adoption (Amatic SC + Josefin Sans, cream) and the
+ * 2026-07-22 white/orange amendment. The moodboard hues are gone.
  *
  * CONTRAST CONTRACT — read before adding or reassigning a colour.
- * The moodboard hues are light: measured against the white background, neither
- * reaches WCAG AA (4.5:1) as body text.
+ * Unlike the moodboard palette, these hues are dark enough to carry body text
+ * directly, so there is no "-deep" shadow palette any more. Measured on the
+ * #fafffb page background:
  *
- *   green #71955c  3.41:1          orange #dd735a  3.15:1
+ *   terracotta #A8503D  5.35:1      olive #3D5A3A  7.63:1
+ *   body ink   #3a3a30 11.36:1      ink   #1C2117 16.23:1
  *
- * So each hue exists twice: the true moodboard value for FILLS AND LARGE
- * DISPLAY TEXT ONLY, and a ~8%-darker "-deep" variant that clears 4.5:1 both as
- * text on white and as a fill carrying white text (contrast is symmetric, so
- * one number covers both). The semantic aliases below all point at the -deep
- * variants, so anything reading a semantic token is AA-safe by default. Reach
- * for a raw hue only for decoration or 24px+ display.
+ * ONE EXCEPTION, and it is the trap this palette has fallen into before.
+ * The mockup sets its 13–14px secondary copy in #8A8672, which is 3.62:1 —
+ * below AA. That is the same failure commit 76144f6 already had to fix once.
+ * So the grey exists twice: --bark-grey for hairlines and decoration ONLY,
+ * and --bark-deep (5.47:1) for anything a visitor has to read. The semantic
+ * alias --color-text-muted points at --bark-deep. Never set text in
+ * --bark-grey.
  */
 
 :root {
-  /* Moodboard hues — decoration and large display text only. NOT body text. */
-  --paper: #ffffff;
-  --fynbos-green: #71955c;
-  --sunbird-orange: #dd735a;
+  /* Brief §C palette, as drawn in the mockup. */
+  --paper: #fafffb;
+  --olive: #3d5a3a;
+  --terracotta: #a8503d;
+  --terracotta-dark: #8a3d2e; /* link hover only */
+  --parchment: #e4decd;
+  --parchment-soft: #f0ecdf; /* inner table rules, lighter than --parchment */
+  --sage: #b9cba0;
+  --sage-wash: #f1f5ec;
 
-  /**
-   * Text-safe counterparts. Each clears 4.5:1 on white, which by symmetry also
-   * makes it safe as a fill carrying white text — one variant serves both
-   * "coloured text" and "filled button".
-   */
-  /**
-   * Pale green wash, standing in for the brief's Sage. Used only as a tinted
-   * background behind dark text (never as text itself), so it is deliberately
-   * light — call sites mix it down further with transparent.
-   */
-  --green-wash: color-mix(in srgb, var(--fynbos-green) 42%, var(--paper));
-
-  --fynbos-green-deep: #5c794b; /* 4.89:1 on white */
-  --sunbird-orange-deep: #ad5a47; /* 4.85:1 on white */
-
-  /**
-   * Ink and muted grey are carried over from the brief palette — the moodboard
-   * supplies no dark text colour, and the page needs one. Deep Pine is 16.42:1
-   * on white; Bark Deep is 5.53:1, still clearing AA.
-   */
+  /* Ink. Deep Pine survives every palette change — it is the one constant. */
   --deep-pine: #1c2117;
-  --bark-grey: #8a8672;
-  --bark-deep: #6c6957;
+  --body-ink: #3a3a30; /* long-form paragraphs; softer than full ink */
+
+  --bark-grey: #8a8672; /* 3.62:1 — HAIRLINES AND DECORATION ONLY, never text */
+  --bark-deep: #6c6957; /* 5.47:1 — the readable muted grey */
+
+  /**
+   * Footer runs inverted on olive. Both values are measured against #3d5a3a,
+   * not against --paper, so they do not follow the rules above.
+   */
+  --on-olive: #fbf8f1; /* 7.27:1 on olive */
+  --on-olive-muted: #cfe0c4; /* 5.55:1 on olive */
 
   /* Semantic aliases — what components should actually reference. */
   --color-bg: var(--paper);
   --color-text: var(--deep-pine);
+  --color-text-body: var(--body-ink);
   --color-text-muted: var(--bark-deep);
-  --color-primary: var(--fynbos-green-deep);
-  --color-accent: var(--sunbird-orange-deep); /* primary CTA only */
-  --color-accent-soft: color-mix(in srgb, var(--fynbos-green) 34%, var(--paper));
-  --color-border: color-mix(in srgb, var(--bark-grey) 32%, transparent);
+  --color-primary: var(--olive);
+  --color-accent: var(--terracotta); /* primary CTA and the wordmark */
+  --color-accent-soft: var(--sage-wash);
+  --color-border: var(--parchment);
+  --color-border-soft: var(--parchment-soft);
 
   /**
-   * Type — moodboard stack. Amatic SC is a condensed hand-lettered face that
-   * renders optically smaller and lighter than a slab serif at the same px, so
-   * the display steps below are scaled up to compensate and headings set at 700
-   * (Amatic SC ships 400/700 only — asking for 600 triggers synthetic bolding).
+   * Type — brief §C stack. Zilla Slab is a true slab serif with normal
+   * metrics, so the display steps below are the un-inflated values: the ~1.25x
+   * scale-up that offset Amatic SC's condensed lettering is reversed, and
+   * headings go back to 600 (Zilla Slab ships the full 400–700 range, so a
+   * real semibold exists and nothing is synthetically emboldened).
+   *
+   * Alex Brush returns as a script accent for section kickers only. It is
+   * decorative and never sets anything a visitor must read to understand the
+   * page.
    */
-  --font-heading: 'Amatic SC', Georgia, serif;
-  --font-body: 'Josefin Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Zilla Slab', Georgia, serif;
+  --font-body: 'Work Sans', system-ui, -apple-system, sans-serif;
+  --font-script: 'Alex Brush', cursive;
 
   /* Fluid type scale. Mobile legibility outranks personality (brief §C). */
   --text-sm: 0.875rem;
   --text-base: 1rem;
   --text-lg: 1.125rem;
-  --text-xl: clamp(1.25rem, 1rem + 1vw, 1.5rem);
-  /* Display steps: ~1.25x the previous slab-serif values to offset Amatic SC. */
-  --text-2xl: clamp(1.875rem, 1.35rem + 2.3vw, 2.5rem);
-  --text-3xl: clamp(2.35rem, 1.5rem + 3.8vw, 3.45rem);
-  --text-hero: clamp(2.8rem, 1.5rem + 5.8vw, 5rem);
+  --text-xl: clamp(1.125rem, 1rem + 0.6vw, 1.35rem);
+  --text-2xl: clamp(1.5rem, 1.15rem + 1.5vw, 2rem);
+  --text-3xl: clamp(1.75rem, 1.2rem + 2.4vw, 2.5rem);
+  /* Mockup sets the hero at 64px flat; this reaches it at the top end. */
+  --text-hero: clamp(2.25rem, 1.2rem + 4.6vw, 4rem);
 
   --leading-tight: 1.15;
-  --leading-body: 1.6;
+  --leading-body: 1.65;
 
   /* Spacing — 4px base. */
   --space-1: 0.25rem;
@@ -95,25 +102,33 @@
   --space-16: 4rem;
   --space-24: 6rem;
 
-  /* Generous whitespace between sections — plato.coffee reference. */
-  --section-y: clamp(var(--space-16), 10vw, var(--space-24));
+  --section-y: clamp(var(--space-16), 8vw, var(--space-24));
   --container-max: 72rem;
-  --container-pad: clamp(var(--space-4), 5vw, var(--space-8));
+  --container-pad: clamp(var(--space-6), 5vw, 3.75rem);
 
   --radius-sm: 4px;
-  --radius-md: 8px;
+  --radius-md: 10px;
+  --radius-btn: 8px;
   --radius-pill: 999px;
+  /* The mockup's "organic" shape: two square corners, two heavily rounded. */
+  --radius-hero: 4px 40px 4px 40px;
 
   /**
-   * Shadows stay barely-there on purpose. The questionnaire admires
-   * plato.coffee for having "no heavy card/border treatment" — depth here
-   * should read as warmth, not as a SaaS dashboard.
+   * NOTE — this is a deliberate departure from a standing anti-reference.
+   * PRODUCT.md admires plato.coffee for "no heavy card/border treatment", and
+   * the previous tokens kept shadows barely-there for that reason. The adopted
+   * mockup draws real depth: bordered price cards, lifted screenshots, a
+   * shadowed CTA. The mockup won, so the shadows below are its values. If the
+   * flatter treatment is ever restored, these are the tokens to pull back.
    */
-  --shadow-subtle: 0 1px 2px color-mix(in srgb, var(--deep-pine) 6%, transparent);
-  --shadow-lift: 0 6px 20px color-mix(in srgb, var(--deep-pine) 10%, transparent);
+  --shadow-card: 0 12px 26px rgb(0 0 0 / 10%);
+  --shadow-panel: 0 16px 40px rgb(0 0 0 / 10%);
+  --shadow-media: 0 14px 34px rgb(0 0 0 / 14%);
+  --shadow-cta: 0 6px 18px rgb(168 80 61 / 30%);
+  --shadow-cta-hover: 0 10px 22px rgb(168 80 61 / 40%);
 
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --duration-fast: 160ms;
+  --duration-fast: 150ms;
   --duration-base: 320ms;
 
   --header-h: 4.5rem;

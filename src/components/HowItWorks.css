@@ -43,7 +43,7 @@
   width: 3rem;
   height: 3rem;
   color: var(--color-primary);
-  background: color-mix(in srgb, var(--green-wash) 34%, transparent);
+  background: color-mix(in srgb, var(--sage) 34%, transparent);
   border-radius: var(--radius-pill);
 }
 
