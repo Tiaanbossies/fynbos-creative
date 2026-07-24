@@ -27,7 +27,7 @@
  * (brief §H forbids fabricated statistics).
  */
 .pricing-tier.is-featured {
-  background: color-mix(in srgb, var(--green-wash) 22%, transparent);
+  background: color-mix(in srgb, var(--sage) 22%, transparent);
   /**
    * Stacked, the wash needs room or the text sits on its edge. The negative
    * margin bleeds it back out so Bloom's copy stays on the same left edge as

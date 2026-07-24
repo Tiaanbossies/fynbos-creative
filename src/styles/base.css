@@ -94,28 +94,38 @@ textarea {
 }
 
 /**
- * The primary CTA treatment. Sunbird Orange is reserved for this and nothing
- * else — if you are reaching for --color-accent outside a primary CTA, reach
- * for something else. Shared by the hero and pricing CTAs; the sticky bar keeps
- * its own sizing but the same colour contract.
+ * The primary CTA treatment — the mockup's .btn-wa. Terracotta is reserved for
+ * this and the wordmark, nothing else; if you are reaching for --color-accent
+ * outside a primary CTA, reach for something else. Shared by the hero, pricing
+ * and footer CTAs; the sticky bar keeps its own sizing but the same contract.
  *
- * The fill is --color-accent (Sunbird Orange Deep), not the raw moodboard
- * orange: white text on raw #dd735a is only 3.15:1, so the raw hue cannot carry
- * button-sized text. The deep variant is 4.85:1.
+ * Text is pure white rather than --paper: white on #A8503D is 5.41:1, and the
+ * near-white page colour would sit fractionally lower for no visual gain.
+ *
+ * The mockup lifts on hover with shadow AND translate together — a bare
+ * translate reads as a jump rather than a rise.
  */
 .btn-accent {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-2);
   min-height: 3rem;
-  padding: var(--space-3) var(--space-8);
+  padding: var(--space-4) 26px;
   background: var(--color-accent);
-  color: var(--paper);
+  color: #fff;
   font-weight: 600;
   text-decoration: none;
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow-lift);
-  transition: transform var(--duration-fast) var(--ease-out);
+  border-radius: var(--radius-btn);
+  box-shadow: var(--shadow-cta);
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.btn-accent:hover {
+  box-shadow: var(--shadow-cta-hover);
+  color: #fff;
 }
 
 .btn-accent:hover {

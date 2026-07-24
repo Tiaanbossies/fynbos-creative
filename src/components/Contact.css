@@ -1,17 +1,15 @@
 .contact-heading {
-  margin-block-start: var(--space-3);
-  font-size: var(--text-3xl);
-  max-width: 18ch;
+  font-size: var(--text-2xl);
 }
 
 .contact-lede {
-  margin-block-start: var(--space-4);
+  margin-block-start: var(--space-2);
   max-width: 52ch;
   color: var(--color-text-muted);
 }
 
 .contact-layout {
-  margin-block-start: var(--space-12);
+  margin-block-start: var(--space-8);
   display: grid;
   gap: var(--space-12);
 }
@@ -20,7 +18,14 @@
   display: grid;
   justify-items: start;
   gap: var(--space-4);
-  align-content: start;
+  align-content: center;
+}
+
+/* The mockup's oversized closing CTA — the largest button on the page, and
+   the last thing a visitor meets before the footer. */
+.contact-direct-cta {
+  font-size: var(--text-lg);
+  padding: var(--space-6) 34px;
 }
 
 .contact-email {
@@ -49,7 +54,7 @@
 .contact-field textarea {
   width: 100%;
   padding: var(--space-3);
-  background: color-mix(in srgb, var(--green-wash) 12%, transparent);
+  background: color-mix(in srgb, var(--sage) 12%, transparent);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   transition: border-color var(--duration-fast) var(--ease-out);
@@ -125,16 +130,29 @@
 }
 
 .contact-status-ok {
-  background: color-mix(in srgb, var(--green-wash) 30%, transparent);
+  background: color-mix(in srgb, var(--sage) 30%, transparent);
 }
 
 .contact-status-fail {
-  background: color-mix(in srgb, var(--sunbird-orange) 12%, transparent);
+  background: color-mix(in srgb, var(--terracotta) 12%, transparent);
 }
 
 @media (min-width: 48rem) {
+  /* Mockup arrangement: form on the left, the big WhatsApp CTA centred on the
+     right. `order` does the swap so the DOM can still lead with WhatsApp. */
   .contact-layout {
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1.1fr 1fr;
     gap: var(--space-16);
+    align-items: center;
+  }
+
+  .contact-form {
+    order: 1;
+  }
+
+  .contact-direct {
+    order: 2;
+    justify-items: center;
+    text-align: center;
   }
 }

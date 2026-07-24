@@ -1,96 +1,49 @@
-.eyebrow {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-}
-
-.how-heading {
-  margin-block-start: var(--space-3);
-  font-size: var(--text-3xl);
-  max-width: 18ch;
-}
-
 /**
- * No cards, no borders, no boxes. plato.coffee is admired in questionnaire §08
- * precisely for its lack of heavy card treatment — the steps are separated by
- * whitespace and the numeral alone.
+ * The `.eyebrow` kicker that used to live here is gone. The mockup has no
+ * eyebrows, and three of them on one page ("HOW IT WORKS", "PRICING", "GET IN
+ * TOUCH") was section-grammar scaffolding rather than voice. Commit c12da5f
+ * had already removed them from the interior pages; this finishes the job.
  */
+.how-heading {
+  font-size: var(--text-2xl);
+}
+
 .how-steps {
-  margin-block-start: var(--space-12);
+  margin-block-start: var(--space-8);
   padding: 0;
   list-style: none;
   display: grid;
-  gap: var(--space-8);
+  gap: var(--space-6);
 }
 
 .how-step {
   display: grid;
   grid-template-columns: auto 1fr;
-  grid-template-areas:
-    'icon num'
-    'icon title'
-    'icon body';
   column-gap: var(--space-4);
-  align-content: start;
+  align-items: start;
 }
 
-.how-step-icon {
-  grid-area: icon;
-  display: grid;
-  place-items: center;
-  width: 3rem;
-  height: 3rem;
-  color: var(--color-primary);
-  background: color-mix(in srgb, var(--green-wash) 34%, transparent);
-  border-radius: var(--radius-pill);
-}
-
-.how-step-icon svg {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
+/* Zilla Slab numerals in Terracotta, as drawn. Tabular figures keep 01–04 in
+   a straight column instead of drifting with each glyph's width. */
 .how-step-num {
-  grid-area: num;
   font-family: var(--font-heading);
-  font-size: var(--text-sm);
+  font-size: var(--text-lg);
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
   color: var(--color-accent);
 }
 
 .how-step-title {
-  grid-area: title;
-  margin-block-start: var(--space-1);
-  font-size: var(--text-xl);
+  font-size: var(--text-base);
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .how-step-body {
-  grid-area: body;
-  margin-block-start: var(--space-2);
+  margin-block-start: var(--space-1);
   color: var(--color-text-muted);
+  line-height: 1.6;
   max-width: 34ch;
-}
-
-@media (min-width: 48rem) {
-  .how-steps {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  /* Stacked on wide screens: icon above the label reads faster in a row. */
-  .how-step {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'icon'
-      'num'
-      'title'
-      'body';
-    row-gap: var(--space-2);
-  }
-
-  .how-step-icon {
-    margin-block-end: var(--space-2);
-  }
 }
