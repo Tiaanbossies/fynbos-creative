@@ -1,3 +1,53 @@
+/**
+ * Aurora glow band (a 21st.dev "Aurora / animated gradient background" pattern,
+ * dialled right down to this palette). Two soft, heavily-blurred olive/sage
+ * blobs drift slowly behind the closing contact section — the last thing a
+ * visitor meets before the footer — giving it warmth without a hard panel.
+ *
+ * It sits at z-index -1 inside an isolated stacking context and the section is
+ * clipped, so the glow can never spill onto neighbouring sections or rise above
+ * the copy. Opacity is kept low so text contrast on Paper is unaffected.
+ *
+ * §B.9 / metered data: pure CSS, no assets, no bytes. The global
+ * prefers-reduced-motion block freezes the drift, leaving a static glow.
+ */
+.contact {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  background:
+    radial-gradient(
+      38% 46% at 18% 28%,
+      color-mix(in srgb, var(--sage) 55%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      42% 52% at 82% 74%,
+      color-mix(in srgb, var(--olive) 20%, transparent),
+      transparent 70%
+    );
+  filter: blur(42px);
+  opacity: 0.55;
+  animation: contact-aurora 20s var(--ease-out) infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes contact-aurora {
+  from {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(3%, 2%, 0) scale(1.08);
+  }
+}
+
 .contact-heading {
   font-size: var(--text-2xl);
 }
