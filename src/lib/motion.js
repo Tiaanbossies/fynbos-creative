@@ -68,6 +68,59 @@ export function revealOnScroll(el, { delay = 0 } = {}) {
 }
 
 /**
+ * Blur-in text reveal — a 21st.dev "Blur In / Text Reveal" pattern, driven by a
+ * CSS class toggle rather than an anime.js filter tween (anime doesn't tween the
+ * `blur()` unit cleanly, and CSS handles it natively). The element blurs in and
+ * settles once it scrolls into view.
+ *
+ * Like revealOnScroll, this must ENHANCE an already-visible page, never gate it:
+ * the hidden `.reveal-text` state is applied here only after confirming motion
+ * is allowed, so under reduced-motion the heading is left untouched and sharp.
+ * A bounded safety-net timeout guarantees the reveal even if the observer never
+ * fires (non-scrolling capture, crawler, prerender).
+ */
+export function revealText(el, { delay = 0 } = {}) {
+  if (!el) return
+
+  if (prefersReducedMotion()) return
+
+  el.style.setProperty('--reveal-delay', `${delay}ms`)
+  el.classList.add('reveal-text')
+
+  let fired = false
+  const reveal = () => {
+    if (fired) return
+    fired = true
+    // Next frame, so the browser paints the hidden state before transitioning.
+    requestAnimationFrame(() => el.classList.add('reveal-text--in'))
+  }
+
+  const rect = el.getBoundingClientRect()
+  if (rect.top < window.innerHeight * 1.3) {
+    reveal()
+    return
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return
+        reveal()
+        obs.unobserve(el)
+      })
+    },
+    { threshold: 0.15 },
+  )
+
+  observer.observe(el)
+
+  setTimeout(() => {
+    reveal()
+    observer.disconnect()
+  }, 600)
+}
+
+/**
  * A soft, recurring attention pulse for the primary WhatsApp CTA.
  * Never runs under reduced-motion.
  */

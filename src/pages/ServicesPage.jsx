@@ -4,6 +4,7 @@ import { SERVICES } from '../lib/services.js'
 import { buildWhatsAppLink, trackWhatsAppClick } from '../lib/whatsapp.js'
 import { revealOnScroll } from '../lib/motion.js'
 import { useSeo } from '../lib/useSeo.js'
+import { useRevealText } from '../lib/useRevealText.js'
 import './ServicesPage.css'
 
 /**
@@ -24,6 +25,7 @@ function ServicesPage() {
   })
 
   const rowsRef = useRef([])
+  const headingRef = useRevealText()
 
   useEffect(() => {
     rowsRef.current.forEach((el, i) => {
@@ -35,7 +37,9 @@ function ServicesPage() {
     <>
       <section className="section services-intro">
         <div className="container">
-          <h1 className="services-heading">Everything handled, start to finish.</h1>
+          <h1 className="services-heading" ref={headingRef}>
+            Everything handled, start to finish.
+          </h1>
           <p className="services-lede">
             Most people who come to us don&rsquo;t want to learn how websites work — they want
             to be findable, look credible, and get on with running their business. So we do the
