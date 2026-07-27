@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import BrandMark from './BrandMark.jsx'
 import Wordmark from './Wordmark.jsx'
 import { NAV_LINKS } from '../lib/nav.js'
 import { buildWhatsAppLink, trackWhatsAppClick } from '../lib/whatsapp.js'
@@ -13,7 +14,7 @@ const SOLIDIFY_AT = 24
  * treatment called out in questionnaire §08.
  *
  * Transparency is keyed off whether hero media is ACTUALLY behind the header,
- * not off the route. In the transparent state the wordmark and nav flip to
+ * not off the route. In the transparent state the logo, wordmark and nav flip to
  * Parchment to read against the video; if that state is ever entered on a page
  * with no media, it is Parchment-on-Parchment and the header vanishes. Any
  * page wanting the treatment marks its media with `data-hero-media`.
@@ -71,6 +72,7 @@ function Header() {
 
       <div className="container header-inner">
         <Link to="/" className="header-brand" aria-label="Fynbos Creative — home">
+          <BrandMark />
           <Wordmark />
         </Link>
 

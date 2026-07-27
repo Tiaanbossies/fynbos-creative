@@ -67,17 +67,22 @@
   padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
 }
 
-/* On olive, the wordmark's Olive-on-Parchment treatment would vanish. */
-.site-footer .wordmark-name {
+/* On olive, the logo's Olive-on-Parchment treatment would vanish. */
+.site-footer .brand-mark {
+  --brand-lockup-height: 8.5rem;
   color: var(--on-olive);
+  /*
+   * .footer-brand is a stretch-aligned flex column, which would blow the mask
+   * box out to the full column and leave the artwork floating in its middle
+   * while the copy beneath it starts at the left edge.
+   */
+  align-self: flex-start;
 }
 
-.site-footer .wordmark-accent {
-  color: var(--sage);
-}
-
-.site-footer .wordmark-tagline {
+.footer-tagline {
+  font-family: var(--font-body);
   color: var(--on-olive-muted);
+  font-size: var(--text-lg);
 }
 
 @media (min-width: 48rem) {
