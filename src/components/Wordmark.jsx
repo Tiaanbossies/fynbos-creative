@@ -1,8 +1,13 @@
+import { TAGLINE } from '../lib/nav.js'
 import './Wordmark.css'
 
 /**
- * Text-only wordmark. No logo exists yet (brief §C) — "bos" is picked out in
- * Sunbird Orange so the mark carries the fynbos metaphor without an icon.
+ * Text-only wordmark, with "bos" picked out in Sunbird Orange.
+ *
+ * This predates the logo and outlived it. The delivered mark (see BrandMark)
+ * is line art at roughly one stroke weight, which turns to mush below about
+ * 28px; set type does not. So the header pairs the two — mark for identity,
+ * this for legibility — rather than shrinking the full lockup into the nav.
  *
  * The tagline was previously set in Alex Brush, the script+sans lockup admired
  * on lovegreen.co.za (questionnaire §08). The moodboard type stack dropped the
@@ -16,7 +21,7 @@ function Wordmark({ withTagline = false }) {
         Fyn<span className="wordmark-accent">bos</span> Creative
       </span>
       {withTagline && (
-        <span className="wordmark-tagline">Rooted in local. Built to grow.</span>
+        <span className="wordmark-tagline">{TAGLINE}</span>
       )}
     </span>
   )

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import Wordmark from './Wordmark.jsx'
-import { NAV_LINKS, CONTACT_EMAIL } from '../lib/nav.js'
+import BrandMark from './BrandMark.jsx'
+import { NAV_LINKS, CONTACT_EMAIL, TAGLINE } from '../lib/nav.js'
 import './Footer.css'
 
 /**
@@ -14,7 +14,13 @@ function Footer() {
     <footer className="site-footer">
       <div className="container footer-inner">
         <div className="footer-brand">
-          <Wordmark withTagline />
+          {/*
+            The full lockup, not the text wordmark — the artwork already sets
+            "Fynbos / CREATIVE", so pairing the two would print the name twice.
+            The name still exists as real text in the copyright line below.
+          */}
+          <BrandMark variant="lockup" />
+          <p className="footer-tagline">{TAGLINE}</p>
           <p className="footer-blurb">
             Founder-led web services for small South African businesses. You
             deal with Tiaan — not a call centre.

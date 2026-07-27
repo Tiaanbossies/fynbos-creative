@@ -23,3 +23,11 @@ export const NAV_LINKS = [
  * remember and one inbox to answer from.
  */
 export const CONTACT_EMAIL = 'tiaan@fynboscreative.co.za'
+
+/**
+ * The tagline, set once. It appears under the text wordmark, under the footer
+ * logo, and as `slogan` in the ProfessionalService JSON-LD in index.html — the
+ * two React usages read it from here so they cannot drift. (The JSON-LD copy is
+ * in static HTML and has no way to import; keep it in step by hand.)
+ */
+export const TAGLINE = 'Rooted in local. Built to grow.'

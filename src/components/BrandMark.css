@@ -1,0 +1,50 @@
+/*
+ * The logo is painted as a solid block of `currentColor` seen through the SVG
+ * as a mask, so it takes the colour of whatever it sits in. See BrandMark.jsx
+ * for why an <img> could not do this.
+ *
+ * -webkit- prefixes are not legacy cruft here: Safari only unprefixed the
+ * mask shorthand in 15.4, and the audience skews mobile (brief §B.9).
+ */
+.brand-mark {
+  display: block;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+/*
+ * Square by construction — the generator padded the badge's bounding box out to
+ * a square viewBox (141.1 204.1 360.4 360.4) so callers never have to know the
+ * artwork's real proportions.
+ */
+.brand-mark-mark {
+  inline-size: var(--brand-mark-size, 2.25rem);
+  block-size: var(--brand-mark-size, 2.25rem);
+  -webkit-mask-image: url('/fynbos-mark.svg');
+  mask-image: url('/fynbos-mark.svg');
+}
+
+/* Ratio is the trimmed lockup viewBox: 374.5 x 488.5. */
+.brand-mark-lockup {
+  block-size: var(--brand-lockup-height, 7.5rem);
+  aspect-ratio: 374.5 / 488.5;
+  -webkit-mask-image: url('/fynbos-lockup.svg');
+  mask-image: url('/fynbos-lockup.svg');
+}
+
+/*
+ * A mask has no fallback: if the browser cannot mask, `background-color`
+ * paints an unmasked solid rectangle, which is far worse than no logo. Every
+ * browser that supports mask-image also supports @supports, so gate on it.
+ */
+@supports not ((mask-image: url('#m')) or (-webkit-mask-image: url('#m'))) {
+  .brand-mark {
+    display: none;
+  }
+}

@@ -27,8 +27,26 @@
 }
 
 .header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   text-decoration: none;
   margin-inline-end: auto;
+}
+
+/*
+ * The mask paints `currentColor`, and .header-brand is a link — so without an
+ * explicit colour the logo would inherit the link colour rather than the
+ * wordmark's. Stated here so the mark and the wordmark stay the same green.
+ */
+.header-brand .brand-mark {
+  /*
+   * 3rem, not the 2.25rem default: the artwork is single-weight line art and
+   * reads much lighter than the 700-weight slab wordmark beside it, so equal
+   * heights would look unbalanced. The header is 4.5rem, so this still clears.
+   */
+  --brand-mark-size: 3rem;
+  color: var(--color-primary);
 }
 
 /**
@@ -40,6 +58,16 @@
 .is-transparent .header-brand .wordmark-accent {
   color: var(--paper);
   text-shadow: 0 1px 12px color-mix(in srgb, var(--deep-pine) 55%, transparent);
+}
+
+/*
+ * Same treatment for the logo. It is a mask, not text, so the wordmark's
+ * text-shadow does nothing to it — drop-shadow is the filter that follows the
+ * masked shape rather than its box.
+ */
+.is-transparent .header-brand .brand-mark {
+  color: var(--paper);
+  filter: drop-shadow(0 1px 8px color-mix(in srgb, var(--deep-pine) 55%, transparent));
 }
 
 .header-nav {

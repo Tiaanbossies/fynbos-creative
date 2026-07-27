@@ -65,6 +65,27 @@ aliases, not raw hues.
 `--color-accent` is reserved for the primary CTA and the wordmark. It is not a general-purpose
 highlight.
 
+### The logo
+
+`fynbos-assets/Logo/fynbos-badge-olive.svg` is the delivered artwork — a VTracer trace, 570x887,
+23 paths, all filled `#3f5c33`. It is the source of record and is **not** what the site loads.
+
+`public/fynbos-mark.svg` (badge only) and `public/fynbos-lockup.svg` (badge + "Fynbos / CREATIVE")
+are derived from it: paths 0-6 are the badge, 7-12 spell "Fynbos", 13-22 spell "CREATIVE" plus its
+two rules. Coordinates are rounded to 1dp, which is invisible at any render size and takes the pair
+from 60 KB to 12 + 21 KB. If the artwork is ever redelivered, regenerate both rather than editing
+them by hand.
+
+`BrandMark` paints them as a CSS `mask-image` over `currentColor`, not as an `<img>`. That is
+load-bearing: the header flips its brand to Parchment over hero media and the footer runs inverted
+on Olive, and an `<img>` cannot inherit colour — it would need a separate recoloured file per
+context, each free to drift from `tokens.css`. The per-path fill is stripped for the same reason.
+
+`public/favicon.svg` is the badge with the fill **baked** to `--olive`, because a browser tab gives
+the file no CSS context to inherit from. Be aware the mark is single-weight line art: it is
+recognisable from about 28px and is a smudge at 16px. That is a property of the artwork, not of the
+export.
+
 **Stylesheet import order in `src/main.jsx` is load-bearing** and must stay above the `App` import:
 component CSS is pulled in transitively by `App`, so importing `App` first put every component
 stylesheet ahead of `base.css` in the bundle, and component rules that merely tied on specificity
