@@ -20,7 +20,20 @@
     gap: 0;
   }
 
+  /*
+   * align-self stops the grid's default stretch. Without it this column is
+   * forced to the pricing column's full height — measured at 1440, content
+   * ending 195px above the bottom — and because the divider is this element's
+   * own border, the rule ran those 195px out into empty space, pointing at the
+   * gap rather than separating anything.
+   *
+   * `start`, not `center`, deliberately: centring shortens the rule the same
+   * way but drops "How it works" ~97px below "Pricing that grows with you",
+   * and the two headings sharing a baseline is the stronger alignment cue.
+   * The column is simply shorter than its neighbour, which is honest.
+   */
   .offer-grid > .how {
+    align-self: start;
     padding-inline-end: var(--space-12);
     border-right: 1px solid var(--color-border);
   }
