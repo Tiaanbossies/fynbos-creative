@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { buildWhatsAppLink, trackWhatsAppClick } from '../lib/whatsapp.js'
 import { CONTACT_EMAIL } from '../lib/nav.js'
 import { useSeo } from '../lib/useSeo.js'
+import { useRevealText } from '../lib/useRevealText.js'
 import './AboutPage.css'
 
 /**
@@ -28,11 +29,15 @@ function AboutPage() {
       'Fynbos Creative is founder-led. You deal with Tiaan directly — not a call centre — for honest, done-for-you web services built for small South African businesses.',
   })
 
+  const headingRef = useRevealText()
+
   return (
     <>
       <section className="section about-intro">
         <div className="container">
-          <h1 className="about-heading">A real person, not a call centre.</h1>
+          <h1 className="about-heading" ref={headingRef}>
+            A real person, not a call centre.
+          </h1>
           <p className="about-lede">
             Fynbos Creative exists for the business owner stuck in the middle — too small for the
             agencies that quote in tens of thousands, and burned once too often by freelancers who

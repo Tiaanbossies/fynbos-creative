@@ -4,6 +4,7 @@ import { FAQS } from '../lib/faqs.js'
 import { buildWhatsAppLink, trackWhatsAppClick } from '../lib/whatsapp.js'
 import { revealOnScroll } from '../lib/motion.js'
 import { useSeo } from '../lib/useSeo.js'
+import { useRevealText } from '../lib/useRevealText.js'
 import './FaqPage.css'
 
 /**
@@ -26,6 +27,7 @@ function FaqPage() {
   })
 
   const rowsRef = useRef([])
+  const headingRef = useRevealText()
 
   useEffect(() => {
     rowsRef.current.forEach((el, i) => {
@@ -37,7 +39,9 @@ function FaqPage() {
     <>
       <section className="section faq-intro">
         <div className="container">
-          <h1 className="faq-heading">The questions everyone asks.</h1>
+          <h1 className="faq-heading" ref={headingRef}>
+            The questions everyone asks.
+          </h1>
           <p className="faq-lede">
             No fine print, no runaround — just straight answers to the things people want to know
             before they get in touch. Can&rsquo;t see yours? Message me and ask.

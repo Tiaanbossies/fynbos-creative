@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import PricingTiers from '../components/PricingTiers.jsx'
 import { buildWhatsAppLink, trackWhatsAppClick } from '../lib/whatsapp.js'
 import { useSeo } from '../lib/useSeo.js'
+import { useRevealText } from '../lib/useRevealText.js'
 import './PricingPage.css'
 
 /**
@@ -29,11 +30,15 @@ function PricingPage() {
       'Straightforward pricing: R1,200 once-off to build your website, then a monthly plan from R349/mo that keeps it hosted, updated and growing. Cancel whenever you like.',
   })
 
+  const headingRef = useRevealText()
+
   return (
     <>
       <section className="section pricing-page-intro">
         <div className="container">
-          <h1 className="pricing-page-heading">Honest pricing, no surprises.</h1>
+          <h1 className="pricing-page-heading" ref={headingRef}>
+            Honest pricing, no surprises.
+          </h1>
           <p className="pricing-page-lede">
             One once-off fee to build your website, then a monthly plan that keeps it hosted,
             updated and growing. No lock-in contracts, no hidden setup costs — cancel whenever

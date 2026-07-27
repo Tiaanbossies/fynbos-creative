@@ -3,6 +3,8 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import StickyWhatsApp from './components/StickyWhatsApp.jsx'
+import ScrollProgress from './components/ScrollProgress.jsx'
+import BackToTop from './components/BackToTop.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy.jsx'
 import HomePage from './pages/HomePage.jsx'
 import ServicesPage from './pages/ServicesPage.jsx'
@@ -57,6 +59,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <ScrollProgress />
       <Header />
 
       {/* Target of the header skip link. */}
@@ -81,6 +84,7 @@ function App() {
 
       <Footer />
       <StickyWhatsApp />
+      <BackToTop />
     </>
   )
 }

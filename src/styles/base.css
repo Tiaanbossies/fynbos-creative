@@ -118,9 +118,43 @@ textarea {
   text-decoration: none;
   border-radius: var(--radius-btn);
   box-shadow: var(--shadow-cta);
+  /* Contain the sheen sweep to the button's rounded box. */
+  position: relative;
+  overflow: hidden;
   transition:
     transform var(--duration-fast) var(--ease-out),
     box-shadow var(--duration-fast) var(--ease-out);
+}
+
+/**
+ * Shiny-button sheen (a 21st.dev "Shiny Button" pattern, adapted to plain CSS
+ * and this palette). A single soft band of light sweeps diagonally across the
+ * terracotta on hover/focus — a moment of craft on the one action we most want
+ * taken, without a colour or layout change. The band is semi-transparent white
+ * and passes in ~0.6s, so the label stays readable throughout. pointer-events
+ * are off so it never intercepts the tap.
+ *
+ * §B.9: the global prefers-reduced-motion block below neutralises the transition,
+ * so the sheen simply never travels for those visitors.
+ */
+.btn-accent::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s var(--ease-out);
+  pointer-events: none;
+}
+
+.btn-accent:hover::after,
+.btn-accent:focus-visible::after {
+  transform: translateX(120%);
 }
 
 .btn-accent:hover {
@@ -134,6 +168,31 @@ textarea {
 
 .btn-accent:active {
   transform: translateY(0);
+}
+
+/**
+ * Blur-in text reveal (a 21st.dev "Blur In / Text Reveal" pattern, adapted).
+ * A heading arrives softly out of focus and settles as it enters the viewport —
+ * used on the interior-page intros, which the mockup never designed and which
+ * otherwise read flat. The initial hidden state is only ever applied by
+ * motion.js AFTER confirming motion is allowed, so under reduced-motion (and for
+ * any no-JS/crawler render) the heading is simply present and sharp from the
+ * start — the reveal enhances a visible page, it never gates it.
+ */
+.reveal-text {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(10px);
+  transition:
+    opacity 0.7s var(--ease-out) var(--reveal-delay, 0ms),
+    filter 0.7s var(--ease-out) var(--reveal-delay, 0ms),
+    transform 0.7s var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+.reveal-text--in {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
 }
 
 /* Screen-reader-only, but focusable (skip links). */

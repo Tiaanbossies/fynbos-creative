@@ -48,6 +48,7 @@
 }
 
 .header-link {
+  position: relative;
   color: var(--color-text);
   text-decoration: none;
   font-size: var(--text-sm);
@@ -61,9 +62,34 @@
   color: var(--color-primary);
 }
 
+/**
+ * Animated underline — a 21st.dev link-underline micro-interaction. A 2px line
+ * grows from the left on hover/focus and stays put for the active route,
+ * echoing the CTA sheen's "line sweeping in" feel. It uses currentColor, so it
+ * tracks whatever the link is: ink normally, olive when active, Paper over the
+ * hero video. (Replaces the old static accent-soft bottom border on the active
+ * link.) The reserved transparent border keeps the row height stable.
+ */
+.header-link::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.header-link:hover::after,
+.header-link:focus-visible::after,
+.header-link.is-active::after {
+  transform: scaleX(1);
+}
+
 .header-link.is-active {
   color: var(--color-primary);
-  border-bottom-color: var(--color-accent-soft);
 }
 
 .is-transparent .header-link {
@@ -148,6 +174,12 @@
   text-shadow: none;
   font-size: var(--text-lg);
   border-bottom: 1px solid var(--color-border);
+}
+
+/* In the mobile dropdown the rows already carry hairline separators; the swept
+   underline would double up on them, so it is suppressed there. */
+.is-menu-open .header-nav .header-link::after {
+  display: none;
 }
 
 @media (min-width: 48rem) {
