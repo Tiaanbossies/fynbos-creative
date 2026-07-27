@@ -5,6 +5,7 @@ import HowItWorks from '../components/HowItWorks.jsx'
 import Pricing from '../components/Pricing.jsx'
 import SeoPanel from '../components/SeoPanel.jsx'
 import Values from '../components/Values.jsx'
+import HomeFaq from '../components/HomeFaq.jsx'
 import Contact from '../components/Contact.jsx'
 import { useSeo } from '../lib/useSeo.js'
 import './HomePage.css'
@@ -23,7 +24,8 @@ import './HomePage.css'
  *   4. How it works + Pricing (offer)  ✓ — one row, two columns
  *   5. Built for visibility (SEO)      ✓
  *   6. Values                          ✓ — all three cleared 2026-07-23
- *   7. Contact                         ✓
+ *   7. Before you ask (FAQ excerpt)    ✓ — 4 questions read from faqs.js
+ *   8. Contact                         ✓
  *
  * Audience is placed after the proof rather than before it for the same reason
  * proof moved above the process: the visitor is shown that the work is real,
@@ -54,6 +56,7 @@ function HomePage() {
 
       <SeoPanel />
       <Values />
+      <HomeFaq />
       <Contact />
     </>
   )

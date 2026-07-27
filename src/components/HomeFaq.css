@@ -1,0 +1,56 @@
+/*
+ * Hairline-divided open rows, matching FaqPage — no cards, per the rest of the
+ * site. Selectors are namespaced .home-faq-* rather than reusing FaqPage's
+ * .faq-* so the two can diverge without one silently restyling the other.
+ */
+.home-faq-heading {
+  font-size: var(--text-2xl);
+}
+
+.home-faq-list {
+  margin-block-start: var(--space-6);
+}
+
+.home-faq-item {
+  border-block-start: 1px solid var(--color-border);
+}
+
+.home-faq-item:last-of-type {
+  border-block-end: 1px solid var(--color-border);
+}
+
+/* The whole question row is the click and keyboard target. `list-style: none`
+   plus the -webkit rule below removes the default disclosure triangle; both are
+   needed, as Safari ignores the standard property here. */
+.home-faq-question {
+  padding-block: var(--space-4);
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.home-faq-question::-webkit-details-marker {
+  display: none;
+}
+
+/* The default focus ring goes with the marker, so it has to be put back. */
+.home-faq-question:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.home-faq-answer {
+  padding-block-end: var(--space-4);
+  color: var(--color-text-body);
+  line-height: 1.7;
+  max-width: 62ch;
+}
+
+.home-faq-more {
+  margin-block-start: var(--space-6);
+  font-size: var(--text-sm);
+}
