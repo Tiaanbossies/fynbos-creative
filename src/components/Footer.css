@@ -34,8 +34,17 @@
   gap: var(--space-2);
 }
 
+/*
+ * The min-height is a WCAG 2.5.8 (AA) target-size fix, not styling. At
+ * --text-sm these rows measure 23px tall — one pixel under the 24x24 minimum,
+ * and the footer is the densest cluster of links on the site. Centring the
+ * text inside 1.5rem buys the pixel without disturbing the --space-2 rhythm.
+ */
 .footer-nav a,
 .footer-contact a {
+  display: flex;
+  align-items: center;
+  min-block-size: 1.5rem;
   color: var(--on-olive);
   text-decoration: none;
   font-size: var(--text-sm);

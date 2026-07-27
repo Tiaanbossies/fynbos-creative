@@ -210,7 +210,25 @@
   display: none;
 }
 
-@media (min-width: 48rem) {
+/*
+ * 56rem, not the 48rem the rest of the site switches at — the header is the one
+ * component that genuinely does not fit at 768px.
+ *
+ * Measured at 768: the container yields 676px of content, and brand (205) + nav
+ * (308) + CTA (187) + two 16px gaps needs 732. Flexbox resolves that shortfall
+ * by shrinking the brand to its min-content width (96px), which breaks "Fynbos
+ * Creative" after "Fynbos" and makes the brand block 48px tall. Pinning the
+ * brand with flex-shrink: 0 only moves the damage — the CTA then wraps instead
+ * and the bar grows to 69px. There is no distribution of 732px into 676px that
+ * does not wrap something, so the three-up header starts later instead.
+ *
+ * 60rem is the site's existing wide breakpoint, so this adds no third value to
+ * the system. It yields 849px against the 774px the row needs — 75px of slack.
+ * 56rem was measured too and does fit, but only by 18px, which is not enough
+ * margin for a CTA whose label is marketing copy and will change. Below the
+ * breakpoint the hamburger owns the nav and the brand has the row to itself.
+ */
+@media (min-width: 60rem) {
   .header-nav {
     display: flex;
   }

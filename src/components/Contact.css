@@ -83,8 +83,10 @@
   color: var(--color-text-muted);
 }
 
-/* Inputs sit on a Parchment page, so they need their own quiet ground rather
-   than a border-heavy box (questionnaire §08). */
+/* Inputs sit on the near-white Paper page (#fafffb — this said "Parchment"
+   until the palette restoration moved the background), so they need their own
+   quiet ground rather than a border-heavy box (questionnaire §08). The sage
+   wash below is what separates them from it. */
 .contact-form {
   display: grid;
   gap: var(--space-4);

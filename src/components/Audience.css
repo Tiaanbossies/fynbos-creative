@@ -1,0 +1,39 @@
+/*
+ * A quiet band between two loud ones — the case-study screenshot above and the
+ * offer row below. It carries no image, no CTA and no colour of its own, so it
+ * reads as a breath rather than a third thing competing for attention.
+ */
+.audience-heading {
+  font-size: var(--text-2xl);
+}
+
+.audience-lede {
+  margin-block-start: var(--space-3);
+  color: var(--color-text-body);
+  line-height: 1.7;
+  max-width: 56ch;
+}
+
+.audience-list {
+  margin-block-start: var(--space-6);
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/*
+ * Outlined, not filled. A filled pill at this size reads as a button and these
+ * are not clickable — there is no /industries page to send anyone to, and
+ * nav.js records that Industries stays unbuilt until there is real work behind
+ * it. The hairline says "label" where a solid ground would say "press me".
+ */
+.audience-item {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  color: var(--color-text-body);
+}
