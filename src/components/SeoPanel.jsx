@@ -47,8 +47,16 @@ function SeoPanel() {
             <span className="seo-query">Plumber near me</span>
           </div>
 
+          {/*
+            "Your business", not "Fynbos Creative" — the illustration is about
+            the visitor ranking for their own trade, and showing our name as the
+            result for "Plumber near me" made the panel advertise us for a
+            search we do not serve. A made-up plumbing company was the obvious
+            alternative and is not available: brief §H forbids inventing third
+            parties, and a plausible name risks colliding with a real business.
+          */}
           <div className="seo-result">
-            <span>Fynbos Creative</span>
+            <span>Your business</span>
           </div>
 
           <div className="seo-bars">
