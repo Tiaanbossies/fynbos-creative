@@ -54,3 +54,12 @@
   margin-block-start: var(--space-6);
   font-size: var(--text-sm);
 }
+
+/* Same WCAG 2.5.8 (AA) 24x24 minimum the footer links needed — at --text-sm
+   this lands on 16px, which is well under it. inline-flex so the box grows
+   without the link becoming a full-width target. */
+.home-faq-more a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 1.5rem;
+}
