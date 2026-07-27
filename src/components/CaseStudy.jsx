@@ -3,17 +3,22 @@ import { revealOnScroll } from '../lib/motion.js'
 import './CaseStudy.css'
 
 /**
+ * The delivered Bossie's Gym homepage. This slot showed the gym's *logo* until
+ * 2026-07-27 — a proof section that proved nothing, since a logo is not
+ * evidence that a site was built. The screenshot was supplied by the client on
+ * that date (fynbos-assets/Clients/) and is the source of record; regenerate
+ * all three widths together from it if it is ever replaced.
+ *
  * Measured render widths: ~327px on a phone, peaking at 848px just under the
  * 60rem two-column breakpoint, then settling to 410px once the container caps.
- * So the 796px source is correctly sized for wide 1x and for 2x phones — it was
- * only 1x phones that paid 92 KB to paint 327 pixels, hence the one small
- * variant rather than a full ladder.
  *
- * The small one is quantised back to a palette on purpose: this is flat logo
- * art, and resizing it in full RGBA produced a 226 KB file from a 92 KB source.
+ * JPEG, not PNG: the 798 KB source is mostly a dark photographic gym interior,
+ * which PNG cannot compress. Quality 82 keeps the overlaid UI text legible at
+ * the sizes this actually paints, for 98 KB at full width.
  */
-const SHOT = '/case-studies/bossies-gym.png'
-const SHOT_SM = '/case-studies/bossies-gym-400.png'
+const SHOT = '/case-studies/bossies-gym-home-1122.jpeg'
+const SHOT_MD = '/case-studies/bossies-gym-home-800.jpeg'
+const SHOT_SM = '/case-studies/bossies-gym-home-400.jpeg'
 
 /**
  * The mockup's "One real result" row — screenshot left, story right.
@@ -39,15 +44,15 @@ function CaseStudy() {
     <section className="section case" aria-labelledby="case-heading">
       <div className="container case-grid" ref={ref}>
         <figure className="case-shot">
-          {/* width/height were 1200x900 — a 4:3 box for a file that is 796x800.
-              The reservation was the wrong shape, so the row reflowed on load. */}
+          {/* width/height are the file's real dimensions, so the box reserved
+              before load is the right shape and the row does not reflow. */}
           <img
             src={SHOT}
-            srcSet={`${SHOT_SM} 400w, ${SHOT} 796w`}
+            srcSet={`${SHOT_SM} 400w, ${SHOT_MD} 800w, ${SHOT} 1122w`}
             sizes="(min-width: 80rem) 410px, (min-width: 60rem) 32vw, 90vw"
-            alt="Bossie's Gym and Personal Training Studio logo"
-            width="796"
-            height="800"
+            alt="The Bossie's Gym homepage: membership prices, a free-trial booking prompt and a phone number, all visible without scrolling."
+            width="1122"
+            height="752"
             loading="lazy"
             decoding="async"
           />
