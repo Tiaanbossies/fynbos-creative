@@ -4,7 +4,19 @@ import './Hero.css'
 
 const POSTER = '/video/preview-frame.jpg'
 const VIDEO = '/video/idea1-compressed.mp4'
-const FOUNDER = '/team/tiaan.jpeg'
+/**
+ * The founder avatar paints at a fixed 3.5rem (56px) at every viewport, so it
+ * varies only by screen density — density descriptors, not a `sizes` list.
+ *
+ * These are centre-cropped squares cut from the 1200x1600 original, matching
+ * what `object-fit: cover` was doing at runtime. The original is 129 KB and was
+ * being downloaded in full, eagerly and above the fold, to paint 56 pixels; the
+ * 2x variant is 3 KB. Regenerate all three together if the portrait changes —
+ * a mismatched set is worse than no srcset at all.
+ */
+const FOUNDER_1X = '/team/tiaan-56.jpeg'
+const FOUNDER_2X = '/team/tiaan-112.jpeg'
+const FOUNDER_3X = '/team/tiaan-168.jpeg'
 
 /**
  * Two reasons to never fetch the 847 KB video.
@@ -83,12 +95,16 @@ function Hero() {
           {/* The mockup's trust move: the founder is named and shown at the
               top of the page, not held back for /about. */}
           <div className="hero-founder">
+            {/* width/height are the CSS pixel size, not the file's — they exist
+                to reserve the right box before load, and 112 reserved twice the
+                space the 3.5rem rule actually paints. */}
             <img
               className="hero-founder-photo"
-              src={FOUNDER}
+              src={FOUNDER_1X}
+              srcSet={`${FOUNDER_1X} 1x, ${FOUNDER_2X} 2x, ${FOUNDER_3X} 3x`}
               alt="Tiaan, founder of Fynbos Creative"
-              width="112"
-              height="112"
+              width="56"
+              height="56"
               decoding="async"
             />
             <div>
