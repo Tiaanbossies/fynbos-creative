@@ -28,8 +28,13 @@
  * Any change to the '/' values must be mirrored into index.html by hand:
  * prerender.mjs skips '/' because dist/index.html already carries homepage
  * meta, so the static homepage head comes from that template while only the
- * client-side useSeo hook reads these. Same two strings, two places, and
- * nothing checks that they still agree.
+ * client-side useSeo hook reads these. Same two strings, two places — six tags
+ * once og: and twitter: are counted.
+ *
+ * Forgetting one half is not a silent failure any more: prerender.mjs runs
+ * assertHomepageMirror on every build and fails it, naming each tag that has
+ * drifted and both values. That check exists because this exact duplication
+ * did break once, in the way that is invisible from either side alone.
  */
 export const SITE = {
   url: 'https://fynboscreative.co.za',

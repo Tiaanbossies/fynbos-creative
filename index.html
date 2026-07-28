@@ -33,9 +33,12 @@
       It skips '/' entirely, so THIS file is the homepage's baked metadata: the
       title and description here (and their og:/twitter: copies) must stay
       identical to SITE.defaultTitle and SITE.defaultDescription in
-      src/lib/seo.js, which is what useSeo sets on client navigation. Nothing
-      enforces that — edit both, or a crawler and a browser see different
-      titles for the same URL.
+      src/lib/seo.js, which is what useSeo sets on client navigation. Edit both,
+      or a crawler and a browser see different titles for the same URL.
+
+      The build checks this rather than trusting the comment: prerender.mjs
+      runs assertHomepageMirror over all six tags below and fails the build on
+      any mismatch, naming the tag and both values.
     -->
     <link rel="canonical" href="https://fynboscreative.co.za/" />
 
