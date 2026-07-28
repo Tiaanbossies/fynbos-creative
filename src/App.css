@@ -1,7 +1,10 @@
 /**
- * Phase 2 shell styles only.
+ * Shell styles.
  *
- * The placeholder rules below disappear as Phases 3–4 land real sections.
+ * The two rules below style PagePlaceholder, the holding page for a nav entry
+ * whose page has not been built yet. They are unreachable today (BUILT_ROUTES
+ * covers every NAV_LINKS entry) and go when PagePlaceholder does. The 404 is
+ * NOT one of them any more — it has its own page and stylesheet.
  */
 
 .placeholder-heading {

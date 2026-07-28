@@ -1,0 +1,75 @@
+/*
+ * Open rows and hairlines, no cards — the same language as /faq and /services.
+ * The exits are a list of real destinations rather than a lone "go home"
+ * button, because someone who mistyped a URL usually still wants the thing they
+ * came for, and Services / Pricing / FAQ is where that thing is.
+ */
+/* The measure is capped on the children, NOT on .not-found-inner — that element
+   IS the .container, which has `margin-inline: auto`, so narrowing it centred
+   the whole page against the gutter every other page starts at. */
+.not-found-heading {
+  font-size: var(--text-3xl); /* the h1 size the other pages use; there is no --text-4xl */
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.not-found-lede {
+  margin-block-start: var(--space-4);
+  max-width: 56ch;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* The scale is 1,2,3,4,6,8,12,16,24 — there is no --space-10. */
+.not-found-exits {
+  margin-block-start: var(--space-12);
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  max-width: 60ch;
+}
+
+.not-found-exit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+  padding-block: var(--space-4);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.not-found-exit:last-child {
+  border-block-end: 1px solid var(--color-border);
+}
+
+/* WCAG 2.5.8 (AA) wants 24x24 minimum; at --text-lg the text alone is close but
+   the inline-flex box guarantees it without making the whole row a target. */
+.not-found-exit-link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 1.5rem;
+  flex: none;
+  min-inline-size: 7rem;
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.not-found-exit-note {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.not-found-foot {
+  margin-block-start: var(--space-8);
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+.not-found-note {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}

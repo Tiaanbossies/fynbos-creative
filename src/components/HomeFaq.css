@@ -21,8 +21,13 @@
 
 /* The whole question row is the click and keyboard target. `list-style: none`
    plus the -webkit rule below removes the default disclosure triangle; both are
-   needed, as Safari ignores the standard property here. */
+   needed, as Safari ignores the standard property here. Removing it obliges us
+   to put an affordance back — see .home-faq-icon. */
 .home-faq-question {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
   padding-block: var(--space-4);
   cursor: pointer;
   list-style: none;
@@ -34,6 +39,29 @@
 
 .home-faq-question::-webkit-details-marker {
   display: none;
+}
+
+/* Same chevron as /faq. These four questions are the last objections before a
+   message, so a visitor has to be able to see that the rows open — with the
+   native marker gone and nothing in its place they were four plain lines of
+   olive text. Muted, not primary: it is a hint, not a second thing to read. */
+.home-faq-icon {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-text-muted);
+  transition: transform 0.2s ease;
+  transform: translateY(0.15em); /* optical align to the first text line */
+}
+
+.home-faq-item[open] .home-faq-icon {
+  transform: translateY(0.15em) rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-faq-icon {
+    transition: none;
+  }
 }
 
 /* The default focus ring goes with the marker, so it has to be put back. */

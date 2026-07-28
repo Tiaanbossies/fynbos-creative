@@ -11,15 +11,23 @@ import ServicesPage from './pages/ServicesPage.jsx'
 import PricingPage from './pages/PricingPage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import FaqPage from './pages/FaqPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 import { NAV_LINKS } from './lib/nav.js'
 import { useSeo } from './lib/useSeo.js'
 import './App.css'
 
 /**
- * PHASE 2 STUB — replaced section by section in Phases 3 and 4.
+ * Holding page for a nav entry whose real page has not been built yet.
  *
- * Exists so the shell (header, footer, sticky CTA) can be reviewed against a
- * real router on real routes. It is not content and must not survive review.
+ * It used to serve the 404 as well, which meant every mistyped URL told the
+ * visitor the site was unfinished. That job now belongs to NotFoundPage; this
+ * is only ever reached through NAV_LINKS, where "built in a later phase" is
+ * true and the visitor followed our own link to get here.
+ *
+ * Currently unreachable — BUILT_ROUTES covers every NAV_LINKS entry, so the
+ * filter below yields nothing. It is kept because it is the guard that stops a
+ * newly-added nav link 404ing before its page lands; see CLAUDE.md's
+ * three-place route contract.
  */
 function PagePlaceholder({ label }) {
   // Bare call: title + noindex come from ROUTE_META (placeholders and the 404
@@ -78,7 +86,7 @@ function App() {
             />
           ))}
           <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="*" element={<PagePlaceholder label="Page not found" />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 
