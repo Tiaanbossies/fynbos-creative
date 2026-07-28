@@ -163,8 +163,18 @@ decisions — several constraints there are explicit rejections of defaults an a
 reach for (no corporate "we", no invented testimonials or statistics, no generic SaaS look, prices
 stated plainly and early rather than behind a "contact us").
 
+`DESIGN.md` is the visual counterpart — palette roles, type hierarchy, elevation, component specs
+and the Do's/Don'ts. It reads `tokens.css` rather than replacing it: **`tokens.css` stays the
+authority on values**, and `DESIGN.md` says what each one is *for* and where it may not go. Its
+named rules are the short form of constraints this codebase learned the hard way — The One Action
+Rule (terracotta is the primary CTA and the wordmark, nothing else), The Two Greys Rule (never set
+text in `--bark-grey`), The Legible Price Rule (prices in the body font, never a display or script
+face). `.impeccable/design.json` is its machine-readable sidecar (tonal ramps, shadow/motion tokens,
+component snippets); regenerate both together with `/impeccable document` if the visual system moves.
+
 `.impeccable/critique/` holds prior UI critique output, useful for knowing what has already been
-flagged and addressed.
+flagged and addressed. Note the snapshots are slugged by target, so the same pages can appear under
+more than one slug (`each-page`, `src-pages`) — read the frontmatter, not just the newest file.
 
 ## Conventions
 
