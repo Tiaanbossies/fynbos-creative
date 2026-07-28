@@ -51,7 +51,7 @@
       content="Websites built for small South African businesses from R1,200 once-off, then R349/mo to keep it hosted, updated and found on Google. Founder-led, no jargon."
     />
     <meta property="og:url" content="https://fynboscreative.co.za/" />
-    <meta property="og:image" content="https://fynboscreative.co.za/video/preview-frame.jpg" />
+    <meta property="og:image" content="https://fynboscreative.co.za/og-card.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Small Business Web Design South Africa — Fynbos Creative" />
@@ -59,7 +59,7 @@
       name="twitter:description"
       content="Websites built for small South African businesses from R1,200 once-off, then R349/mo to keep it hosted, updated and found on Google. Founder-led, no jargon."
     />
-    <meta name="twitter:image" content="https://fynboscreative.co.za/video/preview-frame.jpg" />
+    <meta name="twitter:image" content="https://fynboscreative.co.za/og-card.png" />
 
     <!--
       The site-wide business entity. Prerender copies this <head> to every
@@ -80,8 +80,21 @@
       have the structured data contradict the page it sits on. The local signal
       comes from the address and the Google Business Profile in sameAs.
 
-      telephone must stay in step with WHATSAPP_NUMBER in src/lib/whatsapp.js —
-      they are the same number and nothing checks that they agree.
+      name, url, email and telephone are all copies: telephone is
+      WHATSAPP_NUMBER from src/lib/whatsapp.js wearing a '+', and the other
+      three are SITE's in src/lib/seo.js. prerender.mjs runs
+      assertBusinessEntity over all four every build and fails on any
+      mismatch, naming the field and both values — so the number a crawler
+      reads cannot drift from the one the WhatsApp button dials.
+
+      logo is a PNG, not the SVG the site itself loads: Google does not accept
+      SVG here. It is public/fynbos-lockup-512.png, rasterised from
+      public/fynbos-lockup.svg — regenerate it from there rather than editing
+      it, or the knowledge-panel logo drifts from the one on the page.
+
+      logo and image stay different on purpose. image is the hero poster, a
+      photograph standing in for the business; logo is the mark Google may put
+      in a knowledge panel, where a photograph would be wrong.
     -->
     <script type="application/ld+json">
       {
@@ -93,6 +106,7 @@
         "email": "tiaan@fynboscreative.co.za",
         "telephone": "+27628034558",
         "image": "https://fynboscreative.co.za/video/preview-frame.jpg",
+        "logo": "https://fynboscreative.co.za/fynbos-lockup-512.png",
         "founder": { "@type": "Person", "name": "Tiaan" },
         "address": {
           "@type": "PostalAddress",

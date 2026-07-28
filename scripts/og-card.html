@@ -1,0 +1,115 @@
+<!--
+  Source for public/og-card.png — the 1200x630 social share card.
+
+  Committed for the same reason scripts/build-logo-assets.mjs is: seo.js says
+  "regenerate it rather than editing the PNG", and that is only an instruction
+  someone can follow if the source exists.
+
+  To regenerate: open this file in a browser at a 1200x630 viewport and capture
+  it, then scale the capture to exactly 1200x630. The colours below are copied
+  from src/styles/tokens.css and the copy from SITE.defaultDescription — keep
+  both in step, or the card quotes a price the site does not.
+
+  Not wired into 
+pm run build: it needs a browser, and the Docker build has
+  none.
+-->
+<!doctype html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Values copied from src/styles/tokens.css — brief §C, adopted 2026-07-23.
+         Olive measures 7.63:1 and terracotta 5.35:1 on --paper. */
+      :root {
+        --paper: #fafffb;
+        --olive: #3d5a3a;
+        --terracotta: #a8503d;
+        --parchment: #e4decd;
+        --deep-pine: #1c2117;
+        --body-ink: #3a3a30;
+        --bark-deep: #6c6957;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        width: 1200px;
+        height: 630px;
+        background: var(--paper);
+        font-family: 'Work Sans', system-ui, sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 72px;
+        padding: 0 88px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* A parchment band anchoring the card, not a gradient — "no gradient-heavy
+         hero templates" is an explicit anti-reference in PRODUCT.md. */
+      body::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 14px;
+        background: var(--olive);
+      }
+
+      .mark {
+        flex: 0 0 auto;
+        width: 268px;
+        display: block;
+      }
+
+      .copy { flex: 1 1 auto; }
+
+      h1 {
+        font-family: 'Zilla Slab', Georgia, serif;
+        font-weight: 600;
+        font-size: 62px;
+        line-height: 1.08;
+        letter-spacing: -0.01em;
+        color: var(--deep-pine);
+      }
+
+      .price {
+        margin-top: 26px;
+        font-size: 30px;
+        line-height: 1.35;
+        font-weight: 500;
+        color: var(--body-ink);
+      }
+
+      /* Prices in the body font, never the display face — PRODUCT.md: hand-set
+         numerals are ambiguous at a glance, and honesty is the aesthetic. */
+      .price strong { color: var(--terracotta); font-weight: 600; }
+
+      .tagline {
+        margin-top: 34px;
+        padding-top: 24px;
+        border-top: 2px solid var(--parchment);
+        font-size: 22px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--bark-deep);
+      }
+    </style>
+  </head>
+  <body>
+    <img class="mark" src="../public/fynbos-lockup.svg" alt="" />
+    <div class="copy">
+      <h1>Websites for small South&nbsp;African businesses</h1>
+      <p class="price">From <strong>R1,200</strong> once-off, then <strong>R349/mo</strong></p>
+      <p class="tagline">Rooted in local. Built to grow.</p>
+    </div>
+  </body>
+</html>

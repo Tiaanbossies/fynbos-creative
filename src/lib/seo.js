@@ -43,10 +43,20 @@ export const SITE = {
   defaultDescription:
     'Websites built for small South African businesses from R1,200 once-off, then R349/mo to keep it hosted, updated and found on Google. Founder-led, no jargon.',
   /**
-   * Social share image. Reuses the real hero poster rather than a placeholder;
-   * swap for a dedicated 1200×630 asset when one exists.
+   * Social share image: a dedicated 1200×630 card, the size WhatsApp, Facebook
+   * and LinkedIn all crop to. It replaced the 1280x720 hero poster, which was
+   * the wrong aspect and lost its edges in every preview.
+   *
+   * Built from the lockup, the headline and the two prices — deliberately the
+   * same numbers as defaultDescription, because a share card quoting a price
+   * the site does not is the kind of drift nobody notices until a customer
+   * does. Regenerate it rather than editing the PNG.
+   *
+   * Not the same asset as `logo` or `image` in the JSON-LD: `logo` is the bare
+   * mark for a knowledge panel, `image` is the hero photograph, and this is a
+   * composed card that would be wrong in either role.
    */
-  ogImage: 'https://fynboscreative.co.za/video/preview-frame.jpg',
+  ogImage: 'https://fynboscreative.co.za/og-card.png',
   email: 'tiaan@fynboscreative.co.za',
   founder: 'Tiaan',
 }

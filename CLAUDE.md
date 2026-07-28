@@ -33,9 +33,14 @@ read from **both** runtimes:
 Consequences:
 
 - **`seo.js` must stay free of React and browser imports.** The Node prerender imports it directly.
+  `whatsapp.js` now carries the same constraint — the prerender imports `WHATSAPP_NUMBER` from it.
 - The prerender rewrites tags in `index.html` by regex and **throws if a tag is missing**. Editing
   the `<head>` in `index.html` can break the build — that is deliberate, so a template change can
   never silently ship pages carrying stale homepage metadata.
+- The hand-written `ProfessionalService` JSON-LD in `index.html` duplicates four values that are
+  owned elsewhere: `telephone` is `WHATSAPP_NUMBER` (`whatsapp.js`) in E.164, and `name`/`url`/
+  `email` are `SITE`'s. `assertBusinessEntity` compares all four every build and throws on drift.
+  A stale number there would send enquiries nowhere while the page still looked correct.
 - It prerenders `<head>` only; `#root` stays empty and React hydrates it. Do not expect page bodies
   in `dist/<route>/index.html`.
 
