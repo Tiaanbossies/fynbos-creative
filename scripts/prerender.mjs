@@ -70,6 +70,12 @@ function unesc(value) {
  * index.html while useSeo serves ROUTE_META's copies to the browser — the same
  * two strings in two files, six tags in total once og: and twitter: are counted.
  *
+ * og:image and twitter:image are checked here too. They are not part of that
+ * duplication — prerender never rewrites them, so every route inherits the
+ * template's pair — but SITE.ogImage had no reader at all until this check,
+ * which made it a constant that could say anything while the markup said
+ * something else. Comparing them gives the export a job.
+ *
  * That duplication has already broken once. seo.js was rewritten without
  * index.html, and the result was a homepage that told a crawler one title and a
  * visitor another, which is invisible in every place you would think to look:
@@ -88,6 +94,8 @@ function assertHomepageMirror(template) {
     ['og:description', /<meta\s+property="og:description"\s+content="([\s\S]*?)"\s*\/>/, SITE.defaultDescription],
     ['twitter:title', /<meta name="twitter:title" content="([\s\S]*?)"\s*\/>/, SITE.defaultTitle],
     ['twitter:description', /<meta\s+name="twitter:description"\s+content="([\s\S]*?)"\s*\/>/, SITE.defaultDescription],
+    ['og:image', /<meta property="og:image" content="([\s\S]*?)"\s*\/>/, SITE.ogImage],
+    ['twitter:image', /<meta name="twitter:image" content="([\s\S]*?)"\s*\/>/, SITE.ogImage],
   ]
 
   const drift = []
