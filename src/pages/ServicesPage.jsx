@@ -18,11 +18,7 @@ import './ServicesPage.css'
  * Open rows, no cards: same treatment as Pricing, per questionnaire §08.
  */
 function ServicesPage() {
-  useSeo({
-    title: 'Services — Fynbos Creative',
-    description:
-      'Websites built for you from R1,200, website rescue and rebuild, hosting and maintenance from R349/mo, content, photography, and online shops — for small South African businesses.',
-  })
+  useSeo()
 
   const rowsRef = useRef([])
   const headingRef = useRevealText()

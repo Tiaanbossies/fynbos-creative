@@ -13,12 +13,30 @@
  * imports it directly.
  */
 
+/*
+ * Titles lead with what a stranger would type, not with the brand. "Fynbos
+ * Creative" means nothing to someone searching for a website, so spending the
+ * first 15 characters on it buries the match — but the brand still closes
+ * every title, where it does its real job of making the result look like a
+ * business rather than a directory scrape.
+ *
+ * Descriptions stay under ~160 characters, where Google truncates. Three of
+ * these previously ran to 162-178 and lost their closing sentence, which in
+ * each case was the one naming the price — for this audience the whole reason
+ * to click.
+ *
+ * Any change to the '/' values must be mirrored into index.html by hand:
+ * prerender.mjs skips '/' because dist/index.html already carries homepage
+ * meta, so the static homepage head comes from that template while only the
+ * client-side useSeo hook reads these. Same two strings, two places, and
+ * nothing checks that they still agree.
+ */
 export const SITE = {
   url: 'https://fynboscreative.co.za',
   name: 'Fynbos Creative',
-  defaultTitle: 'Fynbos Creative — Web Services & Media for SA SMEs',
+  defaultTitle: 'Small Business Web Design South Africa — Fynbos Creative',
   defaultDescription:
-    'Fynbos Creative — done-for-you web services and media for South African SMEs. Low setup cost, monthly retainer, a partner network that helps you grow.',
+    'Websites built for small South African businesses from R1,200 once-off, then R349/mo to keep it hosted, updated and found on Google. Founder-led, no jargon.',
   /**
    * Social share image. Reuses the real hero poster rather than a placeholder;
    * swap for a dedicated 1200×630 asset when one exists.
@@ -37,36 +55,58 @@ export const SITE = {
  * entry here when each page ships.
  *
  * Unknown paths (the wildcard 404) are handled by metaForPath, not here.
+ *
+ * `lastmod` is the date that route's *content* last meaningfully changed, and
+ * it is maintained by hand on purpose. Both obvious alternatives are worse:
+ *
+ *   - Reading git history would work locally and be absent in production —
+ *     .dockerignore excludes .git, so the released build is the one place the
+ *     date could never be derived.
+ *   - Source-file mtime is a lie on any CI: a fresh clone stamps every file
+ *     with the checkout time, so every page would claim to have changed on
+ *     every deploy.
+ *
+ * A lastmod that moves when nothing changed is worse than no lastmod at all —
+ * it is the signal a crawler learns to ignore first. So it lives here, beside
+ * the copy it describes, and is bumped when that copy is edited. The seeds
+ * below are each route's real last content commit as of 2026-07-27.
+ * scripts/prerender.mjs throws on a missing or malformed date.
  */
 export const ROUTE_META = {
   '/': {
     title: SITE.defaultTitle,
     description: SITE.defaultDescription,
+    lastmod: '2026-07-27',
   },
   '/services': {
-    title: 'Services — Fynbos Creative',
+    title: 'Web Design, Hosting & Content — Fynbos Creative',
     description:
-      'Websites built for you from R1,200, website rescue and rebuild, hosting and maintenance from R349/mo, content, photography, and online shops — for small South African businesses.',
+      'Websites from R1,200, rescue and rebuild from R2,500, hosting and care from R349/mo, plus content, photography and online shops for small SA businesses.',
+    lastmod: '2026-07-25',
   },
   '/pricing': {
-    title: 'Pricing — Fynbos Creative',
+    title: 'Website Pricing from R1,200 — Fynbos Creative',
     description:
-      'Straightforward pricing: R1,200 once-off to build your website, then a monthly plan from R349/mo that keeps it hosted, updated and growing. Cancel whenever you like.',
+      'R1,200 once-off to build your website, then a monthly plan from R349/mo that keeps it hosted, updated and growing. Cancel whenever you like.',
+    lastmod: '2026-07-25',
   },
   '/about': {
-    title: 'About — Fynbos Creative',
+    title: 'Founder-Led Web Design in South Africa — Fynbos Creative',
     description:
-      'Fynbos Creative is founder-led. You deal with Tiaan directly — not a call centre — for honest, done-for-you web services built for small South African businesses.',
+      'Founder-led web services for small South African businesses. You deal with Tiaan directly — not a call centre — for honest, done-for-you websites.',
+    lastmod: '2026-07-25',
   },
   '/faq': {
-    title: 'FAQ — Fynbos Creative',
+    title: 'Web Design FAQs: Cost, Plans, Contracts — Fynbos Creative',
     description:
       'Straight answers on cost, monthly plans, contracts, and getting started with Fynbos Creative — honest web services for small South African businesses.',
+    lastmod: '2026-07-25',
   },
   '/privacy': {
     title: 'Privacy Policy — Fynbos Creative',
     description:
       'How Fynbos Creative collects, uses and protects your personal information, in line with South Africa’s POPIA.',
+    lastmod: '2026-07-17',
   },
 }
 
@@ -87,9 +127,17 @@ export function metaForPath(pathname) {
   )
 }
 
-/** Routes that belong in the sitemap: every mapped route that is indexable. */
+/**
+ * Routes that belong in the sitemap: every mapped route that is indexable.
+ *
+ * Returns `{ path, lastmod }` rather than bare paths because a sitemap entry is
+ * the pair, and splitting them would mean the caller re-reading ROUTE_META to
+ * get the half this function dropped.
+ *
+ * @returns {{ path: string, lastmod: string }[]}
+ */
 export function indexableRoutes() {
   return Object.entries(ROUTE_META)
     .filter(([, meta]) => !meta.noindex)
-    .map(([path]) => path)
+    .map(([path, meta]) => ({ path, lastmod: meta.lastmod }))
 }

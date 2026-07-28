@@ -23,11 +23,7 @@ import './AboutPage.css'
  * rather than adding new ones.
  */
 function AboutPage() {
-  useSeo({
-    title: 'About — Fynbos Creative',
-    description:
-      'Fynbos Creative is founder-led. You deal with Tiaan directly — not a call centre — for honest, done-for-you web services built for small South African businesses.',
-  })
+  useSeo()
 
   const headingRef = useRevealText()
 

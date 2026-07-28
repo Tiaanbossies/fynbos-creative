@@ -12,11 +12,7 @@ import './PrivacyPolicy.css'
  * that is actually monitored, and it now matches the footer.
  */
 function PrivacyPolicy() {
-  useSeo({
-    title: 'Privacy Policy — Fynbos Creative',
-    description:
-      'How Fynbos Creative collects, uses and protects your personal information, in line with the Protection of Personal Information Act (POPIA).',
-  })
+  useSeo()
 
   return (
     <section id="privacy" className="section privacy-policy">

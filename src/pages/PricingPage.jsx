@@ -24,11 +24,7 @@ import './PricingPage.css'
  * wash and nothing more.
  */
 function PricingPage() {
-  useSeo({
-    title: 'Pricing — Fynbos Creative',
-    description:
-      'Straightforward pricing: R1,200 once-off to build your website, then a monthly plan from R349/mo that keeps it hosted, updated and growing. Cancel whenever you like.',
-  })
+  useSeo()
 
   const headingRef = useRevealText()
 
