@@ -18,8 +18,11 @@ function Footer() {
             The full lockup, not the text wordmark — the artwork already sets
             "Fynbos / CREATIVE", so pairing the two would print the name twice.
             The name still exists as real text in the copyright line below.
+
+            Mono, always: this sits on Olive, where the artwork's own deep green
+            is 1.51:1 and its sage 2.38:1. Only the masked tone survives here.
           */}
-          <BrandMark variant="lockup" />
+          <BrandMark variant="lockup" tone="mono" />
           <p className="footer-tagline">{TAGLINE}</p>
           <p className="footer-blurb">
             Founder-led web services for small South African businesses. You

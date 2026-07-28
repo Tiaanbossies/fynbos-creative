@@ -67,24 +67,43 @@ highlight.
 
 ### The logo
 
-`fynbos-assets/Logo/fynbos-badge-olive.svg` is the delivered artwork — a VTracer trace, 570x887,
-23 paths, all filled `#3f5c33`. It is the source of record and is **not** what the site loads.
+The delivered artwork is the three files in `fynbos-assets/Logo/` dated 2026-07-28 —
+`fynbos-creative-mark.svg` (sunbird, 709x709), `fynbos-creative-logo.svg` (sunbird over the
+"Fynbos / CREATIVE" wordmark, 1000x1080) and `favicon.svg` (the sunbird on a rounded tile). They are
+the source of record and are **not** what the site loads. The earlier `fynbos-badge-olive.svg`
+protea badge is the superseded identity; it is kept only as history.
 
-`public/fynbos-mark.svg` (badge only) and `public/fynbos-lockup.svg` (badge + "Fynbos / CREATIVE")
-are derived from it: paths 0-6 are the badge, 7-12 spell "Fynbos", 13-22 spell "CREATIVE" plus its
-two rules. Coordinates are rounded to 1dp, which is invisible at any render size and takes the pair
-from 60 KB to 12 + 21 KB. If the artwork is ever redelivered, regenerate both rather than editing
-them by hand.
+`public/fynbos-mark.svg`, `public/fynbos-lockup.svg` and `public/favicon.svg` are derived from them
+by `scripts/build-logo-assets.mjs`. That script is run **by hand**, not by `npm run build` — it
+reads `fynbos-assets/`, which the Docker build excludes, so wiring it in would break the one build
+that ships. Two things happen on the way out, and both matter if the artwork is ever redelivered —
+rerun the script, do not hand-edit the output:
 
-`BrandMark` paints them as a CSS `mask-image` over `currentColor`, not as an `<img>`. That is
-load-bearing: the header flips its brand to Parchment over hero media and the footer runs inverted
-on Olive, and an `<img>` cannot inherit colour — it would need a separate recoloured file per
-context, each free to drift from `tokens.css`. The per-path fill is stripped for the same reason.
+- **Retint.** The artwork ships `#263e2a` / `#c77560` / `#849475`, which are near but not equal to
+  `--olive` / `--terracotta` / the sage. They are remapped onto `tokens.css` so the logo cannot sit
+  two points off the CTA beside it. The sage could not map onto `--sage` (a 1.71:1 wash on Paper
+  that would have erased the leaf tail and "CREATIVE"), so `--sage-deep` was added for it.
+- **Rounding.** The bird is 3,460 absolute `M`/`L`/`Z` segments at 2dp; coordinates go to 1dp and
+  the repeated `L`s are dropped, roughly halving the file. The generator **throws** if it meets any
+  other path command, because rounding relative or curved commands is not safe.
 
-`public/favicon.svg` is the badge with the fill **baked** to `--olive`, because a browser tab gives
-the file no CSS context to inherit from. Be aware the mark is single-weight line art: it is
-recognisable from about 28px and is a smudge at 16px. That is a property of the artwork, not of the
-export.
+`BrandMark` has two tones, because the artwork is three colours and the mask trick that let one file
+serve every context only carries one:
+
+- `colour` — an `<img>` of the artwork as delivered. Anywhere on Paper.
+- `mono` — the *same file* as a CSS `mask-image` over `currentColor`, so the shape takes the colour
+  of what it sits in. Used by the footer on Olive and by the header while it floats over hero media,
+  where the artwork's own deep green measures 1.51:1 and would disappear.
+
+One file serves both because **a mask samples alpha, not hue** — the coloured SVG masks exactly as a
+fill-stripped one would, and a mono twin would only be a second copy free to drift from the first.
+Note the header's `mono` path is currently unreachable: no page sets `data-hero-media` (see
+`Hero.jsx`), so it exists for when hero media returns.
+
+`public/favicon.svg` keeps the delivered tile composition with its fills **baked**, because a browser
+tab gives the file no CSS context to inherit from. `public/favicon-192.png` is that file rasterised
+for `apple-touch-icon`. The sunbird holds together far better small than the badge it replaced, but
+the beak still thins out below about 20px.
 
 **Stylesheet import order in `src/main.jsx` is load-bearing** and must stay above the `App` import:
 component CSS is pulled in transitively by `App`, so importing `App` first put every component
