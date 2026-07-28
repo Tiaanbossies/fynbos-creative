@@ -1,14 +1,45 @@
 /*
- * The logo is painted as a solid block of `currentColor` seen through the SVG
- * as a mask, so it takes the colour of whatever it sits in. See BrandMark.jsx
- * for why an <img> could not do this.
- *
- * -webkit- prefixes are not legacy cruft here: Safari only unprefixed the
- * mask shorthand in 15.4, and the audience skews mobile (brief §B.9).
+ * Sizing is shared; how the logo is painted is not. `.brand-mark-colour` is an
+ * <img> of the artwork as delivered. `.brand-mark-mono` is the same file used as
+ * a mask, so a solid block of `currentColor` is seen through its alpha and the
+ * shape takes the colour of whatever it sits in. See BrandMark.jsx for which
+ * context gets which.
  */
 .brand-mark {
   display: block;
   flex: none;
+}
+
+/*
+ * Square by construction — the generator centres the artwork's ink in a square
+ * viewBox (59 77.5 637.8 637.8) so callers never have to know its real
+ * proportions.
+ */
+.brand-mark-mark {
+  inline-size: var(--brand-mark-size, 2.25rem);
+  block-size: var(--brand-mark-size, 2.25rem);
+}
+
+/* Ratio is the trimmed lockup viewBox: 821.9 x 956.4. */
+.brand-mark-lockup {
+  block-size: var(--brand-lockup-height, 7.5rem);
+  aspect-ratio: 821.9 / 956.4;
+}
+
+/*
+ * An <img> with both axes constrained would stretch the artwork if the box ever
+ * disagreed with the viewBox by a fraction. contain makes that a hairline of
+ * empty space instead of a distortion.
+ */
+.brand-mark-colour {
+  object-fit: contain;
+}
+
+/*
+ * -webkit- prefixes are not legacy cruft here: Safari only unprefixed the mask
+ * shorthand in 15.4, and the audience skews mobile (brief §B.9).
+ */
+.brand-mark-mono {
   background-color: currentColor;
   -webkit-mask-position: center;
   mask-position: center;
@@ -18,33 +49,26 @@
   mask-size: contain;
 }
 
-/*
- * Square by construction — the generator padded the badge's bounding box out to
- * a square viewBox (141.1 204.1 360.4 360.4) so callers never have to know the
- * artwork's real proportions.
- */
-.brand-mark-mark {
-  inline-size: var(--brand-mark-size, 2.25rem);
-  block-size: var(--brand-mark-size, 2.25rem);
+.brand-mark-mono.brand-mark-mark {
   -webkit-mask-image: url('/fynbos-mark.svg');
   mask-image: url('/fynbos-mark.svg');
 }
 
-/* Ratio is the trimmed lockup viewBox: 374.5 x 488.5. */
-.brand-mark-lockup {
-  block-size: var(--brand-lockup-height, 7.5rem);
-  aspect-ratio: 374.5 / 488.5;
+.brand-mark-mono.brand-mark-lockup {
   -webkit-mask-image: url('/fynbos-lockup.svg');
   mask-image: url('/fynbos-lockup.svg');
 }
 
 /*
- * A mask has no fallback: if the browser cannot mask, `background-color`
- * paints an unmasked solid rectangle, which is far worse than no logo. Every
- * browser that supports mask-image also supports @supports, so gate on it.
+ * A mask has no fallback: if the browser cannot mask, `background-color` paints
+ * an unmasked solid rectangle, which is far worse than no logo. Every browser
+ * that supports mask-image also supports @supports, so gate on it.
+ *
+ * This must stay scoped to the mono variant. Widened to `.brand-mark` it would
+ * also hide the colour <img>, which needs no mask support at all.
  */
 @supports not ((mask-image: url('#m')) or (-webkit-mask-image: url('#m'))) {
-  .brand-mark {
+  .brand-mark-mono {
     display: none;
   }
 }

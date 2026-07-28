@@ -72,7 +72,13 @@ function Header() {
 
       <div className="container header-inner">
         <Link to="/" className="header-brand" aria-label="Fynbos Creative — home">
-          <BrandMark />
+          {/*
+            Over the video the logo has to be Parchment to survive whatever
+            frame is behind it, and the artwork's own colours cannot do that —
+            so the transparent state swaps to the masked tone. Solid, it is the
+            delivered artwork.
+          */}
+          <BrandMark tone={isTransparent ? 'mono' : 'colour'} />
           <Wordmark />
         </Link>
 

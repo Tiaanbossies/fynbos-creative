@@ -25,6 +25,13 @@
  * and --bark-deep (5.47:1) for anything a visitor has to read. The semantic
  * alias --color-text-muted points at --bark-deep. Never set text in
  * --bark-grey.
+ *
+ * The sage now splits the same way, and for the same reason. --sage is a tint —
+ * 1.71:1 on Paper, which is why it only ever appears inside color-mix() washes
+ * behind something else. The 2026-07-28 logo needed a sage that carries actual
+ * artwork (the leaf tail and the "CREATIVE" letterforms), so --sage-deep is
+ * --sage mixed 45% toward --olive: 3.11:1, clearing the 3:1 that WCAG asks of a
+ * graphic. Fills and letterforms take --sage-deep; washes take --sage.
  */
 
 :root {
@@ -36,6 +43,7 @@
   --parchment: #e4decd;
   --parchment-soft: #f0ecdf; /* inner table rules, lighter than --parchment */
   --sage: #b9cba0;
+  --sage-deep: #819872; /* 3.11:1 — the readable sage; see the note below */
   --sage-wash: #f1f5ec;
 
   /* Ink. Deep Pine survives every palette change — it is the one constant. */

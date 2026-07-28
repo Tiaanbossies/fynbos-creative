@@ -34,19 +34,14 @@
   margin-inline-end: auto;
 }
 
-/*
- * The mask paints `currentColor`, and .header-brand is a link — so without an
- * explicit colour the logo would inherit the link colour rather than the
- * wordmark's. Stated here so the mark and the wordmark stay the same green.
- */
 .header-brand .brand-mark {
   /*
-   * 3rem, not the 2.25rem default: the artwork is single-weight line art and
-   * reads much lighter than the 700-weight slab wordmark beside it, so equal
-   * heights would look unbalanced. The header is 4.5rem, so this still clears.
+   * 2.75rem against a 4.5rem header. The 2026-07-28 sunbird is solid-filled and
+   * carries far more weight than the line-art badge it replaced — which needed
+   * 3rem to hold its own beside the wordmark — so it sits back down closer to
+   * the wordmark's own height.
    */
-  --brand-mark-size: 3rem;
-  color: var(--color-primary);
+  --brand-mark-size: 2.75rem;
 }
 
 /**
@@ -61,11 +56,16 @@
 }
 
 /*
- * Same treatment for the logo. It is a mask, not text, so the wordmark's
- * text-shadow does nothing to it — drop-shadow is the filter that follows the
- * masked shape rather than its box.
+ * Same treatment for the logo, which is why the transparent header swaps to the
+ * masked tone (see BrandMark.jsx): the artwork's own greens have no chance
+ * against a bright frame of the video. The mask paints `currentColor`, and
+ * .header-brand is a link, so the colour has to be stated or the logo would take
+ * the link colour rather than the wordmark's.
+ *
+ * drop-shadow, not text-shadow: this is a shape, not text, and drop-shadow is
+ * the filter that follows the masked silhouette rather than its box.
  */
-.is-transparent .header-brand .brand-mark {
+.is-transparent .header-brand .brand-mark-mono {
   color: var(--paper);
   filter: drop-shadow(0 1px 8px color-mix(in srgb, var(--deep-pine) 55%, transparent));
 }
