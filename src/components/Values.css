@@ -2,22 +2,23 @@
   padding-block: 0;
 }
 
+/* align-items defaults to stretch rather than being set to center, so the
+   hairline dividers below run the full height of the row instead of each
+   stopping at its own column's text. */
 .values-grid {
   padding-block: clamp(var(--space-12), 6vw, var(--space-24));
   border-top: 1px solid var(--color-border);
   display: grid;
   gap: var(--space-8);
-  align-items: center;
 }
 
-.value {
-  text-align: center;
-}
-
+/* Left-aligned, like every other block on the site. The mockup centred this
+   row; it was the only centred content on the page, which read as a component
+   borrowed in from somewhere else rather than as emphasis. */
 .value-icon {
   width: 2.75rem;
   height: 2.75rem;
-  margin: 0 auto var(--space-4);
+  margin-block-end: var(--space-4);
 }
 
 .value-title {
@@ -33,29 +34,25 @@
   color: var(--color-text-muted);
 }
 
-.values-mark {
-  width: 4.375rem;
-  height: 4.375rem;
-  justify-self: center;
-}
-
 @media (min-width: 60rem) {
   .values-grid {
-    grid-template-columns: repeat(3, 1fr) auto;
+    grid-template-columns: repeat(3, 1fr);
     gap: 0;
   }
 
+  /* First column starts at the container edge like every other section's text;
+     only the inner columns are inset off their divider. */
   .value {
-    padding-inline: var(--space-8);
+    padding-inline-end: var(--space-8);
+  }
+
+  .value:not(:first-of-type) {
+    padding-inline-start: var(--space-8);
   }
 
   /* Hairline dividers between the three, not around them — open columns
      rather than cards. */
   .value:not(:last-of-type) {
     border-right: 1px solid var(--color-border);
-  }
-
-  .values-mark {
-    margin-inline-start: var(--space-8);
   }
 }

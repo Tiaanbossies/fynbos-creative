@@ -23,9 +23,15 @@
   gap: var(--space-4);
 }
 
+/* --paper, not #fff. The page white is green-tinted (#fafffb); a pure white
+   card sitting on it is a second white the palette does not contain. This was
+   the last hard-coded colour standing in for a *brand* value — the literals
+   left in SeoPanel.css are Google's own colours in the search illustration,
+   which are depictions and must not become tokens. The border and the hover
+   lift define the card; the background never needed to. */
 .price-card {
   padding: var(--space-6);
-  background: #fff;
+  background: var(--paper);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   transition:

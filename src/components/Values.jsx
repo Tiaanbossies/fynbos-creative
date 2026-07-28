@@ -17,6 +17,15 @@ import './Values.css'
  *     partner who has not agreed to be listed.
  *
  * If either clearance is ever withdrawn, delete the card — do not soften it.
+ *
+ * The mockup closed this row with a terracotta protea glyph. It is gone, for
+ * two reasons that arrived together: at >=60rem it was a fourth grid column,
+ * so it floated to the right of the three values, vertically centred against
+ * nothing and squeezing the columns beside it — it read as an orphan, not as
+ * punctuation. And a protea is the *superseded* identity (see CLAUDE.md — the
+ * delivered artwork is a sunbird); echoing the retired badge on the homepage
+ * is the one place that costs the most. Deleted rather than re-placed: the
+ * hairline dividers already close the row.
  */
 const VALUES = [
   {
@@ -90,23 +99,6 @@ function Values() {
             <p className="value-body">{value.body}</p>
           </div>
         ))}
-
-        {/* Closing protea mark — the row's full stop, per the mockup. */}
-        <svg
-          className="values-mark"
-          viewBox="0 0 24 24"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M12 2C9 6 6 9 6 13a6 6 0 0012 0c0-4-3-7-6-11z"
-            fill="var(--terracotta)"
-          />
-          <path
-            d="M12 6c-1.6 2.4-3 4.3-3 6.6A3 3 0 0012 16a3 3 0 003-3.4C15 10.3 13.6 8.4 12 6z"
-            fill="var(--olive)"
-          />
-        </svg>
       </div>
     </section>
   )
