@@ -61,6 +61,28 @@
     />
     <meta name="twitter:image" content="https://fynboscreative.co.za/video/preview-frame.jpg" />
 
+    <!--
+      The site-wide business entity. Prerender copies this <head> to every
+      route, so this block is what identifies the business on all of them.
+
+      ProfessionalService is kept rather than swapped for LocalBusiness: it is a
+      subtype of LocalBusiness, so it already inherits address, telephone,
+      areaServed and sameAs, and the more specific type is the better signal.
+
+      The address carries locality, region and country but NO streetAddress,
+      because this is a service-area business with no premises to visit. That is
+      a deliberate omission, not a TODO — inventing a street would be a claim
+      about the business nobody has made, and a wrong one earns a manual action.
+
+      areaServed lists Centurion and Pretoria *alongside* South Africa rather
+      than replacing it. The visible copy says "across South Africa" and
+      "serving businesses nationwide"; narrowing the schema to two cities would
+      have the structured data contradict the page it sits on. The local signal
+      comes from the address and the Google Business Profile in sameAs.
+
+      telephone must stay in step with WHATSAPP_NUMBER in src/lib/whatsapp.js —
+      they are the same number and nothing checks that they agree.
+    -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -69,9 +91,21 @@
         "description": "Founder-led, done-for-you web services and media for small South African businesses.",
         "url": "https://fynboscreative.co.za/",
         "email": "tiaan@fynboscreative.co.za",
+        "telephone": "+27628034558",
         "image": "https://fynboscreative.co.za/video/preview-frame.jpg",
         "founder": { "@type": "Person", "name": "Tiaan" },
-        "areaServed": { "@type": "Country", "name": "South Africa" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Lyttelton, Centurion",
+          "addressRegion": "Gauteng",
+          "addressCountry": "ZA"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Centurion" },
+          { "@type": "City", "name": "Pretoria" },
+          { "@type": "Country", "name": "South Africa" }
+        ],
+        "sameAs": ["https://share.google/zG0cBzHj1RlApNw6F"],
         "slogan": "Rooted in local. Built to grow."
       }
     </script>
