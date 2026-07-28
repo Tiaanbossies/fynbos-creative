@@ -26,6 +26,7 @@ import { SITE, ROUTE_META, indexableRoutes } from '../src/lib/seo.js'
 import { FAQS } from '../src/lib/faqs.js'
 import { TIERS } from '../src/lib/tiers.js'
 import { SERVICES } from '../src/lib/services.js'
+import { WHATSAPP_NUMBER } from '../src/lib/whatsapp.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = resolve(__dirname, '../dist')
@@ -106,6 +107,77 @@ function assertHomepageMirror(template) {
       `prerender: index.html homepage metadata has drifted from SITE in src/lib/seo.js.\n` +
         `Both must carry the same strings — index.html is what a crawler reads for '/',\n` +
         `seo.js is what useSeo sets in the browser. Update whichever is stale.\n\n` +
+        drift.join('\n\n'),
+    )
+  }
+}
+
+/**
+ * Assert the ProfessionalService JSON-LD still agrees with the modules that
+ * own its values.
+ *
+ * Same failure mode as assertHomepageMirror, one level deeper. That block is
+ * hand-written in index.html, but four of its fields are copies: `telephone`
+ * is WHATSAPP_NUMBER from whatsapp.js wearing a '+', and name/url/email are
+ * SITE's. Nothing connected them, so the number a crawler reads and the number
+ * the WhatsApp button dials could drift apart — and this is the site where
+ * that matters most, because a WhatsApp click IS the conversion. A wrong
+ * number in the markup does not break a build, fail a lint, or look wrong on
+ * the page. It just sends enquiries somewhere nobody is listening.
+ *
+ * telephone is compared in E.164 ('+' prefixed) because that is what schema.org
+ * consumers expect, while wa.me takes bare digits — so the two are stored in
+ * different shapes on purpose and normalised here rather than being forced
+ * into one shape that would be wrong for one of the two consumers.
+ *
+ * Throwing matches replaceTag, assertHomepageMirror and assertLastmod: the
+ * failure this catches is silent by nature, so the check has to be loud.
+ */
+function assertBusinessEntity(template) {
+  const blocks = template.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) ?? []
+
+  let entity = null
+  for (const block of blocks) {
+    const json = block.replace(/^<script[^>]*>/, '').replace(/<\/script>$/, '')
+    let parsed
+    try {
+      parsed = JSON.parse(json)
+    } catch (error) {
+      throw new Error(
+        `prerender: a JSON-LD block in dist/index.html is not valid JSON — ${error.message}`,
+      )
+    }
+    if (parsed['@type'] === 'ProfessionalService') {
+      entity = parsed
+    }
+  }
+
+  if (!entity) {
+    throw new Error(
+      'prerender: expected a ProfessionalService JSON-LD block in dist/index.html.\n' +
+        'It identifies the business on every prerendered route, because this <head> is\n' +
+        'copied to all of them. If it was removed on purpose, remove this check too.',
+    )
+  }
+
+  const fields = [
+    ['telephone', entity.telephone, `+${WHATSAPP_NUMBER}`, 'WHATSAPP_NUMBER in src/lib/whatsapp.js'],
+    ['name', entity.name, SITE.name, 'SITE.name in src/lib/seo.js'],
+    ['url', entity.url, `${SITE.url}/`, 'SITE.url in src/lib/seo.js'],
+    ['email', entity.email, SITE.email, 'SITE.email in src/lib/seo.js'],
+  ]
+
+  const drift = fields
+    .filter(([, actual, expected]) => actual !== expected)
+    .map(
+      ([label, actual, expected, source]) =>
+        `  ${label}\n    index.html: ${JSON.stringify(actual)}\n    ${source}: ${JSON.stringify(expected)}`,
+    )
+
+  if (drift.length > 0) {
+    throw new Error(
+      `prerender: the ProfessionalService JSON-LD in index.html has drifted from the\n` +
+        `modules that own its values. Update whichever is stale.\n\n` +
         drift.join('\n\n'),
     )
   }
@@ -352,6 +424,7 @@ ${urls}
 function main() {
   const template = readFileSync(resolve(DIST, 'index.html'), 'utf8')
   assertHomepageMirror(template)
+  assertBusinessEntity(template)
 
   let count = 0
   for (const [path, meta] of Object.entries(ROUTE_META)) {
