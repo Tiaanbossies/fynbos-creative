@@ -51,6 +51,66 @@ function replaceTag(html, pattern, replacement, label) {
   return html.replace(pattern, replacement)
 }
 
+/** Inverse of esc, for reading a value back out of the built template. */
+function unesc(value) {
+  return String(value)
+    .replace(/&quot;/g, '"')
+    .replace(/&gt;/g, '>')
+    .replace(/&lt;/g, '<')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&')
+}
+
+/**
+ * Assert the homepage's baked metadata still matches SITE.
+ *
+ * This loop skips '/', because dist/index.html already carries the homepage's
+ * head. The consequence is that the homepage's title and description live in
+ * index.html while useSeo serves ROUTE_META's copies to the browser — the same
+ * two strings in two files, six tags in total once og: and twitter: are counted.
+ *
+ * That duplication has already broken once. seo.js was rewritten without
+ * index.html, and the result was a homepage that told a crawler one title and a
+ * visitor another, which is invisible in every place you would think to look:
+ * the page renders fine, the build passes, and the served HTML is correct in
+ * isolation. Only comparing the two catches it.
+ *
+ * So the comparison happens here, every build. Throwing matches replaceTag and
+ * assertLastmod: the failure mode this prevents is silent by nature, so the
+ * check has to be the loud kind.
+ */
+function assertHomepageMirror(template) {
+  const tags = [
+    ['<title>', /<title>([\s\S]*?)<\/title>/, SITE.defaultTitle],
+    ['description', /<meta\s+name="description"\s+content="([\s\S]*?)"\s*\/>/, SITE.defaultDescription],
+    ['og:title', /<meta property="og:title" content="([\s\S]*?)"\s*\/>/, SITE.defaultTitle],
+    ['og:description', /<meta\s+property="og:description"\s+content="([\s\S]*?)"\s*\/>/, SITE.defaultDescription],
+    ['twitter:title', /<meta name="twitter:title" content="([\s\S]*?)"\s*\/>/, SITE.defaultTitle],
+    ['twitter:description', /<meta\s+name="twitter:description"\s+content="([\s\S]*?)"\s*\/>/, SITE.defaultDescription],
+  ]
+
+  const drift = []
+  for (const [label, pattern, expected] of tags) {
+    const match = template.match(pattern)
+    if (!match) {
+      throw new Error(`prerender: expected to find ${label} in dist/index.html`)
+    }
+    const actual = unesc(match[1]).trim()
+    if (actual !== expected) {
+      drift.push(`  ${label}\n    index.html: ${actual}\n    seo.js:     ${expected}`)
+    }
+  }
+
+  if (drift.length > 0) {
+    throw new Error(
+      `prerender: index.html homepage metadata has drifted from SITE in src/lib/seo.js.\n` +
+        `Both must carry the same strings — index.html is what a crawler reads for '/',\n` +
+        `seo.js is what useSeo sets in the browser. Update whichever is stale.\n\n` +
+        drift.join('\n\n'),
+    )
+  }
+}
+
 function faqJsonLd() {
   const data = {
     '@context': 'https://schema.org',
@@ -291,6 +351,7 @@ ${urls}
 
 function main() {
   const template = readFileSync(resolve(DIST, 'index.html'), 'utf8')
+  assertHomepageMirror(template)
 
   let count = 0
   for (const [path, meta] of Object.entries(ROUTE_META)) {
