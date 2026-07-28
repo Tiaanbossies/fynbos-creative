@@ -46,8 +46,24 @@ function AboutPage() {
       <section className="section about-founder">
         <div className="container about-founder-grid">
           <figure className="about-portrait">
+            {/*
+              The portrait is never drawn near its 1200px source: the column is
+              2fr of 2fr/3fr above 48rem, which lands at ~394px on a 1280 screen,
+              and ~440px at its widest on mobile. So 1x devices were downloading
+              129 KB to paint 27 KB worth of pixels.
+
+              Note these are NOT the tiaan-56/112/168 files — those are the
+              Hero avatar's sizes and are far too small to serve here.
+
+              `sizes` pins 394px past 79.5rem rather than carrying a vw all the
+              way up: the container stops at 72rem, so above that the column is
+              a fixed width and a vw would keep over-requesting — declaring
+              40vw there fetched the 800 (84 KB) to paint 394px.
+            */}
             <img
               src="/team/tiaan.jpeg"
+              srcSet="/team/tiaan-400.jpeg 400w, /team/tiaan-600.jpeg 600w, /team/tiaan-800.jpeg 800w, /team/tiaan.jpeg 1200w"
+              sizes="(min-width: 79.5rem) 394px, (min-width: 48rem) 37vw, 90vw"
               alt="Tiaan, founder of Fynbos Creative"
               width="1200"
               height="1600"
