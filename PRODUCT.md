@@ -42,27 +42,39 @@ reassurance and credibility over aspiration or hype. Never salesy.
   system locked in the brief, not a warm-tinted near-white by reflex.
 - Not proteas-everywhere literalism; fynbos is textural, not decorative.
 
-## Moodboard (adopted 2026-07-21)
+## Moodboard (adopted 2026-07-21, REVERSED 2026-07-23 — history only)
 
-The client Figma moodboard **replaced the brief §C palette and type stack** on
-2026-07-21. `src/styles/tokens.css` now carries the moodboard colours and
-Amatic SC + Josefin Sans; the olive/terracotta/parchment system and
-Zilla Slab + Work Sans are gone.
+**Current state: the brief §C system is in force.** `src/styles/tokens.css` was
+restored on 2026-07-23 at the client's direction, from the "Fynbos Home" Claude
+Design mockup — olive / terracotta / parchment, Zilla Slab + Work Sans, with
+Alex Brush back as the script accent. That reversed *both* the 2026-07-21
+moodboard adoption and the 2026-07-22 white/orange amendment. The moodboard hues
+are gone from the codebase.
 
-**Amended 2026-07-22 at the client's direction:** the moodboard cream was
-dropped for plain white as the page background, and the moodboard pink was
-retired — the accent (primary CTA, wordmark) is now Sunbird Orange. The pink
-tokens no longer exist.
+**`tokens.css` is the authority on palette and type, not this section.** Its
+header comment carries the contrast contract and is dated later than anything
+below. The rest of this section is kept as a record of what was tried and
+withdrawn; do not design from it.
 
-Two adaptations were needed and are load-bearing — read `tokens.css`'s contrast
-contract before touching colour:
+What follows described the withdrawn direction:
 
-- **Every moodboard hue fails WCAG AA as body text on the white background**
-  (green 3.41:1, orange 3.15:1). Each hue therefore exists twice: the true value
-  for fills and 24px+ display, and a ~8%-darker `-deep` variant that clears
-  4.5:1. The semantic aliases point at the `-deep` variants.
-- **Prices set in the body font, not Amatic SC.** Hand-lettered numerals are
-  ambiguous at a glance, which contradicts "honesty is the aesthetic".
+- ~~The moodboard replaced the brief §C palette and type stack on 2026-07-21;
+  `tokens.css` carried the moodboard colours and Amatic SC + Josefin Sans.~~
+- ~~Amended 2026-07-22: moodboard cream dropped for plain white, moodboard pink
+  retired, accent moved to Sunbird Orange.~~
+- ~~Every moodboard hue failed WCAG AA as body text on white (green 3.41:1,
+  orange 3.15:1), so each hue existed twice with a ~8%-darker `-deep` variant.~~
+  **This no longer describes the codebase:** the restored brief hues are dark
+  enough to carry body text directly (terracotta 5.35:1, olive 7.63:1 on Paper),
+  so there is no `-deep` shadow palette. Two unrelated `-deep` tokens do exist
+  for their own documented reasons — `--bark-deep` (the muted-text grey, since
+  the mockup's `#8A8672` is 3.62:1 and fails AA) and `--sage-deep` (added
+  2026-07-28 so the logo's leaf tail and "CREATIVE" letterforms clear 3:1).
+  Read the contract in `tokens.css` before touching either.
+- **Prices set in the body font, never a display face.** Hand-lettered numerals
+  are ambiguous at a glance, which contradicts "honesty is the aesthetic". This
+  one **still stands** — it outlived the moodboard and applies to Zilla Slab and
+  Alex Brush exactly as it did to Amatic SC.
 
 Source: https://www.figma.com/design/vpmY9qidQIV2m6nvagVvDW/Moodboard?node-id=1-2
 
@@ -82,16 +94,17 @@ Source: https://www.figma.com/design/vpmY9qidQIV2m6nvagVvDW/Moodboard?node-id=1-
   Tortoise, Cape Mountain Leopard.
 - **Values / icons:** Protea, Trust, Community — single-weight line illustrations.
 
-Two anti-references above are now **superseded** by this adoption and should be
-read as historical:
+**Both anti-references above are in force.** The 2026-07-21 adoption had
+suspended the first of them; the 2026-07-23 restoration put it back:
 
-- **"Cream/sand AI-warm default"** — the brief's olive/terracotta/parchment
-  system is gone. Since 2026-07-22 the background is plain white, so the
-  "warm-tinted near-white" failure mode this bullet warned about is moot; warmth
-  now comes from the green and orange, not the page colour.
-- **"Not proteas-everywhere literalism"** — still the standing guidance for
-  imagery. The colour and type direction was adopted; the protea/wildlife
-  imagery has *not* been implemented, and this constraint still applies to it.
+- **"Cream/sand AI-warm default"** — **live guidance again.** The brief's
+  olive/terracotta/parchment system is what `tokens.css` carries, and the page
+  background is Paper `#fafffb`, so the "warm-tinted near-white by reflex"
+  failure mode this bullet warns about is a real risk to guard, not a moot one.
+- **"Not proteas-everywhere literalism"** — unchanged throughout. The
+  protea/wildlife imagery has *not* been implemented, and this constraint still
+  applies to it. Note the 2026-07-28 logo is a **sunbird**, not a protea; the
+  superseded protea badge is kept only as history (see `CLAUDE.md`).
 
 ## Design Principles
 

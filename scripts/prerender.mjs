@@ -27,6 +27,7 @@ import { FAQS } from '../src/lib/faqs.js'
 import { TIERS } from '../src/lib/tiers.js'
 import { SERVICES } from '../src/lib/services.js'
 import { WHATSAPP_NUMBER } from '../src/lib/whatsapp.js'
+import { TAGLINE } from '../src/lib/nav.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = resolve(__dirname, '../dist')
@@ -173,6 +174,7 @@ function assertBusinessEntity(template) {
     ['name', entity.name, SITE.name, 'SITE.name in src/lib/seo.js'],
     ['url', entity.url, `${SITE.url}/`, 'SITE.url in src/lib/seo.js'],
     ['email', entity.email, SITE.email, 'SITE.email in src/lib/seo.js'],
+    ['slogan', entity.slogan, TAGLINE, 'TAGLINE in src/lib/nav.js'],
   ]
 
   const drift = fields
