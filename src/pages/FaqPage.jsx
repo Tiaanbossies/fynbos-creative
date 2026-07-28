@@ -20,11 +20,7 @@ import './FaqPage.css'
  * invented (§H).
  */
 function FaqPage() {
-  useSeo({
-    title: 'FAQ — Fynbos Creative',
-    description:
-      'Straight answers on cost, monthly plans, contracts, ownership and getting started with Fynbos Creative — honest web services for small South African businesses.',
-  })
+  useSeo()
 
   const rowsRef = useRef([])
   const headingRef = useRevealText()
