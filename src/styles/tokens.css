@@ -74,9 +74,15 @@
   /**
    * Type — brief §C stack. Zilla Slab is a true slab serif with normal
    * metrics, so the display steps below are the un-inflated values: the ~1.25x
-   * scale-up that offset Amatic SC's condensed lettering is reversed, and
-   * headings go back to 600 (Zilla Slab ships the full 400–700 range, so a
-   * real semibold exists and nothing is synthetically emboldened).
+   * scale-up that offset Amatic SC's condensed lettering is reversed.
+   *
+   * Headings are 700, set in base.css. This comment used to say they "go back to
+   * 600" — they never did; base.css has applied 700 since the Amatic SC era,
+   * when only 400 and 700 shipped. Zilla Slab has the full 400–700 range, so 600
+   * is now available and nothing is synthetically emboldened either way. 700 is
+   * kept because it is what every heading on the site has always rendered at and
+   * what the adopted mockup was signed off against — dropping a step is a visual
+   * change to every page, not a correction. The false statement was the bug.
    *
    * Alex Brush returns as a script accent for section kickers only. It is
    * decorative and never sets anything a visitor must read to understand the
