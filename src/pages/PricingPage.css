@@ -73,14 +73,8 @@
   max-width: 22ch;
 }
 
-/* Closing CTA. Left-aligned stack, matching the Services page foot. */
-.pricing-page-foot {
-  display: grid;
-  justify-items: start;
-  gap: var(--space-4);
-  max-width: 56ch;
-}
-
+/* Closing CTA. The layout is .page-foot in base.css, shared with the other three
+   interior pages; only the measures below are local. */
 .pricing-page-foot-heading {
   font-size: var(--text-2xl);
   color: var(--color-primary);
@@ -101,5 +95,19 @@
    between them; let the row borders do the separating and pull the vertical
    rhythm in a little. */
 .pricing-rescue-section {
+  padding-block-start: 0;
+}
+
+/**
+ * Same move, different reason. The build-fee section's own --section-y bottom
+ * padding stacked against this one's top padding, producing a ~12rem band of
+ * empty paper between the build fee and "Then pick a monthly plan" — one of the
+ * two dead vertical bands the 2026-07-28 critique names. One --section-y is the
+ * gap every other block on the page gets; two was an accident of adjacency.
+ *
+ * The closing band below does NOT need this. Its top padding sits inside the
+ * parchment, so it reads as the band's own breathing room rather than as a gap.
+ */
+.pricing-plans-section {
   padding-block-start: 0;
 }

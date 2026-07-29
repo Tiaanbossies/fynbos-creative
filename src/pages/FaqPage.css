@@ -39,6 +39,12 @@
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-4);
+  /* Bounded to the same measure as .faq-answer below, and as every other page's
+     rows. Left to fill the 72rem container the question sat ~1000px from its own
+     chevron on desktop, so the two stopped reading as one control. The hairline
+     still spans the full width — that matches the Services list, where the row
+     border runs wide while .service-head is capped at 60ch. */
+  max-width: 64ch;
   padding-block: var(--space-6);
   cursor: pointer;
   list-style: none;
@@ -80,13 +86,8 @@
   color: var(--color-text-muted);
 }
 
-.faq-foot {
-  margin-block-start: var(--space-12);
-  display: grid;
-  justify-items: start;
-  gap: var(--space-4);
-}
-
+/* The foot's layout is .page-foot in base.css, shared with the other three
+   interior pages. Only the measure of this page's note is local. */
 .faq-note {
   font-size: var(--text-sm);
   color: var(--color-text-muted);

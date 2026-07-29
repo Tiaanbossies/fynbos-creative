@@ -94,6 +94,86 @@ textarea {
 }
 
 /**
+ * The interior pages' one compositional move.
+ *
+ * /services, /pricing, /about and /faq all cap their copy at 54-64ch inside a
+ * 72rem container and left-align it, which is right for reading and leaves ~700px
+ * of blank paper at 1440px. The fix is not to widen the measure — it is to give
+ * the page one full-bleed element. A `.section` is already a full-width block, so
+ * a background on it bleeds to the viewport edge with no negative-margin trick.
+ *
+ * Parchment rather than olive, deliberately: Footer.css calls the footer "the
+ * page's one drenched surface", and an olive band sitting directly above an olive
+ * footer would merge into it and read as one enormous block.
+ *
+ * The alias re-point is NOT optional. --color-text-muted resolves to --bark-deep,
+ * which measures 4.12:1 on --parchment (#e4decd) and fails AA — and every closing
+ * note on these four pages is set in it. --body-ink is 8.55:1 there. This is the
+ * same inversion the olive footer does with the --on-olive tokens, and for the
+ * same reason: a surface that changes the background owes its subtree new text
+ * colours.
+ *
+ * Terracotta measures 4.03:1 on parchment. That is fine for the filled .btn-accent
+ * (whose own white-on-terracotta contrast is unaffected by what it sits on) and it
+ * must never be used for text inside a band.
+ */
+.section-band {
+  --color-text-muted: var(--body-ink);
+  background: var(--parchment);
+}
+
+/**
+ * When a page closes on a band, .site-footer's own --section-y top margin leaves
+ * a ~70px strip of paper between two large fields of colour. At that width it
+ * reads as a seam rather than as space, so the two surfaces meet directly — the
+ * band's own bottom padding is already the breathing room. Pages that do NOT end
+ * on a band (the homepage, /privacy, the 404) keep the margin.
+ *
+ * :has() is doing real work here: the rule has to depend on what the *last child
+ * of main* is, and only the footer can act on it. Scoped to a direct child so a
+ * band nested deeper inside a page cannot trigger it.
+ */
+main:has(> .section-band:last-child) + .site-footer {
+  margin-block-start: 0;
+}
+
+/**
+ * The closing CTA layout, shared by all four interior pages so they cannot drift.
+ *
+ * Stacked on narrow screens; words left / action right on desktop, which is what
+ * actually fills the band's width. The two children are explicit wrappers rather
+ * than nth-child rules because the pages disagree about how many words there are:
+ * /pricing and /about lead with a heading and lede, /services and /faq have only a
+ * closing note.
+ */
+.page-foot {
+  display: grid;
+  gap: var(--space-6);
+  justify-items: start;
+}
+
+.page-foot-words,
+.page-foot-action {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: start;
+}
+
+@media (min-width: 60rem) {
+  .page-foot {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--space-12);
+  }
+
+  /* The action column is a button, not prose — pull it to the container's right
+     edge so the row spans the width the band just opened up. */
+  .page-foot-action {
+    justify-items: end;
+  }
+}
+
+/**
  * The header is sticky, so anything jumped to by anchor (/#how-it-works, the
  * footer links, ScrollToHash) lands underneath it. Reserve its height plus a
  * little breathing room on every anchorable target.
