@@ -27,7 +27,12 @@ export const CONTACT_EMAIL = 'tiaan@fynboscreative.co.za'
 /**
  * The tagline, set once. It appears under the text wordmark, under the footer
  * logo, and as `slogan` in the ProfessionalService JSON-LD in index.html — the
- * two React usages read it from here so they cannot drift. (The JSON-LD copy is
- * in static HTML and has no way to import; keep it in step by hand.)
+ * two React usages read it from here so they cannot drift. The JSON-LD copy is
+ * static HTML and still cannot import, but it is no longer kept in step by
+ * hand: assertBusinessEntity in scripts/prerender.mjs compares the two every
+ * build and fails on drift, so this module stays the single source.
+ *
+ * That makes this file an import of the Node prerender as well as the browser
+ * bundle, so it must stay free of React and browser globals.
  */
 export const TAGLINE = 'Rooted in local. Built to grow.'

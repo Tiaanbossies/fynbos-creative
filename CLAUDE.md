@@ -61,11 +61,15 @@ client work and partner consent before shipping. Do not add them back to fill ou
 ### Styling and design tokens
 
 `src/styles/tokens.css` holds the palette, type scale, and spacing. **Read its header comment before
-touching any colour** — it carries a contrast contract, not just values. Each brand hue exists twice:
-the raw moodboard value (fills and 24px+ display only) and a `-deep` variant that clears WCAG AA
-4.5:1. Semantic aliases (`--color-text`, `--color-accent`, …) all point at the `-deep` variants, so
-anything reading a semantic token is AA-safe by default. Components should reference semantic
-aliases, not raw hues.
+touching any colour** — it carries a contrast contract, not just values. The brief §C hues restored
+on 2026-07-23 are dark enough to carry body text directly (terracotta 5.35:1, olive 7.63:1 on Paper),
+so there is **no** blanket `-deep` shadow palette — that was the superseded moodboard arrangement.
+Exactly two `-deep` tokens exist, each for a stated reason: `--bark-deep` (5.47:1) because the
+mockup's muted grey `#8A8672` is 3.62:1 and fails AA, and `--sage-deep` (3.11:1) because `--sage` is
+a 1.71:1 wash that could not carry the logo's leaf tail and "CREATIVE" letterforms. Components should
+reference semantic aliases, not raw hues — but note the aliases resolve to whichever token is correct
+for the job (`--color-text-muted` → `--bark-deep`; `--color-accent` → raw `--terracotta`), so "use a
+semantic alias" is the rule, not "everything points at a `-deep`".
 
 `--color-accent` is reserved for the primary CTA and the wordmark. It is not a general-purpose
 highlight.
