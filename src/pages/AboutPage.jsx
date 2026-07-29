@@ -134,29 +134,34 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="section about-foot-section">
+      {/* Full-bleed closing band — see .section-band in base.css. */}
+      <section className="section section-band about-foot-section">
         <div className="container">
-          <div className="about-foot">
-            <h2 className="about-foot-heading">Let&rsquo;s talk about your business.</h2>
-            <p className="about-foot-lede">
-              The easiest way to start is a message — tell me what you do and what you&rsquo;re
-              stuck on, and I&rsquo;ll tell you honestly whether I can help.
-            </p>
-            <a
-              className="btn-accent"
-              data-primary-cta
-              href={buildWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackWhatsAppClick('about')}
-            >
-              Chat with us on WhatsApp
-            </a>
-            <p className="about-foot-note">
-              Prefer email? Reach me at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Or
-              see exactly what I do on the <Link to="/services">services</Link> and{' '}
-              <Link to="/pricing">pricing</Link> pages.
-            </p>
+          <div className="page-foot">
+            <div className="page-foot-words">
+              <h2 className="about-foot-heading">Let&rsquo;s talk about your business.</h2>
+              <p className="about-foot-lede">
+                The easiest way to start is a message — tell me what you do and what you&rsquo;re
+                stuck on, and I&rsquo;ll tell you honestly whether I can help.
+              </p>
+              <p className="about-foot-note">
+                Prefer email? Reach me at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                Or see exactly what I do on the <Link to="/services">services</Link> and{' '}
+                <Link to="/pricing">pricing</Link> pages.
+              </p>
+            </div>
+            <div className="page-foot-action">
+              <a
+                className="btn-accent"
+                data-primary-cta
+                href={buildWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('about')}
+              >
+                Chat with us on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>

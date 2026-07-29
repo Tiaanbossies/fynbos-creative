@@ -94,14 +94,8 @@
   color: var(--color-text-muted);
 }
 
-/* Closing CTA — left-aligned stack, consistent with the other pages' feet. */
-.about-foot {
-  display: grid;
-  justify-items: start;
-  gap: var(--space-4);
-  max-width: 56ch;
-}
-
+/* Closing CTA. The layout is .page-foot in base.css, shared with the other three
+   interior pages; only the measures below are local. */
 .about-foot-heading {
   font-size: var(--text-2xl);
   color: var(--color-primary);

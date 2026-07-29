@@ -77,22 +77,31 @@ function FaqPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
 
-          <div className="faq-foot">
-            <a
-              className="btn-accent"
-              data-primary-cta
-              href={buildWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackWhatsAppClick('faq')}
-            >
-              Chat with us on WhatsApp
-            </a>
-            <p className="faq-note">
-              Want the detail behind the answers? The <Link to="/services">services</Link> and{' '}
-              <Link to="/pricing">pricing</Link> pages lay it all out.
-            </p>
+      {/* Full-bleed closing band — see .section-band in base.css. */}
+      <section className="section section-band faq-foot-section">
+        <div className="container">
+          <div className="page-foot">
+            <div className="page-foot-words">
+              <p className="faq-note">
+                Want the detail behind the answers? The <Link to="/services">services</Link> and{' '}
+                <Link to="/pricing">pricing</Link> pages lay it all out.
+              </p>
+            </div>
+            <div className="page-foot-action">
+              <a
+                className="btn-accent"
+                data-primary-cta
+                href={buildWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('faq')}
+              >
+                Chat with us on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>
