@@ -9,6 +9,20 @@ import './Contact.css'
 const EMPTY = { name: '', contact: '', message: '' }
 
 /**
+ * Field name -> input id, in the order they appear in the form.
+ *
+ * validateEnquiry returns an object keyed by field name, and an object's key
+ * order is not the form's visual order — so a failed submit has to consult this
+ * list rather than Object.keys(errors) to know which field is *first*. Keep it
+ * in step with the markup below if a field is ever added or reordered.
+ */
+const FIELDS = [
+  { name: 'name', id: 'contact-name' },
+  { name: 'contact', id: 'contact-detail' },
+  { name: 'message', id: 'contact-message' },
+]
+
+/**
  * Contact — brief §E.7.
  *
  * WhatsApp leads because that is how this audience actually makes contact
@@ -25,14 +39,50 @@ function Contact() {
   const [values, setValues] = useState(EMPTY)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | sending | sent | failed
+  /**
+   * Counts failed submits, and is the trigger for both the live-region notice
+   * and the focus move below. A counter rather than a boolean because two
+   * failed submits in a row must re-fire the focus effect; a boolean would
+   * already be true and the effect would not run.
+   */
+  const [invalidAttempt, setInvalidAttempt] = useState(0)
 
   useEffect(() => {
     revealOnScroll(formRef.current)
   }, [])
 
+  /**
+   * Validation used to fail silently for anyone not looking at the form: three
+   * good error messages appeared, but focus stayed on the submit button and
+   * nothing announced that anything had gone wrong, so a keyboard or
+   * screen-reader user had to go hunting for it.
+   *
+   * Moving focus to the first invalid field announces its label AND its error,
+   * because aria-describedby is already wired on every input. That has to
+   * happen after the commit that renders the error, or the description does not
+   * exist yet to be read out.
+   *
+   * `errors` is deliberately NOT a dependency: this effect must run on a failed
+   * submit and at no other time. Adding it would re-steal focus on every
+   * keystroke that cleared an error. The closure reads the errors set by the
+   * same render that bumped the counter, which is exactly what is wanted.
+   */
+  useEffect(() => {
+    if (invalidAttempt === 0) return
+    const first = FIELDS.find((field) => errors[field.name])
+    if (!first) return
+    document.getElementById(first.id)?.focus()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [invalidAttempt])
+
   function handleChange(event) {
     const { name, value } = event.target
     setValues((current) => ({ ...current, [name]: value }))
+    /* Drop the summary as soon as any correction starts. The per-field errors
+       below stay until each is actually fixed; it is the "3 fields need
+       attention" line that becomes wrong the moment one of them is being
+       addressed. */
+    setInvalidAttempt(0)
     /* Clear this field's error as soon as it is being corrected — leaving it
        up while someone fixes it reads as nagging. */
     setErrors((current) => {
@@ -50,8 +100,11 @@ function Contact() {
     setErrors(found)
     if (Object.keys(found).length > 0) {
       setStatus('idle')
+      setInvalidAttempt((attempt) => attempt + 1)
       return
     }
+
+    setInvalidAttempt(0)
 
     setStatus('sending')
     try {
@@ -67,6 +120,7 @@ function Contact() {
   }
 
   const isSending = status === 'sending'
+  const errorCount = Object.keys(errors).length
 
   return (
     <section className="section contact" id="contact">
@@ -180,7 +234,25 @@ function Contact() {
               <Link to="/privacy">privacy policy</Link>.
             </p>
 
+            {/**
+              * The one existing live region carries the validation notice too,
+              * rather than a second one: two live regions announcing into the
+              * same moment interrupt each other.
+              *
+              * Screen-reader-only on purpose. The visible cue for a sighted
+              * keyboard user is the focus ring landing on the offending field,
+              * and each error is already printed under its own input — a
+              * visible summary here would be a third statement of the same
+              * thing, below the button, which no design asked for.
+              */}
             <div className="contact-status" aria-live="polite">
+              {invalidAttempt > 0 && errorCount > 0 && (
+                <p className="visually-hidden">
+                  {errorCount === 1
+                    ? '1 field needs attention.'
+                    : `${errorCount} fields need attention.`}
+                </p>
+              )}
               {status === 'sent' && (
                 <p className="contact-status-ok">
                   Thanks — we&rsquo;ve got it. Tiaan will get back to you shortly.
