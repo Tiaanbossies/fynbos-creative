@@ -10,6 +10,15 @@ import './PrivacyPolicy.css'
  * info@fynboscreative.co.za (a leftover from the fynbosdigital rebrand). It is
  * now tiaan@, on instruction — the address a data subject writes to must be one
  * that is actually monitored, and it now matches the footer.
+ *
+ * The analytics paragraph previously claimed Google Analytics. Nothing of the
+ * sort was ever installed — index.html loads no tag, and whatsapp.js guards
+ * trackWhatsAppClick behind `typeof window.gtag === 'function'`, so every click
+ * event silently no-ops. A POPIA page overstating what is collected is the one
+ * kind of inaccuracy that costs more than it saves, so the claim is gone.
+ *
+ * If analytics is ever added, this paragraph is the first thing that must
+ * change — it now asserts the absence, not merely omits the presence.
  */
 function PrivacyPolicy() {
   useSeo()
@@ -30,10 +39,9 @@ function PrivacyPolicy() {
           </p>
           <h2>Website analytics</h2>
           <p>
-            We use Google Analytics to understand how visitors use this site
-            (pages viewed, general location, device type). This data is
-            anonymised and used only to improve the site — we don&apos;t sell or
-            share it with third parties for marketing.
+            This site runs no analytics, no tracking pixels and no advertising
+            cookies. We don&apos;t know who visits, what you look at or where you
+            came from — the first we hear from you is when you message us.
           </p>
           <h2>How we use your information</h2>
           <p>

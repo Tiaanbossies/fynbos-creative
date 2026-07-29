@@ -89,28 +89,33 @@ function PricingPage() {
         </div>
       </section>
 
-      <section className="section pricing-page-foot-section">
+      {/* Full-bleed closing band — see .section-band in base.css. */}
+      <section className="section section-band pricing-page-foot-section">
         <div className="container">
-          <div className="pricing-page-foot">
-            <h2 className="pricing-page-foot-heading">Not sure which plan fits?</h2>
-            <p className="pricing-page-foot-lede">
-              Tell us a little about your business and we&rsquo;ll point you at the right one —
-              honestly, including if the answer is a smaller plan than you expected.
-            </p>
-            <a
-              className="btn-accent"
-              data-primary-cta
-              href={buildWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackWhatsAppClick('pricing-page')}
-            >
-              Chat with us on WhatsApp
-            </a>
-            <p className="pricing-page-note">
-              Want the detail on what each plan actually does for you? That&rsquo;s on the{' '}
-              <Link to="/services">services page</Link>.
-            </p>
+          <div className="page-foot">
+            <div className="page-foot-words">
+              <h2 className="pricing-page-foot-heading">Not sure which plan fits?</h2>
+              <p className="pricing-page-foot-lede">
+                Tell us a little about your business and we&rsquo;ll point you at the right one —
+                honestly, including if the answer is a smaller plan than you expected.
+              </p>
+              <p className="pricing-page-note">
+                Want the detail on what each plan actually does for you? That&rsquo;s on the{' '}
+                <Link to="/services">services page</Link>.
+              </p>
+            </div>
+            <div className="page-foot-action">
+              <a
+                className="btn-accent"
+                data-primary-cta
+                href={buildWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('pricing-page')}
+              >
+                Chat with us on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>

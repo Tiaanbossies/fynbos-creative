@@ -63,23 +63,37 @@ function ServicesPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
 
-          <div className="services-foot">
-            <a
-              className="btn-accent"
-              data-primary-cta
-              href={buildWhatsAppLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackWhatsAppClick('services')}
-            >
-              Chat with us on WhatsApp
-            </a>
-            <p className="services-note">
-              Not sure which of these you need? Message us and we&rsquo;ll tell you honestly —
-              including if the answer is &ldquo;less than you think&rdquo;. Full monthly plans
-              are on the <Link to="/pricing">pricing page</Link>.
-            </p>
+      {/*
+        The closing CTA is its own full-bleed band rather than the last row of the
+        list — see .section-band in base.css. It is the page's one element that
+        reaches the viewport edge, which is what stops the desktop layout reading
+        as a narrow column against half a screen of blank paper.
+      */}
+      <section className="section section-band services-foot-section">
+        <div className="container">
+          <div className="page-foot">
+            <div className="page-foot-words">
+              <p className="services-note">
+                Not sure which of these you need? Message us and we&rsquo;ll tell you honestly
+                — including if the answer is &ldquo;less than you think&rdquo;. Full monthly
+                plans are on the <Link to="/pricing">pricing page</Link>.
+              </p>
+            </div>
+            <div className="page-foot-action">
+              <a
+                className="btn-accent"
+                data-primary-cta
+                href={buildWhatsAppLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('services')}
+              >
+                Chat with us on WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </section>

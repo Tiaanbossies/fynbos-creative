@@ -47,7 +47,27 @@ function HomeFaq() {
         <div className="home-faq-list">
           {shown.map((faq) => (
             <details className="home-faq-item" key={faq.id}>
-              <summary className="home-faq-question">{faq.question}</summary>
+              <summary className="home-faq-question">
+                <span>{faq.question}</span>
+                {/* The chevron is duplicated from FaqPage rather than shared:
+                    the two components are namespaced apart on purpose (see the
+                    header of HomeFaq.css), and a shared icon component would be
+                    a third file to keep in step for eleven lines of markup.
+                    What must not diverge is the affordance — without it these
+                    rows read as four plain lines of text and nobody taps. */}
+                <svg
+                  className="home-faq-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </summary>
               <p className="home-faq-answer">{faq.answer}</p>
             </details>
           ))}

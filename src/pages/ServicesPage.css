@@ -61,13 +61,9 @@
   color: var(--color-text-muted);
 }
 
-.services-foot {
-  margin-block-start: var(--space-12);
-  display: grid;
-  justify-items: start;
-  gap: var(--space-4);
-}
-
+/* The foot's layout is .page-foot in base.css, shared with the other three
+   interior pages so the four closing CTAs cannot drift apart. Only the measure
+   of this page's note is local. */
 .services-note {
   font-size: var(--text-sm);
   color: var(--color-text-muted);

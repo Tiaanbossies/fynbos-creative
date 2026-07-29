@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-28T17:40:00Z",
+  "title": "Design System: Fynbos Creative",
+  "extensions": {
+    "colorMeta": {
+      "olive": {
+        "role": "primary",
+        "displayName": "Fynbos Olive",
+        "canonical": "#3d5a3a",
+        "tonalRamp": ["#0d130c", "#1a2618", "#273a24", "#3d5a3a", "#587f54", "#7da878", "#a9c8a5", "#d9e7d7"]
+      },
+      "terracotta": {
+        "role": "secondary",
+        "displayName": "Sunbird Terracotta",
+        "canonical": "#a8503d",
+        "tonalRamp": ["#2b1410", "#4b241b", "#6f3527", "#8a3d2e", "#a8503d", "#c47761", "#dda694", "#f1d5cb"]
+      },
+      "sage": {
+        "role": "tertiary",
+        "displayName": "Sage Tint",
+        "canonical": "#b9cba0",
+        "tonalRamp": ["#1e2617", "#37432b", "#516242", "#6d8059", "#819872", "#9db38a", "#b9cba0", "#f1f5ec"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#fafffb",
+        "tonalRamp": ["#1c2117", "#3a3a30", "#6c6957", "#8a8672", "#c2bda8", "#e4decd", "#f0ecdf", "#fafffb"]
+      },
+      "deep-pine": {
+        "role": "neutral",
+        "displayName": "Deep Pine",
+        "canonical": "#1c2117",
+        "tonalRamp": ["#0a0d08", "#12160f", "#1c2117", "#2b3225", "#3a3a30", "#585646", "#6c6957", "#8a8672"]
+      },
+      "parchment": {
+        "role": "neutral",
+        "displayName": "Parchment",
+        "canonical": "#e4decd",
+        "tonalRamp": ["#2e2a1f", "#4a4433", "#6c6957", "#8a8672", "#b0ab95", "#cdc7b3", "#e4decd", "#f0ecdf"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hero headline only. Peaks at 64px." },
+      "headline": { "displayName": "Headline", "purpose": "Interior-page h1s, bounded to 16-20ch." },
+      "title": { "displayName": "Title", "purpose": "Section headings within a page." },
+      "body": { "displayName": "Body", "purpose": "Paragraphs, bounded to 54-64ch. 60ch is the house measure." },
+      "label": { "displayName": "Label", "purpose": "Navigation, buttons, form labels, table cells." },
+      "script": { "displayName": "Script", "purpose": "Section kickers only. Decorative, aria-hidden, never load-bearing." }
+    },
+    "shadows": [
+      { "name": "shadow-cta", "value": "0 6px 18px rgb(168 80 61 / 30%)", "purpose": "The terracotta primary button at rest. Tinted in its own colour, not grey." },
+      { "name": "shadow-cta-hover", "value": "0 10px 22px rgb(168 80 61 / 40%)", "purpose": "Paired with translateY(-2px). Shadow and translate move together or it reads as a jump." },
+      { "name": "shadow-card", "value": "0 12px 26px rgb(0 0 0 / 10%)", "purpose": "Homepage price cards only. The documented exception to flat-by-default." },
+      { "name": "shadow-panel", "value": "0 16px 40px rgb(0 0 0 / 10%)", "purpose": "The SEO search-result illustration." },
+      { "name": "shadow-media", "value": "0 14px 34px rgb(0 0 0 / 14%)", "purpose": "The hero media panel." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.22, 0.61, 0.36, 1)", "purpose": "The only easing in the system. Exponential ease-out, no bounce, no elastic." },
+      { "name": "duration-fast", "value": "150ms", "purpose": "Hover and focus state changes." },
+      { "name": "duration-base", "value": "320ms", "purpose": "Header solidify, nav underline sweep, menu open." },
+      { "name": "sheen-sweep", "value": "0.6s", "purpose": "The primary CTA's diagonal light band. Neutralised under prefers-reduced-motion." },
+      { "name": "reveal", "value": "0.7s", "purpose": "Blur-in text reveal. Only ever applied after motion is confirmed allowed, so content is never gated on it." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "48rem" },
+      { "name": "lg", "value": "60rem" },
+      { "name": "container-max", "value": "72rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary CTA",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The WhatsApp action. The only terracotta element on any page, and the only thing that lifts.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Chat with us on WhatsApp</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 3rem; padding: 1rem 26px; background: #a8503d; color: #fff; font-family: 'Work Sans', system-ui, sans-serif; font-weight: 600; text-decoration: none; border-radius: 8px; box-shadow: 0 6px 18px rgb(168 80 61 / 30%); position: relative; overflow: hidden; transition: transform 150ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 150ms cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%); transform: translateX(-120%); transition: transform 0.6s cubic-bezier(0.22,0.61,0.36,1); pointer-events: none; } .ds-btn-primary:hover, .ds-btn-primary:focus-visible { box-shadow: 0 10px 22px rgb(168 80 61 / 40%); transform: translateY(-2px); } .ds-btn-primary:hover::after, .ds-btn-primary:focus-visible::after { transform: translateX(120%); } .ds-btn-primary:active { transform: translateY(0); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Form submit. Olive, deliberately quieter than the WhatsApp CTA beside it.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">Send message</button>",
+      "css": ".ds-btn-secondary { min-height: 3rem; padding: 0.75rem 2rem; background: #3d5a3a; color: #fafffb; font-family: 'Work Sans', system-ui, sans-serif; font-weight: 600; border: none; border-radius: 999px; cursor: pointer; transition: transform 150ms cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-secondary:hover:not(:disabled) { transform: translateY(-2px); } .ds-btn-secondary:focus-visible { outline: 2px solid #a8503d; outline-offset: 3px; } .ds-btn-secondary:disabled { opacity: 0.6; cursor: default; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Sage-washed field with a visible label. Placeholder-as-label is forbidden.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-name\">Your name</label><input id=\"ds-name\" type=\"text\"></div>",
+      "css": ".ds-field { display: grid; gap: 0.5rem; font-family: 'Work Sans', system-ui, sans-serif; } .ds-field label { font-size: 0.875rem; font-weight: 600; color: #1c2117; } .ds-field input { width: 100%; padding: 0.75rem; font: inherit; color: #1c2117; background: color-mix(in srgb, #b9cba0 12%, transparent); border: 1px solid #e4decd; border-radius: 10px; transition: border-color 150ms cubic-bezier(0.22,0.61,0.36,1); } .ds-field input:focus { border-color: #3d5a3a; outline: none; } .ds-field input:focus-visible { outline: 2px solid #a8503d; outline-offset: 3px; } .ds-field input[aria-invalid='true'] { border-color: #a8503d; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "A 2px currentColor underline grows from the left on hover and focus, and stays put for the active route.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link ds-is-active\" href=\"#\">Home</a><a class=\"ds-nav-link\" href=\"#\">Pricing</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 1.5rem; font-family: 'Work Sans', system-ui, sans-serif; } .ds-nav-link { position: relative; color: #1c2117; text-decoration: none; font-size: 0.875rem; font-weight: 500; padding-block: 0.5rem; border-bottom: 2px solid transparent; transition: color 150ms cubic-bezier(0.22,0.61,0.36,1); } .ds-nav-link::after { content: ''; position: absolute; inset-inline: 0; inset-block-end: 0; height: 2px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 320ms cubic-bezier(0.22,0.61,0.36,1); } .ds-nav-link:hover, .ds-nav-link.ds-is-active { color: #3d5a3a; } .ds-nav-link:hover::after, .ds-nav-link:focus-visible::after, .ds-nav-link.ds-is-active::after { transform: scaleX(1); }"
+    },
+    {
+      "name": "Open Row",
+      "kind": "custom",
+      "refersTo": "row-open",
+      "description": "The system's replacement for the card. Name and price share a baseline inside a 60ch measure; a hairline separates, nothing encloses.",
+      "html": "<div class=\"ds-row\"><div class=\"ds-row-head\"><h3 class=\"ds-row-name\">Website Rescue &amp; Rebuild</h3><p class=\"ds-row-price\">R2,500 – R8,000</p></div><p class=\"ds-row-body\">We take it over, fix what is worth keeping and rebuild the rest. Priced on how much work it actually needs.</p></div>",
+      "css": ".ds-row { padding-block: 2rem; border-block-start: 1px solid #e4decd; font-family: 'Work Sans', system-ui, sans-serif; } .ds-row-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1rem; max-width: 60ch; } .ds-row-name { margin: 0; font-family: 'Zilla Slab', Georgia, serif; font-size: clamp(1.125rem, 1rem + 0.6vw, 1.35rem); font-weight: 700; line-height: 1.05; color: #3d5a3a; } .ds-row-price { margin: 0; font-weight: 700; color: #1c2117; white-space: nowrap; } .ds-row-body { margin: 0.75rem 0 0; max-width: 60ch; line-height: 1.65; color: #6c6957; }"
+    },
+    {
+      "name": "Sticky WhatsApp Bar",
+      "kind": "custom",
+      "refersTo": "button-primary",
+      "description": "Mobile-only, fixed bottom, z-index 200. Plain markup with a real href — nothing that could fail or defer. Yields while an in-page CTA is visible; fails open.",
+      "html": "<div class=\"ds-sticky\"><a class=\"ds-sticky-btn\" href=\"#\"><svg class=\"ds-sticky-icon\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2\"/></svg>Chat with us on WhatsApp</a></div>",
+      "css": ".ds-sticky { padding: 0.75rem 1rem; background: color-mix(in srgb, #fafffb 92%, transparent); } .ds-sticky-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 3.25rem; background: #a8503d; color: #fff; font-family: 'Work Sans', system-ui, sans-serif; font-weight: 600; text-decoration: none; border-radius: 999px; box-shadow: 0 6px 18px rgb(168 80 61 / 30%); } .ds-sticky-icon { width: 1.25rem; height: 1.25rem; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Plain Ledger",
+    "overview": "Everything is stated in the open and nothing is boxed away. This system reads like a well-kept account book rather than a brochure: entries divided by hairlines, prices sitting on the same baseline as the thing they belong to, olive as the ink, parchment as the ruling, and terracotta reserved for the single line you are meant to act on. The layout is the argument — a visitor who scans it should conclude that this business has nothing to hide before reading a word about honesty.\n\nIt is a warm system, but warmth comes from hue and voice, never from softness of structure. Zilla Slab's slab serifs give headings the weight of a printed heading rather than a marketing headline. Work Sans carries body copy at a full 1.65 line-height because the audience is scanning on a phone, on data, and legibility outranks personality. Alex Brush appears at most once per page, as a script kicker, and never sets anything a visitor must read to understand the page.",
+    "keyCharacteristics": [
+      "Open rows and hairlines, not cards — content divided by whitespace and 1px parchment rules",
+      "One loud thing per screen: the terracotta WhatsApp CTA, and nothing else in that colour",
+      "Prices always in the body font, never a display or script face",
+      "Every text colour measured against Paper and documented; the muted grey exists twice so the readable one is the only one used for text",
+      "Mobile-first at ~85% of the audience: 44px+ targets, Save-Data respected, reduced-motion honoured everywhere"
+    ],
+    "rules": [
+      { "name": "The One Action Rule", "body": "Terracotta is reserved for the primary CTA and the wordmark. If you are reaching for it anywhere else, reach for something else. A page with two terracotta elements competing has no primary action.", "section": "colors" },
+      { "name": "The Two Greys Rule", "body": "The muted grey exists twice on purpose. --bark-grey (3.62:1) fails AA and is for hairlines and decoration; --bark-deep (5.47:1) is for anything a visitor has to read. Never set text in --bark-grey.", "section": "colors" },
+      { "name": "The Green Near-White Rule", "body": "The page background is Paper, tinted toward the brand's own green. Never substitute a warm-tinted near-white — cream, sand, bone, linen, parchment-as-background. The warm-neutral band is the saturated AI default and this brand is explicitly defined against it.", "section": "colors" },
+      { "name": "The Legible Price Rule", "body": "Prices are set in the body font, never a display or script face, and never wrap. Hand-lettered or ornamental numerals are ambiguous at a glance, which contradicts 'honesty is the aesthetic'.", "section": "typography" },
+      { "name": "The Silent Script Rule", "body": "Alex Brush never carries information. If removing the script line would cost the reader anything, it was doing a job it is not allowed to do — move the words into the heading.", "section": "typography" },
+      { "name": "The One H1 Rule", "body": "One h1 per page, and it says what the page is in a plain sentence. Headings are sentences, not labels.", "section": "typography" },
+      { "name": "The Hairline-First Rule", "body": "Reach for a 1px --parchment rule before reaching for a border box, and for whitespace before reaching for a hairline. Heavy card, border and shadow treatment is rejected: it reads as software, and this business is a person.", "section": "elevation" },
+      { "name": "The Nested-Box Prohibition", "body": "A bordered thing inside a bordered thing is always wrong here. If content needs grouping inside an already-ruled row, group it with spacing.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do reference semantic aliases (--color-text-muted, --color-accent), not raw hues — but note the aliases resolve to whichever token is correct for the job, so 'use a semantic alias' is the rule, not 'everything points at a -deep'.",
+      "Do state prices plainly and early, in the body font, on the same baseline as what they buy. Never behind a 'contact us' wall.",
+      "Do divide content with whitespace and 1px --parchment hairlines.",
+      "Do bound body copy to 54-64ch and headings to 16-20ch.",
+      "Do give every tap target 44px, and every inline link at least 24x24 (WCAG 2.5.8).",
+      "Do honour prefers-reduced-motion on every animation and Save-Data on heavy media. Both are non-negotiable.",
+      "Do make reveals enhance an already-visible page. Content is never gated on a class-triggered transition — a crawler, a PDF capture or a hidden tab must still see the section.",
+      "Do measure any new colour against Paper before assigning it to text, and write the ratio into tokens.css."
+    ],
+    "donts": [
+      "Don't use terracotta for anything but the primary CTA and the wordmark.",
+      "Don't set text in --bark-grey (3.62:1). Ever.",
+      "Don't reach for corporate/agency gloss — no 'we're a team of experts', no stock-photo polish, no invented statistics, testimonials or case studies.",
+      "Don't reach for the generic SaaS-startup look — no gradient-heavy hero-metric templates, no dashboard chrome, no cold/sterile minimalism. Depth, cards and shadows read as 'software', which is the opposite of this brand.",
+      "Don't substitute the cream/sand AI-warm default for Paper. The warm near-white is the reflex this palette is defined against.",
+      "Don't fall into proteas-everywhere literalism. Fynbos is textural, not decorative; the identity is a sunbird.",
+      "Don't box a box. Nested cards, bordered things inside bordered things, and side-stripe accent borders are all prohibited.",
+      "Don't set a price, a heading, or anything load-bearing in Alex Brush.",
+      "Don't put a tiny uppercase tracked eyebrow above every section. One script kicker on one section is voice; a kicker on every section is scaffolding.",
+      "Don't add a 'Most popular' badge, a ranking, a fabricated metric or a mocked-up search position. If the data does not exist, the pixel does not either.",
+      "Don't ship an interior page as a single narrow column of text with no compositional move. If it looks like a document rather than a page, it is not finished."
+    ]
+  }
+}
