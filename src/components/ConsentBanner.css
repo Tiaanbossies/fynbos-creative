@@ -1,0 +1,104 @@
+/**
+ * Pinned to the bottom, but UNDER the sticky WhatsApp bar in both senses.
+ *
+ * z-index is one below --z-sticky-cta, because tokens.css states that bar "must
+ * outrank everything — brief §B.1". A privacy notice is not an exception to
+ * that: the whole point of the opt-in design is that a visitor can ignore this
+ * and still reach the one action the site exists to drive.
+ *
+ * Below 48rem the sticky bar occupies the bottom edge, so this sits above it —
+ * 4.5rem clears its 3rem button plus its padding, and the safe-area inset is
+ * added for the same iOS home-indicator reason the bar itself carries. At 48rem
+ * the bar is display:none, so this drops to the edge.
+ */
+.consent-banner {
+  position: fixed;
+  inset-inline: 0;
+  bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+  z-index: calc(var(--z-sticky-cta) - 1);
+  padding: var(--space-4);
+}
+
+@media (min-width: 48rem) {
+  .consent-banner {
+    bottom: 0;
+  }
+}
+
+/**
+ * Parchment, and the site's existing panel shadow. Deliberately not olive: the
+ * footer is "the page's one drenched surface" (Footer.css), and a second full
+ * olive field floating over the page would read as a second footer.
+ *
+ * --color-text-muted is re-pointed for the same reason .section-band does it in
+ * base.css — --bark-deep measures 4.12:1 on --parchment and fails AA.
+ */
+.consent-banner-inner {
+  --color-text-muted: var(--body-ink);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  background: var(--parchment);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-panel);
+}
+
+.consent-banner-copy {
+  flex: 1 1 22rem;
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--body-ink);
+}
+
+.consent-banner-copy a {
+  color: var(--color-primary);
+}
+
+.consent-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/**
+ * Both buttons carry the same weight, size and prominence on purpose. Consent
+ * that is awkward to refuse is not freely given, and POPIA asks that it be
+ * freely given — so "No thanks" is not a grey link hiding under the accept.
+ *
+ * Neither is terracotta: The One Action Rule (DESIGN.md) reserves it for the
+ * primary CTA and the wordmark, and "Allow" is not that action. The filled
+ * olive carries the same emphasis without borrowing the CTA's colour.
+ */
+.consent-banner-btn {
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-6);
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.consent-banner-btn--yes {
+  background: var(--color-primary);
+  /* 7.27:1 on olive — the measured pairing Footer.css uses. */
+  color: var(--on-olive);
+}
+
+.consent-banner-btn:hover {
+  background: var(--sage-wash);
+  color: var(--color-primary);
+}
+
+.consent-banner-btn--yes:hover {
+  background: var(--deep-pine);
+  color: var(--on-olive);
+}

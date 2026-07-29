@@ -6,12 +6,14 @@ import StickyWhatsApp from './components/StickyWhatsApp.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
 import BackToTop from './components/BackToTop.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy.jsx'
+import ConsentBanner from './components/ConsentBanner.jsx'
 import HomePage from './pages/HomePage.jsx'
 import ServicesPage from './pages/ServicesPage.jsx'
 import PricingPage from './pages/PricingPage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import FaqPage from './pages/FaqPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
+import AnalyticsPage from './pages/AnalyticsPage.jsx'
 import { NAV_LINKS } from './lib/nav.js'
 import { useSeo } from './lib/useSeo.js'
 import './App.css'
@@ -86,11 +88,25 @@ function App() {
             />
           ))}
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          {/* The analytics dashboard. Not in NAV_LINKS and not in BUILT_ROUTES:
+              BUILT_ROUTES only exists to stop PagePlaceholder shadowing a nav
+              entry, and this is not a nav entry, so adding it there would be a
+              no-op that implied otherwise. It IS in ROUTE_META, flagged
+              noindex, which keeps it out of the sitemap and puts a robots tag
+              on the prerendered page.
+
+              Note this is unlisted, not secured. The real protection is in
+              Postgres — see analytics.js and the migration. */}
+          <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 
       <Footer />
+      {/* Rendered outside <main> and after the footer so it is last in reading
+          and tab order — a first-visit notice must not sit between the header
+          and the page a visitor came to read. */}
+      <ConsentBanner />
       <StickyWhatsApp />
       <BackToTop />
     </>

@@ -9,6 +9,8 @@
  * Keep this module free of top-level browser access — the Node prerender
  * imports it, the same constraint seo.js carries.
  */
+import { track } from './analytics.js'
+
 export const WHATSAPP_NUMBER = '27628034558'
 const WHATSAPP_MESSAGE = "Hi, I'm interested in a website for my business"
 
@@ -16,7 +18,22 @@ export function buildWhatsAppLink(number = WHATSAPP_NUMBER, message = WHATSAPP_M
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
 }
 
+/**
+ * Record a WhatsApp click — the one metric PRODUCT.md defines success by.
+ *
+ * This used to be a no-op: it was guarded behind `typeof window.gtag`, no
+ * analytics tag was ever installed, and so every call from all five sources
+ * (hero, pricing, contact, sticky-mobile, contact-form-fallback) silently did
+ * nothing. It now goes to our own Supabase project via analytics.js.
+ *
+ * The consent gate lives in analytics.js rather than here, so there is exactly
+ * one place that can decide to send. Callers stay unchanged and unconditional —
+ * a caller that has to remember to check consent is a caller that will forget.
+ *
+ * The import is safe for the Node prerender that reads WHATSAPP_NUMBER from
+ * this file: analytics.js has no top-level browser access, by the same rule
+ * this module follows.
+ */
 export function trackWhatsAppClick(source) {
-  if (typeof window === 'undefined' || typeof window.gtag !== 'function') return
-  window.gtag('event', 'whatsapp_click', { event_category: 'engagement', event_label: source })
+  track('whatsapp_click', source)
 }

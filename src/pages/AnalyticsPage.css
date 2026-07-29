@@ -1,0 +1,143 @@
+/**
+ * The owner's dashboard, not a visitor page. It uses the site's tokens so it
+ * does not look like a different product, but it gets no hero, no CTA and no
+ * persuasion — everything here is for one person reading numbers.
+ */
+.analytics-heading {
+  font-size: var(--text-3xl);
+}
+
+.analytics-form {
+  margin-block-start: var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--space-4);
+}
+
+.analytics-field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.analytics-field label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.analytics-field input {
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  background: var(--paper);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-btn);
+}
+
+.analytics-form button {
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-6);
+  background: var(--color-primary);
+  /* 7.27:1 on olive — the measured pairing Footer.css uses. */
+  color: var(--on-olive);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.analytics-form button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.analytics-error {
+  margin-block-start: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--parchment);
+  border-radius: var(--radius-sm);
+  /* On --parchment: --bark-deep is 4.12:1 and fails AA, so this takes the ink
+     that measures 8.55:1 there. The same trap .section-band documents. */
+  color: var(--body-ink);
+  max-width: 60ch;
+}
+
+.analytics-results {
+  margin-block-start: var(--space-12);
+  display: grid;
+  gap: var(--space-12);
+}
+
+.analytics-totals {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-8);
+}
+
+.analytics-stat {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.analytics-stat-n {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.analytics-stat-label {
+  color: var(--color-text-muted);
+}
+
+.analytics-stat-note {
+  flex-basis: 100%;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Long tables scroll inside their own box rather than pushing the page sideways
+   — the by_path list can carry arbitrary paths. */
+.analytics-table-wrap {
+  overflow-x: auto;
+}
+
+.analytics-table-heading {
+  margin-block-end: var(--space-3);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: start;
+}
+
+.analytics-table {
+  width: 100%;
+  max-width: 40rem;
+  border-collapse: collapse;
+}
+
+.analytics-table th,
+.analytics-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: start;
+  border-block-end: 1px solid var(--color-border);
+}
+
+.analytics-table th {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+/* Counts read as a column of numbers, so they line up on the right. */
+.analytics-table td:last-child,
+.analytics-table th:last-child {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.analytics-empty {
+  color: var(--color-text-muted);
+}

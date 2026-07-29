@@ -121,7 +121,25 @@ export const ROUTE_META = {
     title: 'Privacy Policy — Fynbos Creative',
     description:
       'How Fynbos Creative collects, uses and protects your personal information, in line with South Africa’s POPIA.',
-    lastmod: '2026-07-17',
+    /* Bumped: the analytics section was rewritten from "we run no analytics" to
+       a description of what first-party analytics now collects. That is a real
+       content change, which is exactly what this date is for. */
+    lastmod: '2026-07-29',
+  },
+  /**
+   * The owner's analytics dashboard. noindex, so indexableRoutes() drops it
+   * from the sitemap and prerender.mjs stamps a robots tag on it.
+   *
+   * It is listed here rather than left to metaForPath's fallback so it gets its
+   * own title instead of "Page not found" — but note that being unlisted is not
+   * what protects it. The real control is in Postgres: no SELECT policy on the
+   * events table, and a passphrase checked by a SECURITY DEFINER function.
+   */
+  '/analytics': {
+    title: 'Analytics — Fynbos Creative',
+    description: 'Private dashboard.',
+    noindex: true,
+    lastmod: '2026-07-29',
   },
 }
 
