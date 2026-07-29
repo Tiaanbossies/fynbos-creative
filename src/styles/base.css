@@ -33,9 +33,10 @@ body {
  *
  * The 700 was forced: Amatic SC shipped only 400 and 700, so a 600 would have
  * been synthetically emboldened. Zilla Slab ships the full 400-700 range, so
- * that constraint is gone. Note tokens.css states headings "go back to 600" —
- * they never did; this rule has applied 700 throughout. Whichever weight is
- * wanted, the two files should agree.
+ * that constraint is gone — but the 700 is now a choice rather than a leftover.
+ * tokens.css used to claim headings "go back to 600"; they never did, and that
+ * claim has been corrected there rather than changing this rule. The two files
+ * now agree on 700, which is what every heading here has always rendered at.
  *
  * The letter-spacing opened up Amatic SC's tight default tracking at display
  * sizes. Zilla Slab has normal metrics and does not need it. At 0.01em it is

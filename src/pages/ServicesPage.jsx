@@ -8,6 +8,21 @@ import { useRevealText } from '../lib/useRevealText.js'
 import './ServicesPage.css'
 
 /**
+ * The same delivered Bossie's Gym screenshot the homepage carries, at the same
+ * three widths — see CaseStudy.jsx for where it came from, the client's consent,
+ * and why it is a JPEG. The `sizes` below is this page's own — copying the
+ * homepage's would misdeclare a different column. Measured here: the intro is two
+ * 1fr tracks with a --space-12 gap inside the 72rem container, so above the cap
+ * the column is a fixed 492px ((1152 - 120 padding - 48 gap) / 2), and between
+ * 60rem and the cap it tracks at ~43vw. Pinning a px value above the cap matters
+ * for the reason AboutPage.jsx documents: a vw carried all the way up keeps
+ * over-requesting once the container has stopped growing.
+ */
+const SHOT = '/case-studies/bossies-gym-home-1122.jpeg'
+const SHOT_MD = '/case-studies/bossies-gym-home-800.jpeg'
+const SHOT_SM = '/case-studies/bossies-gym-home-400.jpeg'
+
+/**
  * Services.
  *
  * Prices sit next to each service rather than behind a "contact us" wall
@@ -31,16 +46,51 @@ function ServicesPage() {
 
   return (
     <>
+      {/*
+        Copy left, a real screenshot right. This is the page's answer to the
+        critique's "Marlize" note — she leaves the homepage and never sees a
+        photograph of anything again, so her doubt is not about price but about
+        whether there is real work behind the business. It also fills the top of
+        the page, which the closing band did not reach.
+
+        Nothing in the caption is new: every fact in it is from the same client
+        confirmation that CaseStudy.jsx records. Brief §H forbids inventing case
+        studies, and that applies just as much to a caption.
+      */}
       <section className="section services-intro">
-        <div className="container">
-          <h1 className="services-heading" ref={headingRef}>
-            Everything handled, start to finish.
-          </h1>
-          <p className="services-lede">
-            Most people who come to us don&rsquo;t want to learn how websites work — they want
-            to be findable, look credible, and get on with running their business. So we do the
-            whole thing for you, and keep doing it after launch.
-          </p>
+        <div className="container services-intro-grid">
+          <div className="services-intro-copy">
+            <h1 className="services-heading" ref={headingRef}>
+              Everything handled, start to finish.
+            </h1>
+            <p className="services-lede">
+              Most people who come to us don&rsquo;t want to learn how websites work — they want
+              to be findable, look credible, and get on with running their business. So we do the
+              whole thing for you, and keep doing it after launch.
+            </p>
+          </div>
+
+          <figure className="services-shot">
+            <img
+              src={SHOT}
+              srcSet={`${SHOT_SM} 400w, ${SHOT_MD} 800w, ${SHOT} 1122w`}
+              sizes="(min-width: 75rem) 492px, (min-width: 60rem) 43vw, 90vw"
+              alt="The Bossie's Gym homepage: membership prices, a free-trial booking prompt and a phone number, all visible without scrolling."
+              width="1122"
+              height="752"
+              /* NOT loading="lazy", unlike the homepage's copy of this image.
+                 There the shot is most of a page down and lazy is right; here it
+                 is in the intro and paints in the first viewport at desktop, so
+                 deferring it only pushes out the largest thing on the screen.
+                 width/height are the file's real dimensions either way, so the
+                 box is reserved before load and the row does not reflow. */
+              decoding="async"
+            />
+            <figcaption className="services-shot-caption">
+              Bossie&rsquo;s Gym — a family-run Centurion gym. Pricing, trial booking and
+              click-to-chat on one page, live in under three weeks.
+            </figcaption>
+          </figure>
         </div>
       </section>
 

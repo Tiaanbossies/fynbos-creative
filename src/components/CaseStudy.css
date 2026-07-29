@@ -12,8 +12,12 @@
   align-items: center;
 }
 
-/* The one place the mockup lifts an image off the page. Real depth here is a
-   deliberate departure from the flat treatment — see tokens.css. */
+/* Real depth here is a deliberate departure from the flat treatment — see
+   tokens.css. This was the only lifted image until the same screenshot was given
+   to the /services intro (.services-shot in ServicesPage.css); the two share one
+   rule, and it is narrower than "images get depth": a screenshot of delivered
+   client work is lifted, nothing else is. The About portrait, the logo and the
+   SEO illustration all stay flat. */
 .case-shot {
   border-radius: var(--radius-md);
   overflow: hidden;

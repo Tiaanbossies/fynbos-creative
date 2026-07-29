@@ -4,10 +4,56 @@
   padding-block-end: 0;
 }
 
+/* Stacked on narrow screens; copy left / screenshot right once there is room.
+   Not the 48rem this file already uses further down — the screenshot needs more
+   width than a service row does before a second column stops squeezing both. */
+.services-intro-grid {
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (min-width: 60rem) {
+  .services-intro-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+}
+
 .services-heading {
   margin-block-start: var(--space-3);
   font-size: var(--text-3xl);
   max-width: 20ch;
+}
+
+/**
+ * The second place on the site that lifts an image off the page, and the note in
+ * CaseStudy.css has been updated to say so rather than left claiming it is the
+ * only one. The rule these two share is narrower than "images get depth": a
+ * screenshot of delivered client work is lifted, and nothing else is. The
+ * portrait on /about, the logo and the SEO illustration all stay flat.
+ */
+.services-shot {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-media);
+}
+
+.services-shot img {
+  width: 100%;
+  height: auto;
+}
+
+/* Inside the lifted box, so the caption sits on the shot's own rounded card
+   rather than floating beneath it. --parchment, not --paper: on the page white
+   it read as a gap between the image and nothing. */
+.services-shot-caption {
+  padding: var(--space-4);
+  background: var(--parchment);
+  color: var(--body-ink);
+  font-size: var(--text-sm);
+  line-height: 1.5;
 }
 
 .services-lede {
