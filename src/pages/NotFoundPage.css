@@ -57,9 +57,27 @@
   color: var(--color-primary);
 }
 
+/**
+ * The note takes its own line until there is room for every one of them beside
+ * its link.
+ *
+ * Without the basis the row simply wrapped when it ran out of space, which at
+ * 390px meant "Pricing" — the shortest of the three links, with the shortest
+ * note — kept its note inline while Services and Questions pushed theirs to a
+ * second line. Three rows in two shapes, decided by string length rather than by
+ * anything intentional. Found by looking at a 390px screenshot; the DOM
+ * measurements alone read as a perfectly correct wrapping flex.
+ */
 .not-found-exit-note {
+  flex-basis: 100%;
   color: var(--color-text-muted);
   font-size: var(--text-sm);
+}
+
+@media (min-width: 48rem) {
+  .not-found-exit-note {
+    flex-basis: auto;
+  }
 }
 
 .not-found-foot {
