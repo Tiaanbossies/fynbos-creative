@@ -39,14 +39,12 @@
   --paper: #fafffb;
   --olive: #3d5a3a;
   /**
-   * TERRACOTTA — a controlled tonal family of exactly three tokens, adopted
-   * 2026-08-02. It replaces "The One Action Rule", which reserved terracotta
-   * for the primary CTA and the wordmark alone; DESIGN.md §2 holds the roles.
+   * TERRACOTTA — a controlled tonal family of exactly three tokens.
    *
-   * Strict does NOT mean "as little terracotta as possible". It means every
-   * terracotta element uses one of these three in its documented role, no
-   * fourth rust/coral/orange/brown approximation is introduced, and no
-   * hard-coded value slips past the tokens. Decorative use is allowed.
+   * THE ROLES LIVE IN DESIGN.md §2, which is the single source of truth for
+   * them. This file owns the values and the measurements. Do not restate the
+   * policy here: a fourth copy is exactly what the single-source rule exists to
+   * prevent, and what stood in this comment on 2026-08-02 was already the third.
    *
    * Measured — Paper #fafffb / Parchment #e4decd / Parchment Soft #f0ecdf:
    *
@@ -73,13 +71,12 @@
 
   /**
    * ERICA — the semantic error hue, added 2026-08-02. Named for the fynbos
-   * heath, and deliberately NOT part of the terracotta family: an error must
-   * not look like a brand accent, and terracotta was previously doing both jobs
-   * at once on the contact form.
+   * heath. Its role is defined in DESIGN.md §2 under Status; the short version
+   * is that errors are not a brand colour and must not borrow one.
    *
-   * A berry crimson rather than a warmer red on purpose. A red nearer
-   * terracotta's earthy hue would have read as a fourth tonal step of the brand
-   * accent, which is the exact substitution the palette policy forbids.
+   * A berry crimson rather than a warmer red is a *value* decision, so it
+   * belongs here: a red nearer terracotta's earthy hue would have read as a
+   * fourth tonal step of the brand accent.
    *
    * Measured — Paper 7.92:1, Parchment 5.97:1, Parchment Soft 6.78:1, Sage Wash
    * 7.26:1 (the input background it sits beside). AA on every surface the form
