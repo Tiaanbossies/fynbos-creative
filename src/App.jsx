@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import StickyWhatsApp from './components/StickyWhatsApp.jsx'
@@ -65,27 +65,65 @@ function ScrollToTop() {
   return null
 }
 
-function App() {
+/**
+ * Everything a visitor sees: nav, footer, the consent notice and both WhatsApp
+ * affordances.
+ *
+ * The consent notice sits above <main> and in normal flow — it used to be a
+ * bottom-fixed overlay after the footer, which covered the decisive content of
+ * four pages (see ConsentBanner.css). With it in flow at the top, visual order
+ * and tab order agree, which is what WCAG 2.4.3 asks for, and a keyboard visitor
+ * meets the choice immediately rather than traversing the page to find it. It
+ * renders only on a first visit, so it costs a returning visitor nothing.
+ */
+function MarketingLayout() {
   return (
     <>
-      <ScrollToTop />
       <ScrollProgress />
       <Header />
-
-      {/* Above <main>, and in normal flow — it used to sit after the footer as a
-          bottom-fixed overlay. That placement kept the tab order sane while the
-          notice floated at the bottom of the screen, but the overlay itself
-          covered the decisive content of four pages (see ConsentBanner.css).
-          Now that the notice occupies real space at the top, visual order and
-          tab order agree, which is what WCAG 2.4.3 actually asks for, and a
-          keyboard visitor meets the choice immediately instead of traversing
-          the page to find it. It renders only on a first visit, so it costs a
-          returning visitor nothing. */}
       <ConsentBanner />
 
       {/* Target of the header skip link. */}
       <main id="main">
-        <Routes>
+        <Outlet />
+      </main>
+
+      <Footer />
+      <StickyWhatsApp />
+      <BackToTop />
+    </>
+  )
+}
+
+/**
+ * The analytics dashboard's shell: a <main> landmark and nothing else.
+ *
+ * AnalyticsPage.css has always said the dashboard "gets no hero, no CTA and no
+ * persuasion" — but all of those rendered on it anyway, because the marketing
+ * chrome wrapped every route. It carried the nav, the terracotta WhatsApp CTA,
+ * the footer, the sticky bar, and a consent notice asking the owner for
+ * permission to count their own clicks.
+ *
+ * Nothing about the security model changes here, because none of it ever lived
+ * in this file: the page is unlisted rather than protected, the passphrase is
+ * checked by a SECURITY DEFINER function inside Postgres and never in React, and
+ * the events table has no anon SELECT policy. This only stops the dashboard
+ * dressing up as a sales page. It stays noindex through ROUTE_META.
+ */
+function DashboardLayout() {
+  return (
+    <main id="main">
+      <Outlet />
+    </main>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<MarketingLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/pricing" element={<PricingPage />} />
@@ -99,23 +137,19 @@ function App() {
             />
           ))}
           <Route path="/privacy" element={<PrivacyPolicy />} />
-          {/* The analytics dashboard. Not in NAV_LINKS and not in BUILT_ROUTES:
-              BUILT_ROUTES only exists to stop PagePlaceholder shadowing a nav
-              entry, and this is not a nav entry, so adding it there would be a
-              no-op that implied otherwise. It IS in ROUTE_META, flagged
-              noindex, which keeps it out of the sitemap and puts a robots tag
-              on the prerendered page.
-
-              Note this is unlisted, not secured. The real protection is in
-              Postgres — see analytics.js and the migration. */}
-          <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
+        </Route>
 
-      <Footer />
-      <StickyWhatsApp />
-      <BackToTop />
+        {/* Outside MarketingLayout, deliberately. Not in NAV_LINKS and not in
+            BUILT_ROUTES either: BUILT_ROUTES exists only to stop PagePlaceholder
+            shadowing a nav entry, and this is not a nav entry, so adding it
+            there would be a no-op that implied otherwise. It IS in ROUTE_META,
+            flagged noindex, which keeps it out of the sitemap and puts a robots
+            tag on the prerendered page. */}
+        <Route element={<DashboardLayout />}>
+          <Route path="/analytics" element={<AnalyticsPage />} />
+        </Route>
+      </Routes>
     </>
   )
 }

@@ -20,11 +20,32 @@ import './AnalyticsPage.css'
  * refresh asks again; a dashboard that stays unlocked forever on a shared
  * laptop is the worse trade.
  */
+/**
+ * The window is held as a string and normalised here, at the point of use.
+ *
+ * `Number('')` is 0, so clearing the field used to send `days: 0` — a query for
+ * nothing, returned as an empty dashboard that looks exactly like a quiet month.
+ * `min`/`max` on a number input constrain the spinner and native validation, not
+ * what React reads out of `value`, and this form submits through onSubmit rather
+ * than native validation, so they were enforcing nothing at all.
+ *
+ * Clamping rather than rejecting: this is one person checking their own numbers,
+ * and an error message about an out-of-range integer would be ceremony. Anything
+ * unparseable falls back to the same 30 the field starts on.
+ */
+function clampDays(value) {
+  const parsed = Number.parseInt(value, 10)
+  return Number.isFinite(parsed) ? Math.min(365, Math.max(1, parsed)) : 30
+}
+
 function AnalyticsPage() {
   useSeo()
 
   const [passphrase, setPassphrase] = useState('')
-  const [days, setDays] = useState(30)
+  /* A string, not a number: a controlled number input has to be allowed to sit
+     empty while it is being retyped, and coercing on every keystroke makes the
+     field impossible to clear. */
+  const [days, setDays] = useState('30')
   const [data, setData] = useState(null)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -34,7 +55,7 @@ function AnalyticsPage() {
     setError('')
     setIsLoading(true)
     try {
-      setData(await fetchSummary(passphrase, days))
+      setData(await fetchSummary(passphrase, clampDays(days)))
     } catch (caught) {
       setData(null)
       setError(caught.message)
@@ -76,7 +97,7 @@ function AnalyticsPage() {
               min="1"
               max="365"
               value={days}
-              onChange={(e) => setDays(Number(e.target.value))}
+              onChange={(e) => setDays(e.target.value)}
             />
           </div>
           <button type="submit" disabled={isLoading || !passphrase}>

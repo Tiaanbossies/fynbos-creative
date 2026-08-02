@@ -243,22 +243,42 @@ main:has(> .section-band:last-child) + .site-footer {
   pointer-events: none;
 }
 
-.btn-accent:hover::after,
 .btn-accent:focus-visible::after {
   transform: translateX(120%);
 }
 
-.btn-accent:hover {
-  box-shadow: var(--shadow-cta-hover);
-  color: #fff;
+/**
+ * Hover is gated to real pointers. Ungated, a touch browser fires :hover on tap
+ * and leaves it applied until the next tap elsewhere, so the button stayed lifted
+ * after the thumb left — and, worse, the lift and the press below both set
+ * transform, so on touch they fought and the press was never seen.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .btn-accent:hover::after {
+    transform: translateX(120%);
+  }
+
+  .btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-cta-hover);
+    color: #fff;
+  }
 }
 
-.btn-accent:hover {
-  transform: translateY(-2px);
-}
-
+/**
+ * Press feedback, and the reason it matters more here than anywhere else: this
+ * button hands off to another app. On a slow phone the WhatsApp switch takes a
+ * visible beat, and without acknowledgement a visitor cannot tell whether the
+ * tap registered — so they tap again. The sticky bar has had scale(0.98) since
+ * it was built (StickyWhatsApp.css); this is the same action, so it gets the
+ * same feedback. It previously had only translateY(0), which cancelled the hover
+ * lift and did nothing at all on a device that never hovers.
+ *
+ * The global prefers-reduced-motion block below clamps the transition, so the
+ * press lands instantly rather than easing for those visitors.
+ */
 .btn-accent:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 /**
