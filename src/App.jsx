@@ -3,7 +3,6 @@ import { Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import StickyWhatsApp from './components/StickyWhatsApp.jsx'
-import ScrollProgress from './components/ScrollProgress.jsx'
 import BackToTop from './components/BackToTop.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy.jsx'
 import ConsentBanner from './components/ConsentBanner.jsx'
@@ -75,11 +74,15 @@ function ScrollToTop() {
  * and tab order agree, which is what WCAG 2.4.3 asks for, and a keyboard visitor
  * meets the choice immediately rather than traversing the page to find it. It
  * renders only on a first visit, so it costs a returning visitor nothing.
+ *
+ * There is no reading-progress bar. It was removed with ScrollProgress.{jsx,css}
+ * on a product ground rather than a palette one: PRODUCT.md rejects dashboard
+ * chrome by name, and a filling indicator is the software affordance this brand
+ * is defined against. It also only restated what the scrollbar already showed.
  */
 function MarketingLayout() {
   return (
     <>
-      <ScrollProgress />
       <Header />
       <ConsentBanner />
 

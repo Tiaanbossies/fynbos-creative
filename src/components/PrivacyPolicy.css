@@ -23,8 +23,17 @@
   color: var(--color-primary);
 }
 
+/**
+ * Links are a permitted terracotta role, and this is where --color-accent-strong
+ * earns its keep: --terracotta-dark was declared for link hover but had no
+ * consumer anywhere in src, so the darker state it existed for never rendered.
+ */
 .privacy-body a {
   color: var(--color-accent);
+}
+
+.privacy-body a:hover {
+  color: var(--color-accent-strong);
 }
 
 /* The analytics section lists what is collected. A list rather than a paragraph
@@ -49,10 +58,11 @@
 }
 
 /**
- * Secondary buttons, not .btn-accent. Terracotta is reserved for the primary
- * CTA and the wordmark (The One Action Rule in DESIGN.md), and "withdraw my
- * permission" is emphatically not the action this site wants most. An olive
- * outline gives them real presence without competing with the WhatsApp CTA.
+ * Secondary buttons, not .btn-accent. Not because terracotta is off-limits —
+ * the palette policy allows it well beyond the primary CTA — but because a
+ * filled terracotta button reads as *the* action, and "withdraw my permission"
+ * is emphatically not the action this site wants most. An olive outline gives
+ * them real presence without competing with the WhatsApp CTA.
  */
 .privacy-consent-actions button {
   min-height: 2.75rem;

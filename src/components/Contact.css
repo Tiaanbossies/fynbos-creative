@@ -122,16 +122,23 @@
   border-color: var(--color-primary);
 }
 
-/* Terracotta is the CTA colour, but an invalid field is exactly the moment it
-   should also carry a warning — it is the only palette colour that reads as
-   "attention" against Parchment. */
+/**
+ * Erica, not terracotta. These two rules used to reach for --color-accent on
+ * the reasoning that it was "the only palette colour that reads as attention" —
+ * but that made a failed field look exactly like the button the visitor is
+ * being invited to press, and it is the whole reason the palette now separates
+ * the brand accent from semantic status (see tokens.css).
+ *
+ * The message measures 7.92:1 on Paper and 7.26:1 on the sage-wash input
+ * background it sits beneath, so it clears AA wherever the form renders.
+ */
 .contact-field [aria-invalid='true'] {
-  border-color: var(--color-accent);
+  border-color: var(--color-error);
 }
 
 .contact-error {
   font-size: var(--text-sm);
-  color: var(--color-accent);
+  color: var(--color-error);
 }
 
 /* Honeypot: off-screen rather than display:none, which some bots skip. */
@@ -185,8 +192,18 @@
   background: color-mix(in srgb, var(--sage) 30%, transparent);
 }
 
+/**
+ * "That didn't send" is a failure notice, so it takes the error surface rather
+ * than a hand-mixed terracotta wash. The old color-mix() was the bypass the
+ * token policy names directly: an ad-hoc value standing in for a semantic token
+ * that did not exist yet.
+ *
+ * Body Ink measures 9.48:1 on --erica-soft, and the WhatsApp and email links
+ * inside inherit it, so the fallback route out of a failed submit stays
+ * legible — which is the one thing this message exists to do.
+ */
 .contact-status-fail {
-  background: color-mix(in srgb, var(--terracotta) 12%, transparent);
+  background: var(--color-error-soft);
 }
 
 @media (min-width: 48rem) {

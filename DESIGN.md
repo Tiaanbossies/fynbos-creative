@@ -6,6 +6,9 @@ colors:
   olive: "#3d5a3a"
   terracotta: "#a8503d"
   terracotta-dark: "#8a3d2e"
+  terracotta-soft: "#f0eae4"
+  erica: "#9f1239"
+  erica-soft: "#f1e7e8"
   parchment: "#e4decd"
   parchment-soft: "#f0ecdf"
   sage: "#b9cba0"
@@ -129,7 +132,7 @@ The system explicitly rejects, in PRODUCT.md's own words: **corporate/agency glo
 
 **Key Characteristics:**
 - Open rows and hairlines, not cards — content divided by whitespace and 1px parchment rules
-- One loud thing per screen: the terracotta WhatsApp CTA, and nothing else in that colour
+- One loud thing per screen: the filled terracotta WhatsApp CTA. Terracotta appears elsewhere as accent and detail, but never as a second filled button competing for the same tap
 - Prices always in the body font, never a display or script face
 - Every text colour measured against Paper and documented; the muted grey exists twice so the readable one is the only one used for text
 - Mobile-first at ~85% of the audience: 44px+ targets, Save-Data respected, reduced-motion honoured everywhere
@@ -142,7 +145,10 @@ A committed olive / terracotta / parchment system: green as the voice, a single 
 - **Fynbos Olive** (`#3d5a3a`): the brand's speaking voice. Section headings, active navigation, the secondary "Send message" button, and the full-bleed footer. At 7.63:1 on Paper it carries body-sized text directly, which is why it appears as text and not only as a fill.
 
 ### Secondary
-- **Sunbird Terracotta** (`#a8503d`): the action colour, and nothing else. Primary CTAs, the wordmark's "bos", step numerals, form error states, the script kicker. 5.35:1 on Paper. **Terracotta Dark** (`#8a3d2e`) exists for link hover only.
+- **Sunbird Terracotta** (`#a8503d`): the brand accent and the default interactive colour. Primary CTAs, links, persistent selected states, the wordmark's "bos", step numerals, the script kicker, and deliberate decorative detail. 5.35:1 on Paper — but **4.03:1 on Parchment, which fails AA for normal-sized text**. **Terracotta Dark** (`#8a3d2e`) is the elevated-contrast state: hover, active, selected, and anywhere the base tone misses its ratio — including terracotta text inside a `.section-band` (5.61:1 on Parchment). **Terracotta Soft** (`#f0eae4`) is a surface only: low-emphasis backgrounds, borders and decorative fills, never text or an essential control.
+
+### Status
+- **Erica** (`#9f1239`): the semantic error colour, named for the fynbos heath. Validation failures, error messages, destructive actions and warnings. 7.92:1 on Paper, 5.97:1 on Parchment, 7.26:1 on the sage-wash input background. **Erica Soft** (`#f1e7e8`) is the failure-notice surface, carrying Body Ink at 9.48:1. A berry crimson rather than a warm red on purpose: a red closer to terracotta's earthy hue would read as a fourth step of the brand family, which is exactly the substitution the palette forbids.
 
 ### Tertiary
 - **Sage** (`#b9cba0`): a 1.71:1 tint. It is never text and never a fill behind text — it exists only inside `color-mix()` washes and as the hero leaf. **Sage Deep** (`#819872`, 3.11:1) is the readable sage, added 2026-07-28 so the logo's leaf tail and "CREATIVE" letterforms clear the 3:1 WCAG asks of a graphic. **Sage Wash** (`#f1f5ec`) is the input field background and the contact section's tint.
@@ -158,7 +164,13 @@ A committed olive / terracotta / parchment system: green as the voice, a single 
 
 ### Named Rules
 
-**The One Action Rule.** Terracotta is reserved for the primary CTA and the wordmark. If you are reaching for it anywhere else, reach for something else. A page with two terracotta elements competing has no primary action.
+**The Terracotta Family Rule.** *Replaced The One Action Rule on 2026-08-02.* Terracotta is a controlled tonal family of exactly three tokens — `--terracotta-soft`, `--terracotta`, `--terracotta-dark` — and every terracotta element on the site uses one of them in the role documented above. No fourth rust, coral, orange, brown or red approximation may be introduced, and no hard-coded value may bypass the tokens.
+
+Strict means *governed*, not *scarce*. Decorative terracotta is allowed: the step numerals, the pricing ticks, the hero accent word, the case-study kicker and the Values icons are all legitimate. What is not allowed is a second **filled** terracotta button competing for the same tap — that is why the sticky bar yields while an in-page `[data-primary-cta]` is on screen — and what is not negotiable is measuring the tone against the surface it actually sits on. The audit question is "approved token, documented role, measured contrast", not "how many terracotta things can I count".
+
+**The Semantic Separation Rule.** Terracotta is a brand colour, not an error colour. Errors, destructive actions, warnings and validation failures use Erica, measured for their own foreground and background pairings. Status colours sit outside the brand-accent count, but they are documented and contrast-tested exactly like brand ones. A failed form field must never look like the button the visitor is being invited to press.
+
+**The Olive Focus Rule.** The keyboard focus ring is olive (`--color-focus`) and is not an accent alias. Focus is an accessibility state, not a brand accent and not a selection. Where an element is selected *and* focused, the selected styling may stay terracotta, but the olive ring must remain independently visible — a terracotta ring on a terracotta control is no ring at all.
 
 **The Two Greys Rule.** The muted grey exists twice on purpose. `--bark-grey` (3.62:1) fails AA and is for hairlines and decoration; `--bark-deep` (5.47:1) is for anything a visitor has to read. **Never set text in `--bark-grey`.** This palette has fallen into that trap before and it took a commit to climb out.
 
@@ -193,8 +205,8 @@ A committed olive / terracotta / parchment system: green as the voice, a single 
 **Flat by default; lift only on action.** Surfaces are flat and separated by 1px parchment hairlines and whitespace. Depth is not the system's vocabulary for structure — it is reserved as a signal that something is pressable. The shadow tokens below exist because the adopted 2026-07-23 mockup drew real depth on the homepage price cards and hero media, and that decision was recorded rather than smuggled in; treat them as the documented exception, not as a licence to box things.
 
 ### Shadow Vocabulary
-- **CTA** (`box-shadow: 0 6px 18px rgb(168 80 61 / 30%)`): the terracotta primary button at rest. A terracotta-tinted shadow, not a grey one — the button glows in its own colour.
-- **CTA hover** (`box-shadow: 0 10px 22px rgb(168 80 61 / 40%)`): paired with `translateY(-2px)`. Shadow and translate move together; a bare translate reads as a jump rather than a rise.
+- **CTA** (`box-shadow: 0 6px 18px rgb(var(--terracotta-rgb) / 30%)`): the terracotta primary button at rest. A terracotta-tinted shadow, not a grey one — the button glows in its own colour. The channels come from a token rather than a literal `168 80 61`, so the shadow follows the hue if it ever moves.
+- **CTA hover** (`box-shadow: 0 10px 22px rgb(var(--terracotta-rgb) / 40%)`): paired with `translateY(-2px)`. Shadow and translate move together; a bare translate reads as a jump rather than a rise.
 - **Card** (`box-shadow: 0 12px 26px rgb(0 0 0 / 10%)`): homepage price cards only.
 - **Panel** (`box-shadow: 0 16px 40px rgb(0 0 0 / 10%)`) / **Media** (`box-shadow: 0 14px 34px rgb(0 0 0 / 14%)`): the SEO illustration and the hero media panel.
 
@@ -224,8 +236,8 @@ Plain-spoken and unmissable: nothing decorated, one thing loud, and every target
 
 ### Inputs / Fields
 - **Style:** 12%-sage wash background, 1px parchment border, 10px radius, `0.75rem` padding, full width.
-- **Focus:** border shifts to olive; the global focus-visible ring is a 2px terracotta outline at 3px offset.
-- **Error:** border shifts to terracotta and a terracotta message appears beneath, wired with `aria-invalid` and `aria-describedby`. The error clears the moment the field is being corrected — leaving it up while someone fixes it reads as nagging.
+- **Focus:** border shifts to olive; the global focus-visible ring is a 2px olive outline at 3px offset.
+- **Error:** border shifts to Erica and an Erica message appears beneath, wired with `aria-invalid` and `aria-describedby`. The error clears the moment the field is being corrected — leaving it up while someone fixes it reads as nagging.
 - **Labels are always visible.** Placeholder-as-label is forbidden.
 
 ### Navigation
@@ -253,7 +265,7 @@ Mobile-only, fixed to the bottom, `z-index: 200` — it must outrank everything.
 - **Do** measure any new colour against Paper before assigning it to text, and write the ratio into `tokens.css`.
 
 ### Don't:
-- **Don't** use terracotta for anything but the primary CTA and the wordmark.
+- **Don't** use terracotta outside the three approved tokens, or for errors, warnings and destructive actions — those are Erica. And don't put terracotta text on Parchment: that is what `--terracotta-dark` is for.
 - **Don't** set text in `--bark-grey` (3.62:1). Ever.
 - **Don't** reach for **corporate/agency gloss** — no "we're a team of experts", no stock-photo polish, no invented statistics, testimonials or case studies.
 - **Don't** reach for the **generic SaaS-startup look** — no gradient-heavy hero-metric templates, no dashboard chrome, no cold/sterile minimalism. Depth, cards and shadows read as "software", which is the opposite of this brand.
@@ -265,4 +277,4 @@ Mobile-only, fixed to the bottom, `z-index: 200` — it must outrank everything.
 - **Don't** add a "Most popular" badge, a ranking, a fabricated metric or a mocked-up search position. If the data does not exist, the pixel does not either.
 - **Don't** ship an interior page as a single narrow column of text with no compositional move. If it looks like a document rather than a page, it is not finished.
 
-<!-- Audit test: if a section could be lifted onto a generic SaaS landing page without anyone noticing, it has lost the brand. If a visitor cannot find the one terracotta thing within two seconds, the page has no primary action. -->
+<!-- Audit test: if a section could be lifted onto a generic SaaS landing page without anyone noticing, it has lost the brand. If a visitor cannot find the one filled terracotta button within two seconds, the page has no primary action — terracotta appearing elsewhere as accent is fine, a second filled button is not. -->
