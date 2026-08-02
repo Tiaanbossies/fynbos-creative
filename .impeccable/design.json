@@ -16,6 +16,12 @@
         "canonical": "#a8503d",
         "tonalRamp": ["#2b1410", "#4b241b", "#6f3527", "#8a3d2e", "#a8503d", "#c47761", "#dda694", "#f1d5cb"]
       },
+      "erica": {
+        "role": "status",
+        "displayName": "Erica",
+        "canonical": "#9f1239",
+        "tonalRamp": ["#26040d", "#450818", "#6b0c26", "#8a0f30", "#9f1239", "#c53d5f", "#e08ba1", "#f1e7e8"]
+      },
       "sage": {
         "role": "tertiary",
         "displayName": "Sage Tint",
@@ -50,8 +56,8 @@
       "script": { "displayName": "Script", "purpose": "Section kickers only. Decorative, aria-hidden, never load-bearing." }
     },
     "shadows": [
-      { "name": "shadow-cta", "value": "0 6px 18px rgb(168 80 61 / 30%)", "purpose": "The terracotta primary button at rest. Tinted in its own colour, not grey." },
-      { "name": "shadow-cta-hover", "value": "0 10px 22px rgb(168 80 61 / 40%)", "purpose": "Paired with translateY(-2px). Shadow and translate move together or it reads as a jump." },
+      { "name": "shadow-cta", "value": "0 6px 18px rgb(var(--terracotta-rgb) / 30%)", "purpose": "The terracotta primary button at rest. Tinted in its own colour, not grey." },
+      { "name": "shadow-cta-hover", "value": "0 10px 22px rgb(var(--terracotta-rgb) / 40%)", "purpose": "Paired with translateY(-2px). Shadow and translate move together or it reads as a jump." },
       { "name": "shadow-card", "value": "0 12px 26px rgb(0 0 0 / 10%)", "purpose": "Homepage price cards only. The documented exception to flat-by-default." },
       { "name": "shadow-panel", "value": "0 16px 40px rgb(0 0 0 / 10%)", "purpose": "The SEO search-result illustration." },
       { "name": "shadow-media", "value": "0 14px 34px rgb(0 0 0 / 14%)", "purpose": "The hero media panel." }
@@ -74,7 +80,7 @@
       "name": "Primary CTA",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The WhatsApp action. The only terracotta element on any page, and the only thing that lifts.",
+      "description": "The WhatsApp action. The only filled terracotta button on any page, and the only thing that lifts.",
       "html": "<a class=\"ds-btn-primary\" href=\"#\">Chat with us on WhatsApp</a>",
       "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 3rem; padding: 1rem 26px; background: #a8503d; color: #fff; font-family: 'Work Sans', system-ui, sans-serif; font-weight: 600; text-decoration: none; border-radius: 8px; box-shadow: 0 6px 18px rgb(168 80 61 / 30%); position: relative; overflow: hidden; transition: transform 150ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 150ms cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%); transform: translateX(-120%); transition: transform 0.6s cubic-bezier(0.22,0.61,0.36,1); pointer-events: none; } .ds-btn-primary:hover, .ds-btn-primary:focus-visible { box-shadow: 0 10px 22px rgb(168 80 61 / 40%); transform: translateY(-2px); } .ds-btn-primary:hover::after, .ds-btn-primary:focus-visible::after { transform: translateX(120%); } .ds-btn-primary:active { transform: translateY(0); }"
     },
@@ -84,7 +90,7 @@
       "refersTo": "button-secondary",
       "description": "Form submit. Olive, deliberately quieter than the WhatsApp CTA beside it.",
       "html": "<button class=\"ds-btn-secondary\" type=\"button\">Send message</button>",
-      "css": ".ds-btn-secondary { min-height: 3rem; padding: 0.75rem 2rem; background: #3d5a3a; color: #fafffb; font-family: 'Work Sans', system-ui, sans-serif; font-weight: 600; border: none; border-radius: 999px; cursor: pointer; transition: transform 150ms cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-secondary:hover:not(:disabled) { transform: translateY(-2px); } .ds-btn-secondary:focus-visible { outline: 2px solid #a8503d; outline-offset: 3px; } .ds-btn-secondary:disabled { opacity: 0.6; cursor: default; }"
+      "css": ".ds-btn-secondary { min-height: 3rem; padding: 0.75rem 2rem; background: #3d5a3a; color: #fafffb; font-family: 'Work Sans', system-ui, sans-serif; font-weight: 600; border: none; border-radius: 999px; cursor: pointer; transition: transform 150ms cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-secondary:hover:not(:disabled) { transform: translateY(-2px); } .ds-btn-secondary:focus-visible { outline: 2px solid #3d5a3a; outline-offset: 3px; } .ds-btn-secondary:disabled { opacity: 0.6; cursor: default; }"
     },
     {
       "name": "Text Field",
@@ -92,7 +98,7 @@
       "refersTo": "input-text",
       "description": "Sage-washed field with a visible label. Placeholder-as-label is forbidden.",
       "html": "<div class=\"ds-field\"><label for=\"ds-name\">Your name</label><input id=\"ds-name\" type=\"text\"></div>",
-      "css": ".ds-field { display: grid; gap: 0.5rem; font-family: 'Work Sans', system-ui, sans-serif; } .ds-field label { font-size: 0.875rem; font-weight: 600; color: #1c2117; } .ds-field input { width: 100%; padding: 0.75rem; font: inherit; color: #1c2117; background: color-mix(in srgb, #b9cba0 12%, transparent); border: 1px solid #e4decd; border-radius: 10px; transition: border-color 150ms cubic-bezier(0.22,0.61,0.36,1); } .ds-field input:focus { border-color: #3d5a3a; outline: none; } .ds-field input:focus-visible { outline: 2px solid #a8503d; outline-offset: 3px; } .ds-field input[aria-invalid='true'] { border-color: #a8503d; }"
+      "css": ".ds-field { display: grid; gap: 0.5rem; font-family: 'Work Sans', system-ui, sans-serif; } .ds-field label { font-size: 0.875rem; font-weight: 600; color: #1c2117; } .ds-field input { width: 100%; padding: 0.75rem; font: inherit; color: #1c2117; background: color-mix(in srgb, #b9cba0 12%, transparent); border: 1px solid #e4decd; border-radius: 10px; transition: border-color 150ms cubic-bezier(0.22,0.61,0.36,1); } .ds-field input:focus { border-color: #3d5a3a; outline: none; } .ds-field input:focus-visible { outline: 2px solid #3d5a3a; outline-offset: 3px; } .ds-field input[aria-invalid='true'] { border-color: #9f1239; }"
     },
     {
       "name": "Navigation Link",
@@ -121,16 +127,18 @@
   ],
   "narrative": {
     "northStar": "The Plain Ledger",
-    "overview": "Everything is stated in the open and nothing is boxed away. This system reads like a well-kept account book rather than a brochure: entries divided by hairlines, prices sitting on the same baseline as the thing they belong to, olive as the ink, parchment as the ruling, and terracotta reserved for the single line you are meant to act on. The layout is the argument — a visitor who scans it should conclude that this business has nothing to hide before reading a word about honesty.\n\nIt is a warm system, but warmth comes from hue and voice, never from softness of structure. Zilla Slab's slab serifs give headings the weight of a printed heading rather than a marketing headline. Work Sans carries body copy at a full 1.65 line-height because the audience is scanning on a phone, on data, and legibility outranks personality. Alex Brush appears at most once per page, as a script kicker, and never sets anything a visitor must read to understand the page.",
+    "overview": "Everything is stated in the open and nothing is boxed away. This system reads like a well-kept account book rather than a brochure: entries divided by hairlines, prices sitting on the same baseline as the thing they belong to, olive as the ink, parchment as the ruling, and terracotta carrying the line you are meant to act on. The layout is the argument — a visitor who scans it should conclude that this business has nothing to hide before reading a word about honesty.\n\nIt is a warm system, but warmth comes from hue and voice, never from softness of structure. Zilla Slab's slab serifs give headings the weight of a printed heading rather than a marketing headline. Work Sans carries body copy at a full 1.65 line-height because the audience is scanning on a phone, on data, and legibility outranks personality. Alex Brush appears at most once per page, as a script kicker, and never sets anything a visitor must read to understand the page.",
     "keyCharacteristics": [
       "Open rows and hairlines, not cards — content divided by whitespace and 1px parchment rules",
-      "One loud thing per screen: the terracotta WhatsApp CTA, and nothing else in that colour",
+      "One loud thing per screen: the filled terracotta WhatsApp CTA. Terracotta appears elsewhere as accent and detail, but never as a second filled button competing for the same tap",
       "Prices always in the body font, never a display or script face",
       "Every text colour measured against Paper and documented; the muted grey exists twice so the readable one is the only one used for text",
       "Mobile-first at ~85% of the audience: 44px+ targets, Save-Data respected, reduced-motion honoured everywhere"
     ],
     "rules": [
-      { "name": "The One Action Rule", "body": "Terracotta is reserved for the primary CTA and the wordmark. If you are reaching for it anywhere else, reach for something else. A page with two terracotta elements competing has no primary action.", "section": "colors" },
+      { "name": "The Terracotta Family Rule", "body": "Terracotta is a controlled tonal family of exactly three tokens — terracotta-soft, terracotta, terracotta-dark — and every terracotta element uses one of them in its documented role. No fourth rust, coral, orange, brown or red approximation, and no hard-coded value bypassing the tokens. Strict means governed, not scarce: decorative terracotta is allowed. What is not allowed is a second filled terracotta button competing for the same tap, or terracotta text on Parchment (4.03:1) where terracotta-dark (5.61:1) belongs. Replaced The One Action Rule on 2026-08-02.", "section": "colors" },
+      { "name": "The Semantic Separation Rule", "body": "Terracotta is a brand colour, not an error colour. Errors, destructive actions, warnings and validation failures use Erica, measured for their own foreground and background pairings. A failed form field must never look like the button the visitor is being invited to press.", "section": "colors" },
+      { "name": "The Olive Focus Rule", "body": "The keyboard focus ring is olive and is not an accent alias. Focus is an accessibility state, not a brand accent and not a selection. Where an element is selected and focused, the selected styling may stay terracotta, but the olive ring must remain independently visible.", "section": "colors" },
       { "name": "The Two Greys Rule", "body": "The muted grey exists twice on purpose. --bark-grey (3.62:1) fails AA and is for hairlines and decoration; --bark-deep (5.47:1) is for anything a visitor has to read. Never set text in --bark-grey.", "section": "colors" },
       { "name": "The Green Near-White Rule", "body": "The page background is Paper, tinted toward the brand's own green. Never substitute a warm-tinted near-white — cream, sand, bone, linen, parchment-as-background. The warm-neutral band is the saturated AI default and this brand is explicitly defined against it.", "section": "colors" },
       { "name": "The Legible Price Rule", "body": "Prices are set in the body font, never a display or script face, and never wrap. Hand-lettered or ornamental numerals are ambiguous at a glance, which contradicts 'honesty is the aesthetic'.", "section": "typography" },
@@ -150,7 +158,7 @@
       "Do measure any new colour against Paper before assigning it to text, and write the ratio into tokens.css."
     ],
     "donts": [
-      "Don't use terracotta for anything but the primary CTA and the wordmark.",
+      "Don't use terracotta outside the three approved tokens, or for errors, warnings and destructive actions — those are Erica. And don't put terracotta text on Parchment; that is what terracotta-dark is for.",
       "Don't set text in --bark-grey (3.62:1). Ever.",
       "Don't reach for corporate/agency gloss — no 'we're a team of experts', no stock-photo polish, no invented statistics, testimonials or case studies.",
       "Don't reach for the generic SaaS-startup look — no gradient-heavy hero-metric templates, no dashboard chrome, no cold/sterile minimalism. Depth, cards and shadows read as 'software', which is the opposite of this brand.",
