@@ -1,51 +1,65 @@
 /**
- * Pinned to the bottom, but UNDER the sticky WhatsApp bar in both senses.
+ * A band in normal flow, NOT a fixed overlay. This is the whole point of the
+ * component's layout.
  *
- * z-index is one below --z-sticky-cta, because tokens.css states that bar "must
- * outrank everything — brief §B.1". A privacy notice is not an exception to
- * that: the whole point of the opt-in design is that a visitor can ignore this
- * and still reach the one action the site exists to drive.
+ * It used to be `position: fixed` at the bottom edge, sitting above the sticky
+ * WhatsApp bar. Measured against the built site, that overlaid the decisive
+ * element of four separate pages: the founder's portrait on /about (on a page
+ * whose argument is "a real person, not a call centre"), the R1,200 build fee
+ * on /pricing, the founder trust strip on the homepage, and a service's body
+ * copy on /services. At 390x844 it stood 236px tall — 32% of the viewport —
+ * and because its bottom offset was a static 4.5rem while StickyWhatsApp yields
+ * dynamically, it also floated 72px above the edge whenever the bar had yielded,
+ * leaving a strip of page showing underneath it.
  *
- * Below 48rem the sticky bar occupies the bottom edge, so this sits above it —
- * 4.5rem clears its 3rem button plus its padding, and the safe-area inset is
- * added for the same iOS home-indicator reason the bar itself carries. At 48rem
- * the bar is display:none, so this drops to the edge.
+ * Bottom padding on <main> does NOT fix that: it only frees the end of the
+ * document, while a fixed element still covers whatever is at the bottom of the
+ * viewport mid-scroll. The only real fix is for the notice to occupy its own
+ * space, so it is in flow at every width — including desktop, where the
+ * /about and /pricing occlusions were actually measured. It cannot overlay
+ * anything because it is not on top of anything.
+ *
+ * Full-bleed parchment, matching .section-band in base.css — the site already
+ * has a vocabulary for "a band that spans the viewport", and this is one.
+ * Deliberately not olive: Footer.css calls the footer "the page's one drenched
+ * surface", and a second full olive field would read as a second footer.
+ *
+ * Entrance is deliberately small. The banner now takes up layout space, so a
+ * translateY(100%) slide would drag the page's first paint with it; a short
+ * rise and fade is enough to show it arrived rather than blinking in.
+ * base.css's prefers-reduced-motion block clamps transition-duration globally,
+ * which lands this on its settled state almost immediately rather than leaving
+ * it stuck in the starting transform.
  */
 .consent-banner {
-  position: fixed;
-  inset-inline: 0;
-  bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
-  z-index: calc(var(--z-sticky-cta) - 1);
-  padding: var(--space-4);
+  /* --bark-deep measures 4.12:1 on --parchment and fails AA. Same inversion
+     .section-band documents: a surface that changes the background owes its
+     subtree new text colours. */
+  --color-text-muted: var(--body-ink);
+  background: var(--parchment);
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
 }
 
-@media (min-width: 48rem) {
+@starting-style {
   .consent-banner {
-    bottom: 0;
+    opacity: 0;
+    transform: translateY(-0.5rem);
   }
 }
 
-/**
- * Parchment, and the site's existing panel shadow. Deliberately not olive: the
- * footer is "the page's one drenched surface" (Footer.css), and a second full
- * olive field floating over the page would read as a second footer.
- *
- * --color-text-muted is re-pointed for the same reason .section-band does it in
- * base.css — --bark-deep measures 4.12:1 on --parchment and fails AA.
- */
 .consent-banner-inner {
-  --color-text-muted: var(--body-ink);
   max-width: var(--container-max);
   margin-inline: auto;
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-4) var(--container-pad);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  background: var(--parchment);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-panel);
 }
 
 .consent-banner-copy {
