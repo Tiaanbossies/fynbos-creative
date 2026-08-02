@@ -23,17 +23,20 @@ import './ConsentBanner.css'
  * where the choice can be changed.
  */
 function ConsentBanner() {
-  /* Starts undefined and reads storage in an effect rather than during render.
-     The prerendered HTML cannot know the visitor's stored answer, so rendering
-     the banner immediately would flash it at people who already answered. */
-  const [consent, setConsentState] = useState(undefined)
+  /* Read storage in a lazy initialiser, not an effect. This is a client-rendered
+     Vite app — the prerender writes <head> only and leaves #root empty — so the
+     first render already runs in the browser and can read the real answer. The
+     previous `undefined` sentinel existed to avoid flashing the banner at someone
+     who had already answered, but it also meant the banner arrived one effect
+     late, appearing in a page the visitor had started reading. Reading
+     synchronously avoids both. readConsent() is Node-safe (returns null with no
+     window), so this file stays importable at build time. */
+  const [consent, setConsentState] = useState(() => readConsent())
 
-  useEffect(() => {
-    setConsentState(readConsent())
-    return onConsentChange(setConsentState)
-  }, [])
+  useEffect(() => onConsentChange(setConsentState), [])
 
-  if (consent === undefined || consent === GRANTED || consent === DECLINED) return null
+  /* null means "never asked" — the only state that shows the notice. */
+  if (consent === GRANTED || consent === DECLINED) return null
 
   return (
     <aside

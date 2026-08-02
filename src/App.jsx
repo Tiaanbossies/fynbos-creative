@@ -72,6 +72,17 @@ function App() {
       <ScrollProgress />
       <Header />
 
+      {/* Above <main>, and in normal flow — it used to sit after the footer as a
+          bottom-fixed overlay. That placement kept the tab order sane while the
+          notice floated at the bottom of the screen, but the overlay itself
+          covered the decisive content of four pages (see ConsentBanner.css).
+          Now that the notice occupies real space at the top, visual order and
+          tab order agree, which is what WCAG 2.4.3 actually asks for, and a
+          keyboard visitor meets the choice immediately instead of traversing
+          the page to find it. It renders only on a first visit, so it costs a
+          returning visitor nothing. */}
+      <ConsentBanner />
+
       {/* Target of the header skip link. */}
       <main id="main">
         <Routes>
@@ -103,10 +114,6 @@ function App() {
       </main>
 
       <Footer />
-      {/* Rendered outside <main> and after the footer so it is last in reading
-          and tab order — a first-visit notice must not sit between the header
-          and the page a visitor came to read. */}
-      <ConsentBanner />
       <StickyWhatsApp />
       <BackToTop />
     </>
