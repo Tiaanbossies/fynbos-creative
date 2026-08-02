@@ -106,26 +106,31 @@ suspended the first of them; the 2026-07-23 restoration put it back:
   applies to it. Note the 2026-07-28 logo is a **sunbird**, not a protea; the
   superseded protea badge is kept only as history (see `CLAUDE.md`).
 
-### Imagery on `/pricing` and `/faq` — deferred, not forgotten (2026-08-02)
+### Imagery on `/pricing` and `/faq` — cleared, not yet built (2026-08-02)
 
-A UI critique flagged both pages as text-only and recommended imagery. It is **deliberately not
-shipped**, and this note exists so the next person does not re-derive the reasoning or, worse,
-resolve it by reaching for whatever is on disk.
+A UI critique flagged both pages as text-only and recommended imagery. It has not shipped yet, and
+this note exists so the next person does not re-derive the reasoning or resolve it by reaching for
+whatever happens to be on disk.
 
-The only asset available is `public/case-studies/cozy-cage-rentals.jpeg` — present since the
-scaffold commit `6d1ff3c`, referenced by nothing, with **no consent recorded anywhere in this
-repository**. It must not be published without explicit client consent. `nav.js` already documents
-the same standard for the absent Work and Industries routes: they wait on real client work and
-partner consent rather than being filled in.
+**Cozy Cage Rentals is consented.** The client granted permission on 2026-08-02, so
+`public/case-studies/cozy-cage-rentals.jpeg` may be published. It had sat in the repo since the
+scaffold commit `6d1ff3c` with no consent recorded, which is why it went unused for so long — the
+same standard `nav.js` documents for the absent Work and Industries routes, which wait on real
+client work and partner consent rather than being filled in.
 
-What may be used when the constraint lifts: consented client work, screenshots of interfaces
-actually delivered, original process diagrams, or assets this business owns. What may not: stock
-photography, invented case studies, or Bossie's Gym repeated across every route because it is the
-one screenshot that exists — `/services` already carries it, and reuse would turn one real client
-into decorative wallpaper.
+**Implementation is deliberately still pending.** It is application work, and it was kept out of the
+first CI run so a green or red pipeline would say something about the pipeline rather than about a
+page change landing beside it. One screenshot per page, at most.
 
-**Blank space is the honest answer here.** "No fabricated proof" below is not a stylistic
-preference, and a thin page is a smaller failure than a page implying clients it cannot name.
+What may be used: consented client work, screenshots of interfaces actually delivered, original
+process diagrams, or assets this business owns. What may not: stock photography, invented case
+studies, or Bossie's Gym repeated across every route because it is the one screenshot that exists —
+`/services` already carries it, and reuse would turn one real client into decorative wallpaper.
+Consent for one client is not consent for the rest.
+
+**Blank space remains the honest answer whenever that list is empty.** "No fabricated proof" below
+is not a stylistic preference: a thin page is a smaller failure than a page implying clients it
+cannot name.
 
 ## Design Principles
 
