@@ -9,11 +9,25 @@ npm run dev      # Vite dev server
 npm run build    # vite build && node scripts/prerender.mjs — BOTH stages matter
 npm run lint     # oxlint
 npm run preview  # serve dist/ locally; use this to check the real built output
+npm run test:e2e # Playwright, against the production build (not the dev server)
 ```
 
-There is **no test framework** in this project — no runner, no test files, no `test` script. Do not
-invent a `npm test` invocation. Verification here means `npm run build` (the prerender stage throws
-on template drift, so it is a real check), `npm run lint`, and looking at the site in a browser.
+The script is **`test:e2e`, not `test`** — there is still no unit runner, so `npm test` remains a
+thing to not invent. Playwright arrived on 2026-08-02 with CI; before that this file said there was
+no test framework at all, and that is no longer true.
+
+`npm run test:e2e` builds the site and serves `dist/` before running, because the second build stage
+(`scripts/prerender.mjs`) writes the per-route `<head>` and a dev-server suite would never exercise
+it. It takes ~40s. `playwright.config.js` supplies **synthetic** `VITE_SUPABASE_*` values pointing at
+`127.0.0.1:9` — the loopback discard port — so the analytics tests reach a real request boundary
+while being structurally unable to contact a live project. Never point those at production; the anon
+key would land in a public CI log.
+
+Two projects run: `desktop` and `mobile` (Pixel 5, which is what makes Chromium report
+`hover: none` / `pointer: coarse` — a resized desktop window does not, so touch-gated CSS would pass
+while proving nothing).
+
+`.github/workflows/ci.yml` runs `npm ci`, lint, build and the suite on every PR and push to main.
 
 ## Architecture
 

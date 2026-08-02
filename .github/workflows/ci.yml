@@ -1,0 +1,61 @@
+name: CI
+
+# Lint, build and end-to-end tests on every PR and every push to main. Until
+# now nothing enforced either, so a branch could reach review with a broken
+# prerender and only a human reading the diff would catch it.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# A second push to the same PR makes the first run irrelevant.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    # The build inlines these. They are synthetic and must stay that way: the
+    # Supabase URL is the loopback discard port, so even a test that failed to
+    # intercept its request could not reach a real project. Never point these at
+    # production — the anon key would end up in a public CI log.
+    env:
+      VITE_FORMSPREE_ID: test-formspree-id
+      VITE_SUPABASE_URL: http://127.0.0.1:9
+      VITE_SUPABASE_ANON_KEY: test-anon-key-not-a-real-credential
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # Both stages matter. scripts/prerender.mjs throws on template drift and
+      # runs assertBusinessEntity against the four values duplicated in
+      # index.html's JSON-LD, so this is a real check and not a formality.
+      - name: Build
+        run: npm run build
+
+      # Chromium only. Both Playwright projects use it, and pulling three
+      # browsers to run a five-file suite is a slow way to learn nothing.
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: End-to-end tests
+        run: npm run test:e2e
+
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
