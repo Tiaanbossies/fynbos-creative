@@ -25,9 +25,13 @@ import './AnalyticsPage.css'
  *
  * `Number('')` is 0, so clearing the field used to send `days: 0` — a query for
  * nothing, returned as an empty dashboard that looks exactly like a quiet month.
- * `min`/`max` on a number input constrain the spinner and native validation, not
- * what React reads out of `value`, and this form submits through onSubmit rather
- * than native validation, so they were enforcing nothing at all.
+ *
+ * This comment used to claim `min`/`max` "were enforcing nothing at all". That
+ * was wrong, and the Playwright suite caught it: the form is not `noValidate`,
+ * so the browser runs constraint validation before the submit event reaches
+ * React, and 0 or 9999 never become a request at all. What min/max cannot catch
+ * is the empty field — empty is valid HTML — which is precisely the case that
+ * produced the bug. The two guards cover different halves; neither is redundant.
  *
  * Clamping rather than rejecting: this is one person checking their own numbers,
  * and an error message about an out-of-range integer would be ceremony. Anything
