@@ -106,6 +106,27 @@ suspended the first of them; the 2026-07-23 restoration put it back:
   applies to it. Note the 2026-07-28 logo is a **sunbird**, not a protea; the
   superseded protea badge is kept only as history (see `CLAUDE.md`).
 
+### Imagery on `/pricing` and `/faq` — deferred, not forgotten (2026-08-02)
+
+A UI critique flagged both pages as text-only and recommended imagery. It is **deliberately not
+shipped**, and this note exists so the next person does not re-derive the reasoning or, worse,
+resolve it by reaching for whatever is on disk.
+
+The only asset available is `public/case-studies/cozy-cage-rentals.jpeg` — present since the
+scaffold commit `6d1ff3c`, referenced by nothing, with **no consent recorded anywhere in this
+repository**. It must not be published without explicit client consent. `nav.js` already documents
+the same standard for the absent Work and Industries routes: they wait on real client work and
+partner consent rather than being filled in.
+
+What may be used when the constraint lifts: consented client work, screenshots of interfaces
+actually delivered, original process diagrams, or assets this business owns. What may not: stock
+photography, invented case studies, or Bossie's Gym repeated across every route because it is the
+one screenshot that exists — `/services` already carries it, and reuse would turn one real client
+into decorative wallpaper.
+
+**Blank space is the honest answer here.** "No fabricated proof" below is not a stylistic
+preference, and a thin page is a smaller failure than a page implying clients it cannot name.
+
 ## Design Principles
 
 - **Honesty is the aesthetic.** Prices are stated plainly and early, never behind a
