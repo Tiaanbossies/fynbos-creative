@@ -71,7 +71,11 @@
 
 /* Open rows divided by a hairline, matching Pricing. No cards, no boxes —
    questionnaire §08 rejects heavy card/border treatment. */
+/* Capped to --measure-row so the hairline ends where the content does. It used
+   to span the full container while the head and body stopped at 60ch, drawing a
+   rule with ~435px of nothing under it at a 1440px viewport. */
 .service {
+  max-width: var(--measure-row);
   padding-block: var(--space-8);
   border-block-start: 1px solid var(--color-border);
 }
@@ -103,7 +107,7 @@
 
 .service-body {
   margin-block-start: var(--space-3);
-  max-width: 60ch;
+  max-width: var(--measure-row);
   color: var(--color-text-muted);
 }
 
@@ -118,14 +122,13 @@
 
 @media (min-width: 48rem) {
   /**
-   * Price right-aligned so the numbers form a scannable column — but bounded
-   * to the same measure as the body copy. Left to fill the container it sat
-   * ~740px from its own service name, far enough that the two stopped reading
-   * as one thing.
+   * Price right-aligned so the numbers form a scannable column. The measure is
+   * now the row's own (--measure-row on .service), so the head no longer needs
+   * its own cap. Left to fill the container the price sat ~740px from its own
+   * service name, far enough that the two stopped reading as one thing.
    */
   .service-head {
     flex-wrap: nowrap;
     justify-content: space-between;
-    max-width: 60ch;
   }
 }

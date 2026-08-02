@@ -23,8 +23,11 @@
   gap: 0;
 }
 
-/* Open rows divided by a hairline — no cards, matching the rest of the site. */
+/* Open rows divided by a hairline — no cards, matching the rest of the site.
+   Capped to --measure-row so the rule ends where the question and answer do;
+   it used to run the full container while both stopped short of it. */
 .faq-item {
+  max-width: var(--measure-row);
   border-block-start: 1px solid var(--color-border);
 }
 
@@ -42,9 +45,9 @@
   /* Bounded to the same measure as .faq-answer below, and as every other page's
      rows. Left to fill the 72rem container the question sat ~1000px from its own
      chevron on desktop, so the two stopped reading as one control. The hairline
-     still spans the full width — that matches the Services list, where the row
-     border runs wide while .service-head is capped at 60ch. */
-  max-width: 64ch;
+     on .faq-item now takes the same cap, so the rule and the row it divides
+     finally imply the same width. */
+  max-width: var(--measure-row);
   padding-block: var(--space-6);
   cursor: pointer;
   list-style: none;
@@ -80,9 +83,9 @@
 
 .faq-answer {
   /* Pull up under the question and leave the row's bottom padding to breathe;
-     bounded to the same measure as the other pages' body copy. */
+     bounded to the row's own measure, shared with /services. */
   margin-block: 0 var(--space-6);
-  max-width: 64ch;
+  max-width: var(--measure-row);
   color: var(--color-text-muted);
 }
 
