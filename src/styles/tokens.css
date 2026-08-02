@@ -188,6 +188,20 @@
 
   --section-y: clamp(var(--space-16), 8vw, var(--space-24));
   --container-max: 72rem;
+  /**
+   * The open-row measure — the width of a divided row on /services and /faq,
+   * and of the content inside it. One token because the two have to agree: the
+   * hairline used to span the full 72rem container while the head and body were
+   * capped at 60-64ch, leaving ~435px of rule with nothing under it and making
+   * the row imply a width the page never used.
+   *
+   * A shared length rather than a `ch` value, because `ch` resolves against each
+   * element's own font — 64ch of Zilla Slab at --text-lg is 664px while 64ch of
+   * Work Sans at base is 637px, so the same declaration drew two different
+   * widths. 42rem sits between them and stays far short of the ~740px at which
+   * a name and its price stopped reading as one thing.
+   */
+  --measure-row: 42rem;
   --container-pad: clamp(var(--space-6), 5vw, 3.75rem);
 
   --radius-sm: 4px;
