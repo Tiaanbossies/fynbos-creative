@@ -141,6 +141,18 @@ The system explicitly rejects, in PRODUCT.md's own words: **corporate/agency glo
 
 A committed olive / terracotta / parchment system: green as the voice, a single warm red as the action, and a near-white that leans green rather than beige.
 
+> **This section is the single source of truth for colour roles.** Adopted 2026-08-02, after the
+> terracotta rule turned out to be stated in four documents in three different versions.
+>
+> - **`tokens.css` implements the values** and owns the measured contrast ratios. It stays the
+>   authority on *what the hex is*; this file is the authority on *what it may be used for*.
+> - **`.impeccable/design.json`** is the machine-readable mirror. Its `namedRules` entries point
+>   here rather than restating the rules, so a tool cannot read a stale copy of a policy.
+> - **`CLAUDE.md`** summarises in one line and links here. It must not carry the rule text.
+>
+> If a role changes, it changes **here first**. A restatement elsewhere that disagrees with this
+> section is stale by definition, not a second opinion to be reconciled.
+
 ### Primary
 - **Fynbos Olive** (`#3d5a3a`): the brand's speaking voice. Section headings, active navigation, the secondary "Send message" button, and the full-bleed footer. At 7.63:1 on Paper it carries body-sized text directly, which is why it appears as text and not only as a fill.
 

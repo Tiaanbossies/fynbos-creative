@@ -71,8 +71,11 @@ reference semantic aliases, not raw hues — but note the aliases resolve to whi
 for the job (`--color-text-muted` → `--bark-deep`; `--color-accent` → raw `--terracotta`), so "use a
 semantic alias" is the rule, not "everything points at a `-deep`".
 
-`--color-accent` is reserved for the primary CTA and the wordmark. It is not a general-purpose
-highlight.
+**Colour roles are owned by `DESIGN.md` §2, not by this file.** `tokens.css` implements the values
+and the measured ratios; `DESIGN.md` says what each may be used for. This paragraph used to assert
+that `--color-accent` was "reserved for the primary CTA and the wordmark" — that rule was replaced
+on 2026-08-02, and the restatement here is exactly the drift the single-source rule now prevents.
+Read `DESIGN.md` §2 before assigning any colour; do not re-summarise it here.
 
 ### The logo
 
@@ -166,13 +169,11 @@ stated plainly and early rather than behind a "contact us").
 `DESIGN.md` is the visual counterpart — palette roles, type hierarchy, elevation, component specs
 and the Do's/Don'ts. It reads `tokens.css` rather than replacing it: **`tokens.css` stays the
 authority on values**, and `DESIGN.md` says what each one is *for* and where it may not go. Its
-named rules are the short form of constraints this codebase learned the hard way — The Terracotta
-Family Rule (three approved tokens, each in a documented role; decorative use is allowed, a second
-filled CTA and terracotta text on parchment are not), The Semantic Separation Rule (errors are
-`--erica`, never the brand accent), The Olive Focus Rule, The Two Greys Rule (never set text in
-`--bark-grey`), The Legible Price Rule (prices in the body font, never a display or script face).
-The Terracotta Family Rule replaced The One Action Rule — "terracotta is the CTA and the wordmark,
-nothing else" — on 2026-08-02; a comment still citing the old rule is stale, not authoritative. `.impeccable/design.json` is its machine-readable sidecar (tonal ramps, shadow/motion tokens,
+named rules are the short form of constraints this codebase learned the hard way: The Terracotta
+Family Rule, The Semantic Separation Rule, The Olive Focus Rule, The Two Greys Rule, The Legible
+Price Rule. **Their text lives in `DESIGN.md` and nowhere else** — read it there rather than trusting
+a summary, including this one. The Terracotta Family Rule replaced The One Action Rule on
+2026-08-02, so a comment anywhere still citing the older rule is stale, not authoritative. `.impeccable/design.json` is its machine-readable sidecar (tonal ramps, shadow/motion tokens,
 component snippets); regenerate both together with `/impeccable document` if the visual system moves.
 
 `.impeccable/critique/` holds prior UI critique output, useful for knowing what has already been
