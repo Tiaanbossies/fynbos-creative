@@ -177,10 +177,18 @@ function Contact() {
 
             <div className="contact-field">
               <label htmlFor="contact-detail">Phone number or email</label>
+              {/* type stays "text" because this field accepts a phone number OR
+                  an email, and validateEnquiry is deliberately permissive about
+                  which. inputMode only chooses the on-screen keyboard: most of
+                  this audience types a phone number here, and a QWERTY keypad
+                  for digits is friction on the cheapest path to contact. It
+                  constrains nothing — the telephone keypad keeps a text key on
+                  both iOS and Android, so an email is still typable. */}
               <input
                 id="contact-detail"
                 name="contact"
                 type="text"
+                inputMode="tel"
                 autoComplete="tel"
                 value={values.contact}
                 onChange={handleChange}

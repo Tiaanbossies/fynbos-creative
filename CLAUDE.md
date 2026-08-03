@@ -9,11 +9,25 @@ npm run dev      # Vite dev server
 npm run build    # vite build && node scripts/prerender.mjs — BOTH stages matter
 npm run lint     # oxlint
 npm run preview  # serve dist/ locally; use this to check the real built output
+npm run test:e2e # Playwright, against the production build (not the dev server)
 ```
 
-There is **no test framework** in this project — no runner, no test files, no `test` script. Do not
-invent a `npm test` invocation. Verification here means `npm run build` (the prerender stage throws
-on template drift, so it is a real check), `npm run lint`, and looking at the site in a browser.
+The script is **`test:e2e`, not `test`** — there is still no unit runner, so `npm test` remains a
+thing to not invent. Playwright arrived on 2026-08-02 with CI; before that this file said there was
+no test framework at all, and that is no longer true.
+
+`npm run test:e2e` builds the site and serves `dist/` before running, because the second build stage
+(`scripts/prerender.mjs`) writes the per-route `<head>` and a dev-server suite would never exercise
+it. It takes ~40s. `playwright.config.js` supplies **synthetic** `VITE_SUPABASE_*` values pointing at
+`127.0.0.1:9` — the loopback discard port — so the analytics tests reach a real request boundary
+while being structurally unable to contact a live project. Never point those at production; the anon
+key would land in a public CI log.
+
+Two projects run: `desktop` and `mobile` (Pixel 5, which is what makes Chromium report
+`hover: none` / `pointer: coarse` — a resized desktop window does not, so touch-gated CSS would pass
+while proving nothing).
+
+`.github/workflows/ci.yml` runs `npm ci`, lint, build and the suite on every PR and push to main.
 
 ## Architecture
 
@@ -71,8 +85,11 @@ reference semantic aliases, not raw hues — but note the aliases resolve to whi
 for the job (`--color-text-muted` → `--bark-deep`; `--color-accent` → raw `--terracotta`), so "use a
 semantic alias" is the rule, not "everything points at a `-deep`".
 
-`--color-accent` is reserved for the primary CTA and the wordmark. It is not a general-purpose
-highlight.
+**Colour roles are owned by `DESIGN.md` §2, not by this file.** `tokens.css` implements the values
+and the measured ratios; `DESIGN.md` says what each may be used for. This paragraph used to assert
+that `--color-accent` was "reserved for the primary CTA and the wordmark" — that rule was replaced
+on 2026-08-02, and the restatement here is exactly the drift the single-source rule now prevents.
+Read `DESIGN.md` §2 before assigning any colour; do not re-summarise it here.
 
 ### The logo
 
@@ -166,10 +183,11 @@ stated plainly and early rather than behind a "contact us").
 `DESIGN.md` is the visual counterpart — palette roles, type hierarchy, elevation, component specs
 and the Do's/Don'ts. It reads `tokens.css` rather than replacing it: **`tokens.css` stays the
 authority on values**, and `DESIGN.md` says what each one is *for* and where it may not go. Its
-named rules are the short form of constraints this codebase learned the hard way — The One Action
-Rule (terracotta is the primary CTA and the wordmark, nothing else), The Two Greys Rule (never set
-text in `--bark-grey`), The Legible Price Rule (prices in the body font, never a display or script
-face). `.impeccable/design.json` is its machine-readable sidecar (tonal ramps, shadow/motion tokens,
+named rules are the short form of constraints this codebase learned the hard way: The Terracotta
+Family Rule, The Semantic Separation Rule, The Olive Focus Rule, The Two Greys Rule, The Legible
+Price Rule. **Their text lives in `DESIGN.md` and nowhere else** — read it there rather than trusting
+a summary, including this one. The Terracotta Family Rule replaced The One Action Rule on
+2026-08-02, so a comment anywhere still citing the older rule is stale, not authoritative. `.impeccable/design.json` is its machine-readable sidecar (tonal ramps, shadow/motion tokens,
 component snippets); regenerate both together with `/impeccable document` if the visual system moves.
 
 `.impeccable/critique/` holds prior UI critique output, useful for knowing what has already been

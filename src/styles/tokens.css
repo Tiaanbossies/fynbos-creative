@@ -38,8 +38,53 @@
   /* Brief §C palette, as drawn in the mockup. */
   --paper: #fafffb;
   --olive: #3d5a3a;
+  /**
+   * TERRACOTTA — a controlled tonal family of exactly three tokens.
+   *
+   * THE ROLES LIVE IN DESIGN.md §2, which is the single source of truth for
+   * them. This file owns the values and the measurements. Do not restate the
+   * policy here: a fourth copy is exactly what the single-source rule exists to
+   * prevent, and what stood in this comment on 2026-08-02 was already the third.
+   *
+   * Measured — Paper #fafffb / Parchment #e4decd / Parchment Soft #f0ecdf:
+   *
+   *   --terracotta       5.35:1   4.03:1   4.58:1
+   *   --terracotta-dark  7.45:1   5.61:1   6.37:1
+   *
+   * THE PARCHMENT TRAP: --terracotta fails AA for normal-sized text on
+   * Parchment (4.03:1). Nothing does this today, and the check before adding
+   * one is not "is it terracotta" but "which parchment". Inside .section-band,
+   * the consent notice, the /analytics panel or the /services frame, terracotta
+   * text takes --terracotta-dark. The filled .btn-accent is unaffected either
+   * way — its white-on-terracotta 5.41:1 does not depend on what sits behind
+   * the button.
+   */
   --terracotta: #a8503d;
-  --terracotta-dark: #8a3d2e; /* link hover only */
+  --terracotta-dark: #8a3d2e; /* hover, active, selected, contrast-required */
+  --terracotta-soft: #f0eae4; /* 12% terracotta on Paper — surfaces only */
+  /**
+   * The same terracotta as channels, because a hex custom property cannot be
+   * interpolated into rgb(... / alpha). Without it the CTA shadows below carry
+   * a literal 168 80 61 that stops tracking the token the moment the hue moves.
+   */
+  --terracotta-rgb: 168 80 61;
+
+  /**
+   * ERICA — the semantic error hue, added 2026-08-02. Named for the fynbos
+   * heath. Its role is defined in DESIGN.md §2 under Status; the short version
+   * is that errors are not a brand colour and must not borrow one.
+   *
+   * A berry crimson rather than a warmer red is a *value* decision, so it
+   * belongs here: a red nearer terracotta's earthy hue would have read as a
+   * fourth tonal step of the brand accent.
+   *
+   * Measured — Paper 7.92:1, Parchment 5.97:1, Parchment Soft 6.78:1, Sage Wash
+   * 7.26:1 (the input background it sits beside). AA on every surface the form
+   * actually uses. --erica-soft is a 10% wash carrying Body Ink at 9.48:1.
+   */
+  --erica: #9f1239;
+  --erica-soft: #f1e7e8;
+
   --parchment: #e4decd;
   --parchment-soft: #f0ecdf; /* inner table rules, lighter than --parchment */
   --sage: #b9cba0;
@@ -66,8 +111,30 @@
   --color-text-body: var(--body-ink);
   --color-text-muted: var(--bark-deep);
   --color-primary: var(--olive);
-  --color-accent: var(--terracotta); /* primary CTA and the wordmark */
-  --color-accent-soft: var(--sage-wash);
+  /**
+   * The accent trio. --color-accent is the default interactive terracotta;
+   * --color-accent-strong is the darker interaction state (hover, active,
+   * selected, or wherever the base tone misses its ratio); --color-accent-soft
+   * is a surface, never text.
+   *
+   * --color-accent-soft used to point at --sage-wash, which made the name a
+   * lie — a component reaching for "soft accent" got a green tint. It has no
+   * consumers, so re-pointing it changes nothing on screen and stops the next
+   * soft terracotta surface being hand-mixed past the tokens.
+   */
+  --color-accent: var(--terracotta);
+  --color-accent-strong: var(--terracotta-dark);
+  --color-accent-soft: var(--terracotta-soft);
+  /**
+   * Focus stays olive and is deliberately NOT an accent alias. A focus ring is
+   * an accessibility affordance, not a brand accent or a selected state, and it
+   * has to stay visible on an element that is selected AND focused — which on
+   * this site means visible against terracotta.
+   */
+  --color-focus: var(--olive);
+  /* Errors, destructive actions and validation failures. Never terracotta. */
+  --color-error: var(--erica);
+  --color-error-soft: var(--erica-soft);
   --color-border: var(--parchment);
   --color-border-soft: var(--parchment-soft);
 
@@ -118,6 +185,20 @@
 
   --section-y: clamp(var(--space-16), 8vw, var(--space-24));
   --container-max: 72rem;
+  /**
+   * The open-row measure — the width of a divided row on /services and /faq,
+   * and of the content inside it. One token because the two have to agree: the
+   * hairline used to span the full 72rem container while the head and body were
+   * capped at 60-64ch, leaving ~435px of rule with nothing under it and making
+   * the row imply a width the page never used.
+   *
+   * A shared length rather than a `ch` value, because `ch` resolves against each
+   * element's own font — 64ch of Zilla Slab at --text-lg is 664px while 64ch of
+   * Work Sans at base is 637px, so the same declaration drew two different
+   * widths. 42rem sits between them and stays far short of the ~740px at which
+   * a name and its price stopped reading as one thing.
+   */
+  --measure-row: 42rem;
   --container-pad: clamp(var(--space-6), 5vw, 3.75rem);
 
   --radius-sm: 4px;
@@ -138,8 +219,8 @@
   --shadow-card: 0 12px 26px rgb(0 0 0 / 10%);
   --shadow-panel: 0 16px 40px rgb(0 0 0 / 10%);
   --shadow-media: 0 14px 34px rgb(0 0 0 / 14%);
-  --shadow-cta: 0 6px 18px rgb(168 80 61 / 30%);
-  --shadow-cta-hover: 0 10px 22px rgb(168 80 61 / 40%);
+  --shadow-cta: 0 6px 18px rgb(var(--terracotta-rgb) / 30%);
+  --shadow-cta-hover: 0 10px 22px rgb(var(--terracotta-rgb) / 40%);
 
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
   --duration-fast: 150ms;

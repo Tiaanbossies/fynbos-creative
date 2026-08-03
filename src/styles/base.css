@@ -77,8 +77,14 @@ textarea {
   color: inherit;
 }
 
+/**
+ * Olive, not terracotta. Focus is an accessibility state rather than a brand
+ * accent, and the ring has to stay legible on an element that is selected and
+ * focused at once — a terracotta ring around a terracotta control is no ring at
+ * all. --color-focus is its own token for that reason; it is not an accent alias.
+ */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-focus);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
@@ -115,8 +121,9 @@ textarea {
  * colours.
  *
  * Terracotta measures 4.03:1 on parchment. That is fine for the filled .btn-accent
- * (whose own white-on-terracotta contrast is unaffected by what it sits on) and it
- * must never be used for text inside a band.
+ * (whose own white-on-terracotta contrast is unaffected by what it sits on), but it
+ * fails AA as text here. Terracotta text inside a band takes --color-accent-strong
+ * (--terracotta-dark, 5.61:1 on parchment) — the tone changes, the family does not.
  */
 .section-band {
   --color-text-muted: var(--body-ink);
@@ -185,10 +192,14 @@ main:has(> .section-band:last-child) + .site-footer {
 }
 
 /**
- * The primary CTA treatment — the mockup's .btn-wa. Terracotta is reserved for
- * this and the wordmark, nothing else; if you are reaching for --color-accent
- * outside a primary CTA, reach for something else. Shared by the hero, pricing
+ * The primary CTA treatment — the mockup's .btn-wa. Shared by the hero, pricing
  * and footer CTAs; the sticky bar keeps its own sizing but the same contract.
+ *
+ * This is the loudest terracotta on the page, not the only one: the palette
+ * policy (DESIGN.md §2) permits the accent for links, selected states, small
+ * brand marks and deliberate decorative detail too. What it does not permit is
+ * a second *filled* terracotta button competing for the same tap — which is why
+ * the sticky bar yields while an in-page [data-primary-cta] is on screen.
  *
  * Text is pure white rather than --paper: white on #A8503D is 5.41:1, and the
  * near-white page colour would sit fractionally lower for no visual gain.
@@ -243,22 +254,42 @@ main:has(> .section-band:last-child) + .site-footer {
   pointer-events: none;
 }
 
-.btn-accent:hover::after,
 .btn-accent:focus-visible::after {
   transform: translateX(120%);
 }
 
-.btn-accent:hover {
-  box-shadow: var(--shadow-cta-hover);
-  color: #fff;
+/**
+ * Hover is gated to real pointers. Ungated, a touch browser fires :hover on tap
+ * and leaves it applied until the next tap elsewhere, so the button stayed lifted
+ * after the thumb left — and, worse, the lift and the press below both set
+ * transform, so on touch they fought and the press was never seen.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .btn-accent:hover::after {
+    transform: translateX(120%);
+  }
+
+  .btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-cta-hover);
+    color: #fff;
+  }
 }
 
-.btn-accent:hover {
-  transform: translateY(-2px);
-}
-
+/**
+ * Press feedback, and the reason it matters more here than anywhere else: this
+ * button hands off to another app. On a slow phone the WhatsApp switch takes a
+ * visible beat, and without acknowledgement a visitor cannot tell whether the
+ * tap registered — so they tap again. The sticky bar has had scale(0.98) since
+ * it was built (StickyWhatsApp.css); this is the same action, so it gets the
+ * same feedback. It previously had only translateY(0), which cancelled the hover
+ * lift and did nothing at all on a device that never hovers.
+ *
+ * The global prefers-reduced-motion block below clamps the transition, so the
+ * press lands instantly rather than easing for those visitors.
+ */
 .btn-accent:active {
-  transform: translateY(0);
+  transform: scale(0.98);
 }
 
 /**

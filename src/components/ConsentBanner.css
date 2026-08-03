@@ -85,9 +85,10 @@
  * that is awkward to refuse is not freely given, and POPIA asks that it be
  * freely given — so "No thanks" is not a grey link hiding under the accept.
  *
- * Neither is terracotta: The One Action Rule (DESIGN.md) reserves it for the
- * primary CTA and the wordmark, and "Allow" is not that action. The filled
- * olive carries the same emphasis without borrowing the CTA's colour.
+ * Neither is terracotta, and that outlives The One Action Rule which originally
+ * justified it: a filled terracotta button is how this site says "this is the
+ * thing to do", and consent must never be nudged. Equal olive outlines carry
+ * both choices at the same weight.
  */
 .consent-banner-btn {
   min-height: 2.75rem;
