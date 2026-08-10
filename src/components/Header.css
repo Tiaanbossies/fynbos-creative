@@ -131,7 +131,7 @@
   min-height: 2.75rem;
   padding-inline: 1.25rem;
   background: var(--color-accent);
-  color: var(--paper);
+  color: #fff;
   font-size: var(--text-sm);
   font-weight: 600;
   text-decoration: none;

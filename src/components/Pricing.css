@@ -58,7 +58,7 @@
 
 .price-card-retainer {
   margin-block: var(--space-2);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.625rem;
   font-weight: 700;
   line-height: 1.15;
