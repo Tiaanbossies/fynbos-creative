@@ -15,7 +15,6 @@
 
 .hero-headline {
   font-size: var(--text-hero);
-  font-weight: 600;
   line-height: 1.02;
   color: var(--color-text);
 }

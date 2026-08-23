@@ -38,7 +38,7 @@
   min-height: 3rem;
   width: 100%;
   background: var(--color-accent);
-  color: var(--paper);
+  color: #fff;
   font-weight: 600;
   text-decoration: none;
   border-radius: var(--radius-pill);
